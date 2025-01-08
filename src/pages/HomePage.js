@@ -1,3 +1,4 @@
+import { RecordList } from "../components/RecordsList";
 import useRecords from "../hooks/useRecords"
 
 export const HomePage = () => {
@@ -12,5 +13,6 @@ export const HomePage = () => {
   return <section>
         <h2>Latest records!</h2>
         <p>here we will have the list of latest records</p>
+        <RecordList records={records} />
     </section> 
 } 
