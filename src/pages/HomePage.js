@@ -1,3 +1,4 @@
+import { ErrorMessage } from "../components/ErrorMessage";
 import { RecordList } from "../components/RecordsList";
 import useRecords from "../hooks/useRecords"
 
@@ -6,7 +7,7 @@ export const HomePage = () => {
   const {records, loading, error} = useRecords();
 
     if(loading) return <p>Loading Records...</p>;
-    if(error) return <p>{error}</p>
+    if(error) return <ErrorMessage message={error}/>
     
     console.log(records);
   

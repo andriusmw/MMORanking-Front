@@ -3,7 +3,7 @@ import { getAllRecordsService } from "../services";
 
 const useRecords = () => {
     const [records,setRecords] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     //useEffect se ejecuta en cuanto carga, renderiza todo

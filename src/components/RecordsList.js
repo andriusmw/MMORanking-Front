@@ -1,4 +1,5 @@
 import { Record } from "./Record";
+import { Link } from "react-router-dom";
 
 export const RecordList = ({ records }) => {
   return records.length ? (
@@ -15,6 +16,7 @@ export const RecordList = ({ records }) => {
           <th>Server</th>
           <th>Date</th>
           <th>status</th>
+          <th>Details</th>
      
         </tr>
       </thead>
@@ -31,7 +33,7 @@ export const RecordList = ({ records }) => {
             <td>{record.server}</td>
             <td>{new Date(record.Date_completed).toLocaleString()}</td>
             <td>{record.status}</td>
-           
+            <td><Link to={`/record/${record.id}`}>+</Link></td>
           </tr>
         ))}
       </tbody>

@@ -1,3 +1,7 @@
+/*----------------------- GET LATEST RECORDS --------------------------------
+----------------------------------------------------------------------------*/
+
+
 export const getAllRecordsService = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/votes`)
 
@@ -9,4 +13,17 @@ export const getAllRecordsService = async () => {
 
     return json.data;
      
+}/*----------------------- GET SINGLE RECORD --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getSingleRecordService = async (id) =>  {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/entries/votes/${id}`);
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
 }
