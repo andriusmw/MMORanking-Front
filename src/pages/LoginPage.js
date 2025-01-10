@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { loginUserService } from "../services";
 
 export const LoginPage = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassowrd] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
     const handleForm = async (e) => {
@@ -10,8 +11,11 @@ export const LoginPage = () => {
         setError("");
 
         try {
+            const data = await loginUserService({email, password});
+           
 
         } catch(error) {
+            setError(error.message);
 
         }
     }
@@ -29,7 +33,7 @@ export const LoginPage = () => {
             <fieldset>
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" required
-                     onChange={(e) => setPassowrd(e.target.value)}
+                     onChange={(e) => setPassword(e.target.value)}
                 />
             </fieldset>
 
