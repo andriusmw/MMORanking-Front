@@ -1,17 +1,22 @@
 import { useState } from "react"
 import { registerUserService } from "../services";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
+    const navigate = useNavigate()
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [pass1, setPass1] = useState("");
     const [pass2, setPass2] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const HandleForm = async (e) => {
-        
+
         e.preventDefault();
         setError("");
+        setSuccess(false)
 
         if(pass1 !== pass2){
             setError("Password do not match");
@@ -20,7 +25,11 @@ export const RegisterPage = () => {
 
         try {
             await registerUserService({name,email,password: pass1})
+            //go to login
+            setSuccess(true)
+           // navigate('/login');
         } catch {
+            setSuccess(false)
             setError(error.message);
         }
 
@@ -60,6 +69,7 @@ export const RegisterPage = () => {
 
                 <button>Register</button>
                 {error ? <p>{error}</p>: null}
+                {success ? <p>Register initiated, check your E-mail Inbox to activate your Account. Click here to go to <Link to="/login">Login Page</Link></p>: null}
             </form>
         </section>
     )
