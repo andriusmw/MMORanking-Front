@@ -8,7 +8,7 @@ export const Auth = () => {
     return (
         /*is user.user.name cause user is the object that saves the response and the response is an object with properties
         "characters" and "user" where is the user profile data. */
-    user ? (<p>Wellcome {user.user.name} </p> )  : (
+    user ? (<p>Wellcome {user.user.name}  <button onClick={()=>logout()}>logOut</button> </p> )  : (
     <ul>
         <li><Link to={'/register'}>Register</Link></li>
         <li><Link to={'/login'}>Login</Link></li>
