@@ -74,4 +74,26 @@ export const loginUserService = async ({email, password}) => {
     }
 
     return json;
+} ;
+
+
+/******************************** GET MY USER DATA ***************************** */
+/******************************************************************************* */
+
+export const getMyUserDataService = async ({token}) => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/profile`, {
+        headers: {
+           Authorization: `Bearer ${token}`
+        },
+    });
+    const json = await response.json();
+    console.log("response from getMyUserDataService")
+    console.log(json)
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json;
+    //return json.data
 }
