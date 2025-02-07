@@ -8,6 +8,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RecordPage } from "./pages/RecordPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/register" element={<RegisterPage/>} /> 
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/record/:id" element={<RecordPage/>} />
+          <Route path="/profile" element={<ProfilePage/>} />
+
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
       <Footer />
