@@ -2,6 +2,7 @@ import { ErrorMessage } from "../components/ErrorMessage";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { CharacterList } from "../components/CharacterList";
 
 export const ProfilePage = () => {
      const {token, user, logout} = useContext(AuthContext);
@@ -11,7 +12,7 @@ export const ProfilePage = () => {
 
     {user ? (
         <>
-        <h2>My profile page!</h2>
+        <h3>My profile page!</h3>
 
         <p>Avatar: {user?.user?.avatar}</p>
         <p>Name:{user?.user?.name} </p>
@@ -22,6 +23,12 @@ export const ProfilePage = () => {
         <p>Region:{user?.user?.region}</p>
         <p>BattleTag:{user?.user?.battle_tag}</p>
         <p>Warcraft Logs Username:{user?.user?.wl_username}</p>
+
+         <h2>My Characters!</h2>
+         
+            <CharacterList characters={user?.characters} /> 
+
+
         </>
 
     ) : (

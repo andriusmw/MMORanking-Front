@@ -87,8 +87,8 @@ export const getMyUserDataService = async ({token}) => {
         },
     });
     const json = await response.json();
-   // console.log("response from getMyUserDataService")
-   // console.log(json)
+    console.log("response from getMyUserDataService")
+    console.log(json)
 
     if(!response.ok) {
         throw new Error(json.message);
