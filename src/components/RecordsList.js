@@ -1,4 +1,4 @@
-import { Record } from "./Record";
+//import { Record } from "./Record";
 import { Link } from "react-router-dom";
 
 export const RecordList = ({ records }) => {

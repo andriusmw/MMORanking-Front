@@ -97,3 +97,31 @@ export const getMyUserDataService = async ({token}) => {
     return json;
     //return json.data
 }
+
+
+//------------------------ EDIT USER SERVICE -------------------
+/*********************************************************************** */
+
+export const editUserDataService = async ({idUser, data, token}) => {
+    console.log("token")
+    console.log(token)
+    console.log("body.data")
+    console.log(data)
+    console.log(idUser)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/${idUser}`,{
+        method: "PATCH",
+        body: data,
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log(json)
+        throw new Error(json.message);
+    }
+   
+    return json.data;
+};
