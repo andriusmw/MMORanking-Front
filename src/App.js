@@ -8,7 +8,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RecordPage } from "./pages/RecordPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { ProfilePage } from "./pages/ProfilePage";
+import { ProfilePage } from "./pages/MyProfilePage";
 
 function App() {
   return (
