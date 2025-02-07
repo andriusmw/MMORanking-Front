@@ -133,7 +133,7 @@ export const ProfilePage = () => {
                 <input type="text" id="email" name="email" defaultValue={userEmail} onChange={ (e)=> {setUserEmail(e.target.value)}} />
             </fieldset>    
             <fieldset>
-                <label htmlFor="image">Image (optional): </label>
+                <label htmlFor="image">Avatar (optional): </label>
                 <input type="file" id="image" name="image"  ref={imageInputRef}
                 onChange={() =>  {setPreviewPhoto(URL.createObjectURL(imageInputRef.current.files[0]))}} />
                 
