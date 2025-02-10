@@ -1,7 +1,22 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { deleteCharacterService } from "../services";
+import { useState } from "react";
 
-//import { Link } from "react-router-dom";
+export const CharacterList = ({ characters, onDeleteCharacter }) => {
+  const { token } = useContext(AuthContext);
+  const [error, setError] = useState("");
 
-export const CharacterList = ({ characters }) => {
+  const deleteChar = async (id) => {
+    try {
+      await deleteCharacterService({ id, token });
+      // Llamar a la función del padre para actualizar el estado
+      onDeleteCharacter(id);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return characters?.length ? (
     <table>
       <thead>
@@ -10,8 +25,6 @@ export const CharacterList = ({ characters }) => {
           <th>Character Name</th>
           <th>Class</th>
           <th>Server</th>
-        
-     
         </tr>
       </thead>
       <tbody>
@@ -21,7 +34,9 @@ export const CharacterList = ({ characters }) => {
             <td>{character?.name}</td>
             <td>{character?.class1}</td>
             <td>{character?.server}</td>
-            <td><button>Delete</button></td>
+            <td>
+              <button onClick={() => deleteChar(character?.id)}>Delete</button>
+            </td>
           </tr>
         ))}
       </tbody>

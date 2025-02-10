@@ -143,3 +143,24 @@ export const getAllCharactersService = async () => {
     return json.data;
      
 }
+
+
+//------------------ DELETE CHARACTER SERVICE --------------
+
+export const deleteCharacterService = async ({id, token}) => {
+    const idCharacter = id;
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/character/${idCharacter}`,{
+        method: "DELETE",
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log("error trying to delete it")
+        console.log(json)
+        throw new Error(json.message);
+    }
+  
+}
