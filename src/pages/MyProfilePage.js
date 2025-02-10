@@ -10,7 +10,7 @@ import { editUserDataService } from "../services";
 import { getAllCharactersService } from "../services";
 
 export const ProfilePage = () => {
-  const { token, user, logout } = useContext(AuthContext);
+  const { token, user, setUser, logout } = useContext(AuthContext); // Asegúrate de que setUser esté disponible en el contexto
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -25,14 +25,17 @@ export const ProfilePage = () => {
 
   // Estado para los personajes
   const [characters, setCharacters] = useState(user?.characters || []);
-
+  //----------------------FUNCIÓN PARA SYNCRONIZAR PJS ----------------------------------
   const redirectBack = async () => {
     const url = "https://localhost:3000/123";
     window.open(url, "_blank");
   };
 
+  //---------------------FUNCIÓN PARA EDITAR DATOS DEL USUARIO ------------------------------------
   const EditEntry = async (e) => {
+    e.preventDefault(); // Evita el comportamiento predeterminado del formulario
     let idUser = user?.user?.id;
+
     try {
       setSending(true);
       const data = new FormData();
@@ -44,9 +47,31 @@ export const ProfilePage = () => {
       data.append("bio", biography);
       data.append("region", region);
       data.append("wl_username", wlUsername);
-      const entry = await editUserDataService({ idUser, data, token });
+
+      // Llamar al servicio para actualizar los datos del usuario
+      const updatedUserData = await editUserDataService({ idUser, data, token });
+
+      // Actualizar el estado del usuario en el contexto
+      setUser({
+        ...user,
+        user: {
+          ...user.user,
+          name: userName,
+          email: userEmail,
+          bio: biography,
+          region: region,
+          wl_username: wlUsername,
+          avatar: updatedUserData.avatar || user.user.avatar, // Actualiza el avatar si se proporciona uno nuevo
+        },
+      });
+
+      // Si el backend devuelve los personajes actualizados, actualiza el estado de characters
+      if (updatedUserData.characters) {
+        setCharacters(updatedUserData.characters);
+      }
+
       setError("");
-      navigate(0);
+      setVisible(false); // Oculta el formulario de edición
     } catch (error) {
       swal(`Error`, `${error.message}`, `error`);
       setError(error.message);
@@ -55,13 +80,14 @@ export const ProfilePage = () => {
     }
   };
 
-  // Función para eliminar un personaje del estado
+  //--------------------------- Función para eliminar un personaje del estado---------------------------
   const handleDeleteCharacter = (id) => {
     setCharacters((prevCharacters) =>
       prevCharacters.filter((character) => character.id !== id)
     );
   };
 
+  //-------------------------------------------RETURN ---------------------------------------------------
   return (
     <section>
       {user ? (
@@ -111,6 +137,7 @@ export const ProfilePage = () => {
             onDeleteCharacter={handleDeleteCharacter}
           />
 
+          {/*---------------------------------FORMULARIO EDITAR--------------------------------- */}
           {visible ? (
             <form onSubmit={EditEntry} className="editform">
               <h1 className="edith1">EDIT USER DATA</h1>
@@ -186,7 +213,7 @@ export const ProfilePage = () => {
                   onChange={(e) => setWlUsername(e.target.value)}
                 />
               </fieldset>
-              <button>Send Entry</button>
+              <button type="submit">Send Entry</button>
               {sending ? <p>Sending New data for User</p> : null}
               {error ? <p>{error}</p> : null}
             </form>
