@@ -125,3 +125,21 @@ export const editUserDataService = async ({idUser, data, token}) => {
    
     return json.data;
 };
+
+
+/*********************************** SYNC CHARACTERS *************************** */
+/******************************************************************************* */
+
+
+export const getAllCharactersService = async () => {
+    //const response = await fetch(`${process.env.REACT_APP_BACKEND}/auth/bnet`)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/123`)
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+     
+}

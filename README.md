@@ -1,4 +1,9 @@
 # Getting Started with Create React App
+INSTALL: 
+
+choco install mkcert
+npm install sweetalert --save para poder usar alertas personalizadas
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

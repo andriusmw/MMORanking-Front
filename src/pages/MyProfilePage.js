@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import swal from "sweetalert"
 import { editUserDataService } from "../services";
+import { getAllCharactersService } from "../services";
 
 export const ProfilePage = () => {
      const {token, user, logout} = useContext(AuthContext);
@@ -27,11 +28,20 @@ export const ProfilePage = () => {
      const [previewPhoto, setPreviewPhoto] = useState("");
 
 
+//---------------FUNCIÓN REDIRECT BACK ------------------
+
+const redirectBack = async () => {
+ // e.preventDefault();
+ const url = "https://localhost:3000/123";
+  window.open(url, '_blank');
+}
+
+
 
  //*-------------------------------FUNCION EDIT ENTRY ------------------------------
 
  const EditEntry = async (e) => {
-    e.preventDefault();
+   // e.preventDefault();
    let idUser = user?.user?.id
 
   
@@ -90,7 +100,8 @@ export const ProfilePage = () => {
               }} >EDIT</button>
           </div>
     
-        <button>Sync Characters</button>
+       {/*  <button onClick={()=> {getAllCharactersService()}} >Sync Characters</button>  */}
+            <button onClick={()=> {redirectBack()}} >Sync Characters</button>
         </div>
 
         <p>Avatar: {user?.user?.avatar}</p>
