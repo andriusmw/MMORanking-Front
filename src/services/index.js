@@ -164,3 +164,19 @@ export const deleteCharacterService = async ({id, token}) => {
     }
   
 }
+
+
+/*----------------------- GET USER BY EMAIL (To change password) --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getUserByEmailService = async (email) =>  {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/${email}`);
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+}

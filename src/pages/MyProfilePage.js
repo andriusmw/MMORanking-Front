@@ -123,7 +123,7 @@ export const ProfilePage = () => {
           <p>Email: {user?.user?.email}</p>
           <p>
             Password: Hidden{" "}
-            <Link to={"/changepass"}>Do you wish to change it?</Link>
+            <Link to={"/forpass"}>Do you wish to change it?</Link>
           </p>
           <p>Role: {user?.user?.role}</p>
           <p>Biography: {user?.user?.bio}</p>

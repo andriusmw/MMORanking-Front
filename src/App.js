@@ -9,6 +9,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RecordPage } from "./pages/RecordPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProfilePage } from "./pages/MyProfilePage";
+import { ForgotPassPage } from "./pages/ForgotPassPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/record/:id" element={<RecordPage/>} />
           <Route path="/profile" element={<ProfilePage/>} />
+          <Route path="/forpass" element={<ForgotPassPage/>} />
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
