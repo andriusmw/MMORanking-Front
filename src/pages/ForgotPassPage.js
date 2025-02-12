@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {editUserPasswordService} from "../services"
 import { Link } from "react-router-dom";
 
+
 export const ForgotPassPage = () => {
     const { token, user, setUser, logout } = useContext(AuthContext); 
     const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export const ForgotPassPage = () => {
     const [sending, setSending] = useState(false);
     const [pass1, setPass1] = useState("");
     const [pass2, setPass2] = useState("");
+    const [failedAttempts, setFailedAttempts] = useState(0);
 
     const {login} = useContext(AuthContext)
     const navigate = useNavigate();
@@ -54,22 +56,42 @@ export const ForgotPassPage = () => {
         const handleForm2 = async (e) => {
             e.preventDefault();
             setError("");
-    
+        
             try {
-                //check if the recovery code on the form is the same as in the user.reccode
-                if (reccode == reccodeForm) {
-                   // console.log("pasa a phase 3")
+                if (reccode === reccodeForm) {
                     setVisible2(false);
                     setVisible3(true);
+                    setFailedAttempts(0); // Reset attempts if code is correct
                 } else {
-                    setError(error.message);
+                    setFailedAttempts(prev => prev + 1);
+                    if (failedAttempts >= 2) { // Since we increment after checking, we check for 2 to block on the 3rd attempt
+                        setError("Too many failed attempts. Account locked for 10 minutes.");
+                        // Here, you would also need to notify the backend to lock the account
+                        await lockAccount(user?.user?.id);
+                    } else {
+                        setError("Incorrect recovery code.");
+                    }
                 }
-
             } catch(error) {
                 setError(error.message);
-    
             }
-        }
+        };
+        
+        // New function to lock the account
+        const lockAccount = async (userId) => {
+            try {
+                await fetch(`${process.env.REACT_APP_BACKEND}/api/lock-account`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+            } catch (error) {
+                console.error("Failed to lock account:", error);
+            }
+        };
 
 
         // HANDLE FORM PHASE 3--------------------------
