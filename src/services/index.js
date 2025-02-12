@@ -180,3 +180,26 @@ export const getUserByEmailService = async (email) =>  {
 
     return json.data;
 }
+
+//------------------------ EDIT USER PASSWORD SERVICE -------------------
+/*********************************************************************** */
+
+export const editUserPasswordService = async ({userId, data, token}) => {
+  
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/userpass/${userId}`,{
+        method: "PATCH",
+        body: data,
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log(json)
+        throw new Error(json.message);
+    }
+   
+    return json.data;
+};

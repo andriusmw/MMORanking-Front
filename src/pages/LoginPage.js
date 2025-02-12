@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { loginUserService } from "../services";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -44,6 +45,7 @@ export const LoginPage = () => {
             </fieldset>
 
             <button>LogIn</button>
+            <p>      <Link to={"/forpass"}>Did you forget your password?</Link></p>
             {error ? <p>{error}</p>: null}
            </form>
         </section>
