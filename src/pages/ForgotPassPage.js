@@ -65,9 +65,10 @@ export const ForgotPassPage = () => {
                 } else {
                     setFailedAttempts(prev => prev + 1);
                     if (failedAttempts >= 2) { // Since we increment after checking, we check for 2 to block on the 3rd attempt
-                        setError("Too many failed attempts. Account locked for 10 minutes.");
+                        setError("Too many failed attempts. Account locked, check your mail for more info.");
                         // Here, you would also need to notify the backend to lock the account
                         await lockAccount(user?.user?.id);
+                        logout();
                     } else {
                         setError("Incorrect recovery code.");
                     }
@@ -86,7 +87,7 @@ export const ForgotPassPage = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify({ userId: userId })
+                    body: JSON.stringify({ userId: userId , email: email})
                 });
             } catch (error) {
                 console.error("Failed to lock account:", error);
