@@ -1,24 +1,23 @@
 import { useParams } from "react-router-dom"
-//replace for useSingleNew
-import useSingleRecord from "../hooks/useSingleRecord"
+import useSingleNew from "../hooks/useSingleNew";
 import { ErrorMessage } from "../components/ErrorMessage";
 // replace for singleNew
-import  { Record} from "../components/Record"
+import { SingleArticle } from "../components/SingleArticle";
 
-export const RecordPage = () => {
+export const SingleNewPage = () => {
     //to get the id that comes in the params at the url
     const {id} = useParams();
     //to load the states and the functions and ServicesCall of the SingleRecord
    // Moreover we send the Id to the hook so it can work properly.
-     const {record, loading, error} = useSingleRecord(id);
+     const {article, loading, error} = useSingleNew(id);
 
-      if(loading) return <p>Loading Record...</p>;
+      if(loading) return <p>Loading New...</p>;
       if(error) return <ErrorMessage message={error} />
 
     return (
         <section>
             <h1>RecordPage</h1>
-            <Record record={record} />
+            <SingleArticle article={article} />
         </section>
     )
 }

@@ -221,3 +221,18 @@ export const getAllNewsService = async () => {
     return json.data;
      
 }
+
+/*----------------------- GET SINGLE NEW --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getSingleNewService = async (id) =>  {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/news/${id}`);
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+}

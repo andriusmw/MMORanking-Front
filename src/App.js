@@ -11,6 +11,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProfilePage } from "./pages/MyProfilePage";
 import { ForgotPassPage } from "./pages/ForgotPassPage";
 import {NewsPage} from "./pages/NewsPage"
+import { SingleNewPage } from "./pages/SingleNewPage";
 
 
 function App() {
@@ -24,8 +25,8 @@ function App() {
           <Route path="/record/:id" element={<RecordPage/>} />
           <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/forpass" element={<ForgotPassPage/>} />
-          <Route path="/newslist" element={<NewsPage/>} />
-       
+          <Route path="/news" element={<NewsPage/>} />
+          <Route path="/news/:id" element={<SingleNewPage/>} />
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
