@@ -205,22 +205,23 @@ export const editUserPasswordService = async ({userId, data, token}) => {
 };
 
 
-/*----------------------- GET ALL NEWS --------------------------------
+
+
+/*----------------------- GET ALL NEWS WITH PAGINATION--------------------------------
 ----------------------------------------------------------------------------*/
 
-
-export const getAllNewsService = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/news`)
+export const getAllNewsService = async (page = 1, limit = 15) => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/news?page=${page}&limit=${limit}`);
 
     const json = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(json.message);
     }
 
-    return json.data;
-     
+    return json;  // Now json will contain both 'data' and 'total'
 }
+
 
 /*----------------------- GET SINGLE NEW --------------------------------
 ----------------------------------------------------------------------------*/
@@ -236,3 +237,30 @@ export const getSingleNewService = async (id) =>  {
 
     return json.data;
 }
+
+
+/*------------------------------CREATE POST -----------------------------*/
+/*-----------------------------------------------------------------------*/
+
+export const createPostService = async ({data, token}) => {
+    console.log("token")
+    console.log(token)
+    console.log("body.data")
+    console.log(data)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/news`,{
+        method: "POST",
+        body: data,
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log(json)
+        throw new Error(json.message);
+    }
+   
+    return json.data;
+};
