@@ -11,6 +11,21 @@ export const RegisterPage = () => {
     const [pass2, setPass2] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [region, setRegion] = useState(''); // Estado para la región seleccionada
+    const [showHelp, setShowHelp] = useState(false); // Estado para mostrar/ocultar ayuda
+    const [showHelpWLName, setShowHelpWLName] = useState(false); // Estado para mostrar/ocultar ayuda
+    const [WLname, setWLName] = useState("");
+  
+    // Opciones para el desplegable
+    const regionOptions = [
+      { value: '', label: '-- Select a region --' },
+      { value: 'EU', label: 'EU' },
+      { value: 'US', label: 'US' },
+      { value: 'TW', label: 'TW' },
+    ];
+  
+
+
 
     const HandleForm = async (e) => {
 
@@ -24,7 +39,7 @@ export const RegisterPage = () => {
         }
 
         try {
-            await registerUserService({name,email,password: pass1})
+            await registerUserService({name,email,password: pass1, region, WLname})
             //go to login
             setSuccess(true)
            // navigate('/login');
@@ -66,6 +81,79 @@ export const RegisterPage = () => {
 
                     /> 
                 </fieldset>
+
+        {/*---------------REGION ---------------- */}
+            <fieldset>
+        <label htmlFor="region">
+          Region: the region of your Battle.net Account for synchronizing your characters
+        </label>
+        <div className="region-container">
+          <select
+            id="region"
+            name="region"
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            required
+          >
+            {regionOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="help-button"
+            onClick={() => setShowHelp(!showHelp)}
+          >
+            ?
+          </button>
+        </div>
+
+        {showHelp && (
+          <div className="help-text">
+            <p>
+              Select the region that corresponds to your Battle.net account:
+            </p>
+            <ul>
+              <li><strong>EU:</strong> Europe ( servers in Europe AND Russia)</li>
+              <li><strong>US:</strong> Americas ( servers in the United States, Canada, México, South America and Australia)</li>
+              <li><strong>TW:</strong> Taiwan ( servers in Asia (China, Japan, South-Korea, Taiwan ))</li>
+            </ul>
+            <p>
+              This helps us sync your characters correctly with Blizzard's servers.
+            </p>
+          </div>
+        )}
+      </fieldset>
+
+
+         {/*---------------Warcraft Logs User ---------------- */}
+             <fieldset>
+                <div>
+                    <label htmlFor="wlusername">Warcraft Logs Username:</label>
+                    <input type="string" id="wlusername" name="wlusername" required
+                        onChange={(e) => setWLName(e.target.value)}
+                    /> 
+                     <button type="button" className="help-button" onClick={() => setShowHelpWLName(!showHelpWLName)}> ? </button>
+                </div>
+                </fieldset>
+
+                {showHelpWLName && (
+          <div className="help-text">
+            <p>
+              Introduce your username on warcraftlogs, this will be used later to check that the logs you
+              upload are yours and no-one is copying your results with a character with the same name as one of yours. 
+
+            </p>
+          
+          </div>
+        )}
+
+
+
+
+
 
                 <button>Register</button>
                 {error ? <p>{error}</p>: null}

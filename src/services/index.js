@@ -33,13 +33,13 @@ export const getSingleRecordService = async (id) =>  {
 /*--------------------------------- REGISTER --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const registerUserService = async ({name, email, password}) => {
+export const registerUserService = async ({name, email, password , region, WLname}) => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, email, password})
+        body: JSON.stringify({name, email, password, region, WLname})
     });
 
     const json = await response.json();
