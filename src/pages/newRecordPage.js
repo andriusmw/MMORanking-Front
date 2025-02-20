@@ -9,9 +9,9 @@ export const NewRecordPage = () => {
    const { token, user, setUser, logout } = useContext(AuthContext); // Asegúrate de que setUser esté disponible en el contexto
    const [error, setError] = useState("");
    const [sending, setSending] = useState(false);
-
    const [logURL, setLogURL] = useState("");
    const [selectedCharacter, setSelectedCharacter] = useState('');
+   const [isLoading, setIsLoading] = useState(false); // Estado para el spinner
 
 
  //--------------------- FUNCTION TO CREATE A NEW RECORD ------------------------------------
@@ -25,6 +25,7 @@ export const NewRecordPage = () => {
 
     try {
       setSending(true);
+      setIsLoading(true); // Mostrar spinner
       const data = new FormData();
       data.append("user_id", idUser);
       data.append("character_id", characterData?.id || '');
@@ -55,6 +56,7 @@ export const NewRecordPage = () => {
     setError(error.message);
   } finally {
     setSending(false);
+    setIsLoading(false); // Ocultar spinner
   }
 };
 
@@ -79,6 +81,7 @@ export const NewRecordPage = () => {
                   name="character"
                   value={selectedCharacter}
                   onChange={(e) => setSelectedCharacter(e.target.value)}
+                  disabled={isLoading} // Deshabilitar inputs durante carga
                 >
               <option value="">-- Select a character --</option>
                 {user.characters.map((character) => (
@@ -101,6 +104,7 @@ export const NewRecordPage = () => {
                   name="logURL"
                   value={logURL}
                   onChange={(e) => setLogURL(e.target.value)}
+                  disabled={isLoading} // Deshabilitar inputs durante carga
                 />
               </fieldset>
 
@@ -111,10 +115,17 @@ export const NewRecordPage = () => {
             
             
          
-              <button type="submit">Send Record!</button>
+              <button type="submit"  disabled={isLoading} >
+                   {isLoading ? 'Sending...' : '  Send Record!'}
+               </button>
               {sending ? <p>Sending New data for post</p> : null}
               {error ? <p>{error}</p> : null }
             </form>
+            {isLoading && (
+              <div className="spinner-overlay">
+                 <div className="spinner"></div>
+             </div>
+            )}
             </>
           ) : <p>User not logged in</p>}
       
