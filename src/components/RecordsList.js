@@ -26,8 +26,8 @@ export const RecordList = ({ records }) => {
             <td>{record.character_name}</td>
             <td>{record.class1}</td>
             <td>{record.dungeon_name}</td>
-            <td>{record.dungeon_difficulty}</td>
-            <td>{record.dungeon_season}</td>
+            <td>{record.difficulty}</td>
+            <td>{record.season}</td>
             <td>{record.time}</td>
             <td>{record.num_players}</td>
             <td>{record.server}</td>

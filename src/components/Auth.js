@@ -10,7 +10,7 @@ export const Auth = () => {
         "characters" and "user" where is the user profile data. */
     user ? (
         <p>Wellcome 
-         <Link to={'/profile'}>{user.user.name}</Link>  
+         <Link to={'/profile'}>{user?.user?.name}</Link>  
          <button onClick={()=>logout()}>logOut</button> 
         </p>
     

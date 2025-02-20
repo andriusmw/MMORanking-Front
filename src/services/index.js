@@ -264,3 +264,48 @@ export const createPostService = async ({data, token}) => {
    
     return json.data;
 };
+
+//------------------ DELETE POST SERVICE --------------
+
+export const deletePostService = async ({idNew, token}) => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/news/${idNew}`,{
+        method: "DELETE",
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log("error al borrar")
+        console.log(json)
+        throw new Error(json.message);
+    }
+  
+}
+
+/*------------------------------CREATE RECORD SERVICE -----------------------------*/
+/*-----------------------------------------------------------------------*/
+
+export const createRecordService = async ({data, token}) => {
+    console.log("token")
+    console.log(token)
+    console.log("body.data")
+    console.log(data)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/records/new`,{
+        method: "POST",
+        body: data,
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log(json)
+        throw new Error(json.message);
+    }
+   
+    return json.data;
+};

@@ -13,6 +13,7 @@ import { ForgotPassPage } from "./pages/ForgotPassPage";
 import {NewsPage} from "./pages/NewsPage"
 import { SingleNewPage } from "./pages/SingleNewPage";
 import { NewPostPage } from "./pages/NewPostPage";
+import { NewRecordPage } from "./pages/newRecordPage";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/news" element={<NewsPage/>} />
           <Route path="/news/:id" element={<SingleNewPage/>} />
           <Route path="/news/create" element={<NewPostPage/>} />
+          <Route path="/newrecord" element={<NewRecordPage/>} />
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
