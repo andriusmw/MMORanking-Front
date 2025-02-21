@@ -30,6 +30,56 @@ export const getSingleRecordService = async (id) =>  {
     return json.data;
 }
 
+
+
+/*----------------------- GET LADDER RECORDS --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getLadderRecordsService = async (filters = {}) => {
+    // Valores por defecto si no se proporcionan filtros
+    const defaultFilters = {
+      dungeonId: "1", // Ajusta este valor por defecto según tu caso
+      dungeonDifficulty: "*",
+      season: "*",
+      numPlayers: "*",
+      charClass: "*",
+      charSpec: "*",
+      server: "*",
+    };
+  
+    // Combinar filtros recibidos con los valores por defecto
+    const finalFilters = { ...defaultFilters, ...filters };
+  
+    // Construir la URL con los parámetros en el formato de rutas
+    const url = `${process.env.REACT_APP_BACKEND}/records/${finalFilters.dungeonId}/${finalFilters.dungeonDifficulty}/${finalFilters.season}/${finalFilters.numPlayers}/${finalFilters.charClass}/${finalFilters.charSpec}/${finalFilters.server}`;
+  
+    const response = await fetch(url);
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.data;
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*--------------------------------- REGISTER --------------------------------
 ----------------------------------------------------------------------------*/
 

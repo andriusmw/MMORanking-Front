@@ -14,6 +14,7 @@ import {NewsPage} from "./pages/NewsPage"
 import { SingleNewPage } from "./pages/SingleNewPage";
 import { NewPostPage } from "./pages/NewPostPage";
 import { NewRecordPage } from "./pages/newRecordPage";
+import { LaddersPage } from "./pages/LaddersPage";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/news/:id" element={<SingleNewPage/>} />
           <Route path="/news/create" element={<NewPostPage/>} />
           <Route path="/newrecord" element={<NewRecordPage/>} />
+          <Route path="/ladders" element={<LaddersPage/>} />
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
