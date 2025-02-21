@@ -27,7 +27,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
     dungeon_name: ["*", "Earthcrawl Mines", "The Stonevault" , "The Dawnbreaker" ],
     difficulty: ["*", "Normal", "Heroic", "Mythic"],
     season: ["*", "Season1", "Season2", "Season3"],
-    num_players: ["*", "2", "3", "4", "5"],
+    num_players: ["*","1","2","3", "4", "5"],
     class1: ["*", "Warrior", "Mage", "Rogue", "Priest"],
     class2: ["*", "Tank", "DPS", "Healer"],
     server: ["*", "EU", "NA", "Asia"],

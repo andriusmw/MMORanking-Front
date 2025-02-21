@@ -9,7 +9,7 @@ const useLadderRecords = (filters) => {
   // Valores predeterminados estables
   const defaultFilters = useMemo(
     () => ({
-      dungeonId: "1", // Ajusta según tu caso
+      dungeonId: "*", //Ajusta según tu caso
       dungeonDifficulty: "*",
       season: "*",
       numPlayers: "*",

@@ -38,7 +38,7 @@ export const getSingleRecordService = async (id) =>  {
 export const getLadderRecordsService = async (filters = {}) => {
     // Valores por defecto si no se proporcionan filtros
     const defaultFilters = {
-      dungeonId: "1", // Ajusta este valor por defecto según tu caso
+      dungeonId: "*",// Ajusta este valor por defecto según tu caso
       dungeonDifficulty: "*",
       season: "*",
       numPlayers: "*",
