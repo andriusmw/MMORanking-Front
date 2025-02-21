@@ -4,6 +4,7 @@ import useLadderRecords from "../hooks/useLadderRecords";
 
 export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
   const [filters, setFilters] = useState({
+    dungeon_name: "*",
     difficulty: "*",
     season: "*",
     num_players: "*",
@@ -24,16 +25,23 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
   const recordsToDisplay = useLocalData && appliedFilters ? fetchedRecords : initialRecords;
 
   const filterOptions = {
-    dungeon_name: ["*", "Earthcrawl Mines", "The Stonevault" , "The Dawnbreaker" ],
-    difficulty: ["*", "Normal", "Heroic", "Mythic"],
-    season: ["*", "Season1", "Season2", "Season3"],
-    num_players: ["*","1","2","3", "4", "5"],
-    class1: ["*", "Warrior", "Mage", "Rogue", "Priest"],
-    class2: ["*", "Tank", "DPS", "Healer"],
+    dungeon_name: ["*",
+      //Delves
+      "Fungal Folly", "Kriegval's Rest", "The Waterworks", "The Dread Pit", "Mycomancer Cavern", "Skittering Breach", "The Sinkhole", 
+      "Nightfall Sanctum", "The Underkeep",  "The Spiral Weave", "Zekvir's Lair",  "Tak-Rethan Abyss",  "Sidestreet Sluice","Excavation Site 9",
+      //Dungeons
+      "Ara-Kara, City of Echoes","City of Threads", "Grim Batol", "Mists of Tirna Scithe", "Siege of Boralus", "The Dawnbreaker",
+       "The Necrotic Wake",  "The Stonevault", "Cinderbrew Meadery", "Darkflame Cleft", "The Rookery", "Priory of the Sacred Flame", 
+        "The MOTHERLODE!!",  "Theater of Pain",  "Operation: Mechagon - Workshop", "Operation: Floodgate" ],
+    difficulty: ["*", "Normal", "Heroic", "Mythic" ,"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"],
+    season: ["*", "TWW S1", "TWW S2", "TWW S3"],
+    num_players: ["*","1","2","3","4","5"],
+    class1: ["*", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter" , "Mage",  "Monk" , "Paladin", "Priest",  "Rogue", "Shaman", "Warlock", "Warrior" ],
+    class2: ["*", "Blood", "Frost", "Unholy", "Havoc", "Vengeance","Balance" , "Feral", "Guardian", "Restoration", "Devastation" , "Preservation","Augmentation", "Beast Mastery", "Marksmanship", "Survival", "Arcane", "Fire", "Frost", "Brewmaster", "Mistweaver", "Windwalker", "Holy", "Protection", "Retribution", "Discipline", "Holy", "Shadow", "Assassination", "Subtlety", "Outlaw", "Elemental", "Enhancement", "Affliction", "Demonology", "Destruction", "Arms", "Fury", "Protecction" ],
     server: ["*", "EU", "NA", "Asia"],
   };
 
-  console.log("initialRecords:", initialRecords);
+console.log("initialRecords:", initialRecords);
 console.log("fetchedRecords:", fetchedRecords);
 
   const handleHeaderClick = (column) => {

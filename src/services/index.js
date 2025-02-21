@@ -38,7 +38,7 @@ export const getSingleRecordService = async (id) =>  {
 export const getLadderRecordsService = async (filters = {}) => {
     // Valores por defecto si no se proporcionan filtros
     const defaultFilters = {
-      dungeonId: "*",// Ajusta este valor por defecto según tu caso
+      dungeon_name: "*",// Ajusta este valor por defecto según tu caso
       dungeonDifficulty: "*",
       season: "*",
       numPlayers: "*",
@@ -51,7 +51,7 @@ export const getLadderRecordsService = async (filters = {}) => {
     const finalFilters = { ...defaultFilters, ...filters };
   
     // Construir la URL con los parámetros en el formato de rutas
-    const url = `${process.env.REACT_APP_BACKEND}/records/${finalFilters.dungeonId}/${finalFilters.dungeonDifficulty}/${finalFilters.season}/${finalFilters.numPlayers}/${finalFilters.charClass}/${finalFilters.charSpec}/${finalFilters.server}`;
+    const url = `${process.env.REACT_APP_BACKEND}/records/${finalFilters.dungeon_name}/${finalFilters.dungeonDifficulty}/${finalFilters.season}/${finalFilters.numPlayers}/${finalFilters.charClass}/${finalFilters.charSpec}/${finalFilters.server}`;
   
     const response = await fetch(url);
     const json = await response.json();
