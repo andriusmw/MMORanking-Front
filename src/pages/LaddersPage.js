@@ -4,7 +4,7 @@ import { LadderRecordList } from "../components/LadderRecordsList";
 export const LaddersPage = () => {
   return (
     <section>
-      <h2>TOP 100!</h2>
+      <h2>Check the Ladder of a Dungeon:</h2>
       <LadderRecordList />
     </section>
   );

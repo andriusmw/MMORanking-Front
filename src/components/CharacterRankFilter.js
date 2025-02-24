@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { AuthContext } from "../context/AuthContext"; // Ajusta la ruta según tu estructura
+import { Link } from "react-router-dom";
 
 // Componente hijo que filtra y muestra el rank de un personaje del usuario en los resultados de LadderRecordList
 const CharacterRankFilter = ({ ladderRecords }) => {
@@ -72,7 +73,7 @@ const CharacterRankFilter = ({ ladderRecords }) => {
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <h3>Filter by Your Characters</h3>
+      <h3>Check your place in the ladder (Filter by your characters)</h3>
       <div>
         <select
           ref={characterSelectRef}
@@ -89,16 +90,63 @@ const CharacterRankFilter = ({ ladderRecords }) => {
       </div>
       {characterResult ? (
         <div style={{ marginTop: "10px" }}>
-          <p><strong>Rank:</strong> {characterResult.rank}</p>
-          <p><strong>Character Name:</strong> {characterResult.character_name}</p>
-          <p><strong>Class:</strong> {characterResult.class1}</p>
-          <p><strong>Spec:</strong> {characterResult.class2}</p>
-          <p><strong>Dungeon Name:</strong> {characterResult.dungeon_name}</p>
-          <p><strong>Difficulty:</strong> {characterResult.difficulty}</p>
-          <p><strong>Season:</strong> {characterResult.season}</p>
-          <p><strong>Time:</strong> {characterResult.time}</p>
-          <p><strong>Num. Players:</strong> {characterResult.num_players}</p>
-          <p><strong>Server:</strong> {characterResult.server}</p>
+         
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Rank
+                    </th>
+                    <th>
+                        Char.Name
+                    </th>
+                    <th>
+                        Class
+                    </th>
+                    <th>
+                        Spec
+                    </th>
+                    <th>
+                        Server
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                    <th>
+                       Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                      {characterResult.rank}
+                    </td>
+                    <td>
+                      {characterResult.character_name}
+                    </td>
+                    <td>
+                        {characterResult.class1}
+                    </td>
+                    <td>
+                       {characterResult.class2}
+                    </td>
+                    <td>
+                       {characterResult.time}
+                    </td>
+                    <td>
+                       {characterResult.server}
+                    </td>
+                    <td>
+                          <Link to={`/record/${characterResult.id}`}>+</Link>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
         </div>
       ) : selectedCharacter !== "select" ? (
         <p style={{ marginTop: "10px" }}>This character was not found in the ladder results.</p>

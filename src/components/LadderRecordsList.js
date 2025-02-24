@@ -10,7 +10,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     dungeon_name: null,
     difficulty: null,
     season: null,
-    num_players: "select",
+    num_players: null,
     class1: "select",
     class2: "select",
     server: "",
@@ -68,7 +68,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       "select", "Normal", "Heroic", "Mythic", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"
     ],
     season: ["select", "TWW S1", "TWW S2", "TWW S3"],
-    num_players: ["select", "*", "1", "2", "3", "4", "5"],
+    num_players: ["select", "1", "2", "3", "4", "5"],
     class1: ["select", "*", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"],
     class2: [
       "select", "*", "Blood", "Frost", "Unholy", "Havoc", "Vengeance", "Balance", "Feral", "Guardian", "Restoration",
@@ -102,7 +102,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Actualiza el filtro seleccionado desde un <select> y cierra el desplegable
   const handleFilterChange = (column, value) => {
     // Convierte "select" a null para campos obligatorios, usa el valor directamente para otros
-    const newValue = value === "select" && (column === "dungeon_name" || column === "difficulty" || column === "season") ? null : value;
+    const newValue = value === "select" && (column === "dungeon_name" || column === "difficulty" || column === "season" || column === "num_players" ) ? null : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
       [column]: newValue, // Actualiza el filtro correspondiente
@@ -121,8 +121,8 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Inicia una búsqueda con los filtros seleccionados, validando campos obligatorios
   const handleSearch = () => {
     // Valida que los campos obligatorios tengan valores seleccionados
-    if (!filters.dungeon_name || !filters.difficulty || !filters.season) {
-      alert("Please select a value for Dungeon Name, Difficulty, and Season.");
+    if (!filters.dungeon_name || !filters.difficulty || !filters.season || !filters.num_players ) {
+      alert("Please select a value for Dungeon Name, Difficulty, Season and Players.");
       return;
     }
 
@@ -131,7 +131,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       dungeon_name: filters.dungeon_name,
       dungeonDifficulty: filters.difficulty,
       season: filters.season,
-      numPlayers: filters.num_players === "select" ? "*" : filters.num_players, // "select" se convierte a "*"
+      numPlayers: filters.num_players,
       charClass: filters.class1 === "select" ? "*" : filters.class1,           // "select" se convierte a "*"
       charSpec: filters.class2 === "select" ? "*" : filters.class2,           // "select" se convierte a "*"
       server: filters.server || "*",                                           // "" se convierte a "*"
@@ -148,7 +148,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       dungeon_name: null,
       difficulty: null,
       season: null,
-      num_players: "select",
+      num_players: null,
       class1: "select",
       class2: "select",
       server: "",
@@ -167,14 +167,14 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
 
   // Mapeo de nombres de columnas a etiquetas visibles en la tabla
   const columnMap = {
-    character_name: "Character Name",
+    character_name: "Char.Name",
     class1: "Class",
     class2: "Spec",
     dungeon_name: "Dungeon Name",
     difficulty: "Difficulty",
     season: "Season",
     time: "Time",
-    num_players: "Num.Players",
+    num_players: "Players",
     server: "Server",
   };
 
@@ -186,7 +186,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     <div>
       <table>
         <thead>
-          <tr><th>Puesto</th>{Object.keys(columnMap).map((column) => (
+          <tr><th>Rank</th>{Object.keys(columnMap).map((column) => (
               <th
                 key={column}
                 onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
@@ -272,7 +272,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       </table>
       {recordsToDisplay.length > 0 && (
         <div style={{ marginTop: "10px" }}>
-          <p>Total de resultados: {recordsToDisplay.length}</p>
+          <p>Total of Results: {recordsToDisplay.length}</p>
           <div>
             <button
               onClick={() => handlePageChange(currentPage - 1)}
