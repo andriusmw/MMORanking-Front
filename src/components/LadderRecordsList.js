@@ -1,18 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import useLadderRecords from "../hooks/useLadderRecords";
+import CharacterRankFilter from "./CharacterRankFilter"; // Ajusta la ruta según tu estructura
 
 // Componente que muestra una lista paginada de registros con filtros seleccionables
 export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Estado para almacenar los filtros seleccionados por el usuario
   const [filters, setFilters] = useState({
-    dungeon_name: null,       // Filtro obligatorio, inicia sin valor seleccionado
-    difficulty: null,         // Filtro obligatorio, inicia sin valor seleccionado
-    season: null,             // Filtro obligatorio, inicia sin valor seleccionado
-    num_players: "select",    // Filtro opcional, inicia en "select" (sin filtro aplicado)
-    class1: "select",         // Filtro opcional, inicia en "select" (sin filtro aplicado)
-    class2: "select",         // Filtro opcional, inicia en "select" (sin filtro aplicado)
-    server: "",               // Filtro opcional, inicia vacío (equivalente a "todos")
+    dungeon_name: null,
+    difficulty: null,
+    season: null,
+    num_players: "select",
+    class1: "select",
+    class2: "select",
+    server: "",
   });
 
   // Estado para controlar qué desplegable/input está abierto
@@ -31,7 +32,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Constante que define cuántos registros se muestran por página
-  const recordsPerPage = 50;
+  const recordsPerPage = 10;
 
   // Hook personalizado para obtener registros del backend cuando appliedFilters cambia
   const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters);
@@ -166,14 +167,14 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
 
   // Mapeo de nombres de columnas a etiquetas visibles en la tabla
   const columnMap = {
-    character_name: "Char.Name",
+    character_name: "Character Name",
     class1: "Class",
     class2: "Spec",
     dungeon_name: "Dungeon Name",
     difficulty: "Difficulty",
     season: "Season",
     time: "Time",
-    num_players: "Players",
+    num_players: "Num.Players",
     server: "Server",
   };
 
@@ -185,7 +186,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     <div>
       <table>
         <thead>
-          <tr><th>Rank</th>{Object.keys(columnMap).map((column) => (
+          <tr><th>Puesto</th>{Object.keys(columnMap).map((column) => (
               <th
                 key={column}
                 onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
@@ -271,7 +272,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       </table>
       {recordsToDisplay.length > 0 && (
         <div style={{ marginTop: "10px" }}>
-          <p>Total of results: {recordsToDisplay.length}</p>
+          <p>Total de resultados: {recordsToDisplay.length}</p>
           <div>
             <button
               onClick={() => handlePageChange(currentPage - 1)}
@@ -299,6 +300,8 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
           Limpiar
         </button>
       </div>
+      {/* Añade el componente hijo, pasando los resultados de la búsqueda */}
+      <CharacterRankFilter ladderRecords={recordsToDisplay} />
     </div>
   );
 };
