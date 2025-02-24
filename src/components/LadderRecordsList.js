@@ -1,60 +1,76 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import useLadderRecords from "../hooks/useLadderRecords";
 
-export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
+// Componente que muestra una lista paginada de registros con filtros seleccionables
+export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
+  // Estado para almacenar los filtros seleccionados por el usuario
   const [filters, setFilters] = useState({
-    dungeon_name: "*",
-    difficulty: "*",
-    season: "*",
-    num_players: "*",
-    class1: "*",
-    class2: "*",
-    server: "*",
+    dungeon_name: null,       // Filtro obligatorio, inicia sin valor seleccionado
+    difficulty: null,         // Filtro obligatorio, inicia sin valor seleccionado
+    season: null,             // Filtro obligatorio, inicia sin valor seleccionado
+    num_players: "select",    // Filtro opcional, inicia en "select" (sin filtro aplicado)
+    class1: "select",         // Filtro opcional, inicia en "select" (sin filtro aplicado)
+    class2: "select",         // Filtro opcional, inicia en "select" (sin filtro aplicado)
+    server: "",               // Filtro opcional, inicia vacío (equivalente a "todos")
   });
+
+  // Estado para controlar qué desplegable/input está abierto
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  // Estado para los filtros aplicados que se envían al hook
   const [appliedFilters, setAppliedFilters] = useState(null);
+
+  // Estado que indica si se usan datos locales (filtrados) o iniciales
   const [useLocalData, setUseLocalData] = useState(false);
+
+  // Estado para almacenar los registros obtenidos del servidor en caché
   const [cachedRecords, setCachedRecords] = useState([]);
+
+  // Estado para la página actual en la paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
 
-  const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(
-    appliedFilters || undefined
-  );
+  // Constante que define cuántos registros se muestran por página
+  const recordsPerPage = 50;
 
-  // Actualizar cachedRecords cuando fetchedRecords cambie tras una búsqueda
+  // Hook personalizado para obtener registros del backend cuando appliedFilters cambia
+  const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters);
+
+  // Actualiza cachedRecords cuando se obtienen nuevos datos del servidor
   useEffect(() => {
     if (useLocalData && fetchedRecords && fetchedRecords.length >= 0) {
-      setCachedRecords(fetchedRecords); // Actualiza siempre con los nuevos resultados
-      setCurrentPage(1); // Reinicia a la primera página al obtener nuevos datos
+      setCachedRecords(fetchedRecords); // Guarda los nuevos registros en el caché
+      setCurrentPage(1); // Reinicia a la primera página al cargar nuevos datos
     }
   }, [fetchedRecords, useLocalData]);
 
-  // Usar cachedRecords si hay filtros aplicados, de lo contrario initialRecords
+  // Determina qué registros mostrar: cachedRecords si hay filtros aplicados, initialRecords si no
   const recordsToDisplay = useLocalData && appliedFilters ? cachedRecords : initialRecords;
 
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = recordsToDisplay.slice(indexOfFirstRecord, indexOfLastRecord);
-  const totalPages = Math.ceil(recordsToDisplay.length / recordsPerPage);
+  // Calcula los índices para la paginación
+  const indexOfLastRecord = currentPage * recordsPerPage; // Índice del último registro en la página actual
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage; // Índice del primer registro en la página actual
+  const currentRecords = recordsToDisplay.slice(indexOfFirstRecord, indexOfLastRecord); // Registros de la página actual
+  const totalPages = Math.ceil(recordsToDisplay.length / recordsPerPage); // Número total de páginas
 
+  // Opciones disponibles para cada filtro en los desplegables
   const filterOptions = {
     dungeon_name: [
-      "*",
-      "Fungal Folly", "Kriegval's Rest", "The Waterworks", "The Dread Pit", "Mycomancer Cavern", "Skittering Breach",
+      "select", "Fungal Folly", "Kriegval's Rest", "The Waterworks", "The Dread Pit", "Mycomancer Cavern", "Skittering Breach",
       "The Sinkhole", "Nightfall Sanctum", "The Underkeep", "The Spiral Weave", "Zekvir's Lair", "Tak-Rethan Abyss",
       "Sidestreet Sluice", "Excavation Site 9", "Ara-Kara, City of Echoes", "City of Threads", "Grim Batol",
       "Mists of Tirna Scithe", "Siege of Boralus", "The Dawnbreaker", "The Necrotic Wake", "The Stonevault",
       "Cinderbrew Meadery", "Darkflame Cleft", "The Rookery", "Priory of the Sacred Flame", "The MOTHERLODE!!",
       "Theater of Pain", "Operation: Mechagon - Workshop", "Operation: Floodgate"
     ],
-    difficulty: ["*", "Normal", "Heroic", "Mythic", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"],
-    season: ["*", "TWW S1", "TWW S2", "TWW S3"],
-    num_players: ["*", "1", "2", "3", "4", "5"],
-    class1: ["*", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"],
+    difficulty: [
+      "select", "Normal", "Heroic", "Mythic", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"
+    ],
+    season: ["select", "TWW S1", "TWW S2", "TWW S3"],
+    num_players: ["select", "*", "1", "2", "3", "4", "5"],
+    class1: ["select", "*", "Death Knight", "Demon Hunter", "Druid", "Evoker", "Hunter", "Mage", "Monk", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"],
     class2: [
-      "*", "Blood", "Frost", "Unholy", "Havoc", "Vengeance", "Balance", "Feral", "Guardian", "Restoration",
+      "select", "*", "Blood", "Frost", "Unholy", "Havoc", "Vengeance", "Balance", "Feral", "Guardian", "Restoration",
       "Devastation", "Preservation", "Augmentation", "Beast Mastery", "Marksmanship", "Survival", "Arcane",
       "Fire", "Frost", "Brewmaster", "Mistweaver", "Windwalker", "Holy", "Protection", "Retribution",
       "Discipline", "Holy", "Shadow", "Assassination", "Subtlety", "Outlaw", "Elemental", "Enhancement",
@@ -62,94 +78,130 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
     ],
   };
 
+  // Referencia para el input de "server" para detectar clics fuera de él
   const serverInputRef = useRef(null);
 
+  // Configura un listener para cerrar el input de "server" al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Verifica si el clic ocurrió fuera del input de "server"
       if (serverInputRef.current && !serverInputRef.current.contains(event.target)) {
-        setOpenDropdown(null);
+        setOpenDropdown(null); // Cierra el input
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside); // Limpia el listener al desmontar
   }, []);
 
+  // Maneja el clic en una cabecera para abrir o cerrar su desplegable/input
   const handleHeaderClick = (column) => {
-    setOpenDropdown(openDropdown === column ? null : column);
+    setOpenDropdown(openDropdown === column ? null : column); // Alterna entre abrir y cerrar
   };
 
+  // Actualiza el filtro seleccionado desde un <select> y cierra el desplegable
   const handleFilterChange = (column, value) => {
+    // Convierte "select" a null para campos obligatorios, usa el valor directamente para otros
+    const newValue = value === "select" && (column === "dungeon_name" || column === "difficulty" || column === "season") ? null : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [column]: value,
+      [column]: newValue, // Actualiza el filtro correspondiente
     }));
-    setOpenDropdown(null);
+    setOpenDropdown(null); // Cierra el desplegable tras seleccionar
   };
 
+  // Actualiza el filtro "server" desde el <input> basado en lo que escribe el usuario
   const handleServerInputChange = (e) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      server: e.target.value || "*",
+      server: e.target.value || "", // Usa el valor ingresado o vacío si no hay texto
     }));
   };
 
+  // Inicia una búsqueda con los filtros seleccionados, validando campos obligatorios
   const handleSearch = () => {
+    // Valida que los campos obligatorios tengan valores seleccionados
+    if (!filters.dungeon_name || !filters.difficulty || !filters.season) {
+      alert("Please select a value for Dungeon Name, Difficulty, and Season.");
+      return;
+    }
+
+    // Construye el objeto de filtros para enviar al backend
     const newFilters = {
       dungeon_name: filters.dungeon_name,
       dungeonDifficulty: filters.difficulty,
       season: filters.season,
-      numPlayers: filters.num_players,
-      charClass: filters.class1,
-      charSpec: filters.class2,
-      server: filters.server,
+      numPlayers: filters.num_players === "select" ? "*" : filters.num_players, // "select" se convierte a "*"
+      charClass: filters.class1 === "select" ? "*" : filters.class1,           // "select" se convierte a "*"
+      charSpec: filters.class2 === "select" ? "*" : filters.class2,           // "select" se convierte a "*"
+      server: filters.server || "*",                                           // "" se convierte a "*"
     };
-    setAppliedFilters(newFilters);
-    setUseLocalData(true);
-    setOpenDropdown(null);
-    setCachedRecords([]); // Reiniciar cachedRecords para forzar la actualización
+    setAppliedFilters(newFilters); // Establece los filtros para el hook
+    setUseLocalData(true); // Indica que se usarán datos filtrados
+    setOpenDropdown(null); // Cierra cualquier desplegable/input
+    setCachedRecords([]); // Reinicia el caché para nuevos datos
   };
 
+  // Limpia todos los filtros y restablece el estado inicial
+  const handleClearFilters = () => {
+    setFilters({
+      dungeon_name: null,
+      difficulty: null,
+      season: null,
+      num_players: "select",
+      class1: "select",
+      class2: "select",
+      server: "",
+    }); // Restablece los filtros a sus valores iniciales
+    setAppliedFilters(null); // Elimina los filtros aplicados
+    setUseLocalData(false); // Vuelve a usar initialRecords
+    setCachedRecords([]); // Limpia el caché
+    setCurrentPage(1); // Reinicia la paginación
+    setOpenDropdown(null); // Cierra cualquier desplegable/input
+  };
+
+  // Cambia la página actual en la paginación
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    setCurrentPage(newPage); // Actualiza la página actual
   };
 
+  // Mapeo de nombres de columnas a etiquetas visibles en la tabla
   const columnMap = {
-    character_name: "Character Name",
+    character_name: "Char.Name",
     class1: "Class",
     class2: "Spec",
     dungeon_name: "Dungeon Name",
     difficulty: "Difficulty",
     season: "Season",
     time: "Time",
-    num_players: "Num.Players",
+    num_players: "Players",
     server: "Server",
   };
 
+  // Muestra mensajes de carga o error si corresponde
   if (loading && useLocalData) return <p>Loading...</p>;
   if (error && useLocalData) return <p>Error: {error}</p>;
 
   return (
     <div>
-      <p>Total de resultados: {recordsToDisplay.length}</p>
       <table>
         <thead>
-          <tr><th>Puesto</th>{Object.keys(columnMap).map((column) => (
+          <tr><th>Rank</th>{Object.keys(columnMap).map((column) => (
               <th
                 key={column}
                 onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
                 style={{ cursor: filterOptions[column] || column === "server" ? "pointer" : "default", position: "relative" }}
               >
-                {columnMap[column]} {filters[column] === "*" ? "↓" : "↑"}
+                {columnMap[column]} {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
                 {openDropdown === column && (
                   <>
                     {column === "server" ? (
                       <input
                         ref={serverInputRef}
                         type="text"
-                        value={filters.server === "*" ? "" : filters.server}
+                        value={filters.server}
                         onChange={handleServerInputChange}
                         onClick={(e) => e.stopPropagation()}
-                        placeholder="Enter server name"
+                        placeholder="write"
                         style={{
                           position: "absolute",
                           top: "100%",
@@ -161,7 +213,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
                     ) : (
                       filterOptions[column] && (
                         <select
-                          value={filters[column]}
+                          value={filters[column] || "select"}
                           onChange={(e) => handleFilterChange(column, e.target.value)}
                           onClick={(e) => e.stopPropagation()}
                           style={{
@@ -185,7 +237,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
             ))}<th>Details</th></tr>
           <tr><th style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}></th>{Object.keys(columnMap).map((column) => (
               <th key={column} style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}>
-                {filters[column]}
+                {column === "character_name" || column === "time" ? "" : (filters[column] || "select")} {/* No muestra "select" para character_name y time */}
               </th>
             ))}<th></th></tr>
         </thead>
@@ -210,31 +262,45 @@ export const LadderRecordList = ({ ladderRecords: initialRecords }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={Object.keys(columnMap).length + 2}>There are no records</td>
+              <td colSpan={Object.keys(columnMap).length + 2}>
+                {useLocalData ? "There are no records" : "Select a filter option and click on search to load the ladder"}
+              </td>
             </tr>
           )}
         </tbody>
       </table>
+      {recordsToDisplay.length > 0 && (
+        <div style={{ marginTop: "10px" }}>
+          <p>Total of results: {recordsToDisplay.length}</p>
+          <div>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ marginRight: "10px" }}
+            >
+              Anterior
+            </button>
+            <span>Página {currentPage} de {totalPages}</span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ marginLeft: "10px" }}
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+      )}
       <div style={{ marginTop: "10px" }}>
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          style={{ marginRight: "10px" }}
-        >
-          Anterior
+        <button onClick={handleSearch} style={{ marginRight: "10px" }}>
+          Buscar
         </button>
-        <span>Página {currentPage} de {totalPages}</span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          style={{ marginLeft: "10px" }}
-        >
-          Siguiente
+        <button onClick={handleClearFilters}>
+          Limpiar
         </button>
       </div>
-      <button onClick={handleSearch} style={{ marginTop: "10px" }}>
-        Buscar
-      </button>
     </div>
   );
 };
+
+export default LadderRecordList;
