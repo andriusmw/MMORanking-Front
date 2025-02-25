@@ -1,10 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import useLadderRecords from "../hooks/useLadderRecords";
 import CharacterRankFilter from "./CharacterRankFilter"; // Ajusta la ruta según tu estructura
 
+import { AuthContext } from "../context/AuthContext"; // Ajusta la ruta según tu estructura
+
+
 // Componente que muestra una lista paginada de registros con filtros seleccionables
 export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
+  
+  // Obtiene el usuario logueado desde el AuthContext
+  const { user } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+
   // Estado para almacenar los filtros seleccionados por el usuario
   const [filters, setFilters] = useState({
     dungeon_name: null,
@@ -15,6 +23,8 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     class2: "select",
     server: "",
   });
+  // state to load the spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   // Estado para controlar qué desplegable/input está abierto
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -35,7 +45,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   const recordsPerPage = 10;
 
   // Hook personalizado para obtener registros del backend cuando appliedFilters cambia
-  const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters);
+  const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters, token);
 
   // Actualiza cachedRecords cuando se obtienen nuevos datos del servidor
   useEffect(() => {
@@ -121,7 +131,9 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Inicia una búsqueda con los filtros seleccionados, validando campos obligatorios
   const handleSearch = () => {
     // Valida que los campos obligatorios tengan valores seleccionados
+    setIsLoading(true)
     if (!filters.dungeon_name || !filters.difficulty || !filters.season || !filters.num_players ) {
+      setIsLoading(false);
       alert("Please select a value for Dungeon Name, Difficulty, Season and Players.");
       return;
     }
@@ -140,6 +152,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     setUseLocalData(true); // Indica que se usarán datos filtrados
     setOpenDropdown(null); // Cierra cualquier desplegable/input
     setCachedRecords([]); // Reinicia el caché para nuevos datos
+    setIsLoading(false); 
   };
 
   // Limpia todos los filtros y restablece el estado inicial
@@ -183,7 +196,9 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   if (error && useLocalData) return <p>Error: {error}</p>;
 
   return (
-    <div>
+    <>
+    {user ? (  
+      <div>
       <table>
         <thead>
           <tr><th>Rank</th>{Object.keys(columnMap).map((column) => (
@@ -300,9 +315,20 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
           Limpiar
         </button>
       </div>
+
+      {isLoading && ( //Spinner
+              <div className="spinner-overlay">
+                 <div className="spinner"></div>
+             </div>
+            )}
+
+
+
       {/* Añade el componente hijo, pasando los resultados de la búsqueda */}
       <CharacterRankFilter ladderRecords={recordsToDisplay} />
-    </div>
+    </div>) : (<p>You need to log in to use this feature</p>)}
+  
+    </>
   );
 };
 

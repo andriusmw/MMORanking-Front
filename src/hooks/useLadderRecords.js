@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"; // Eliminamos useMemo porque no lo necesitamos
 import { getLadderRecordsService } from "../services";
 
-const useLadderRecords = (filters) => {
+const useLadderRecords = (filters, token) => {
   const [ladderRecords, setLadderRecords] = useState([]);
   const [loading, setLoading] = useState(false); // Cambiado a false para evitar "cargando" inicial
   const [error, setError] = useState("");
@@ -10,7 +10,7 @@ const useLadderRecords = (filters) => {
     const loadRecords = async () => {
       try {
         setLoading(true);
-        const data = await getLadderRecordsService(filters); // Usa filters directamente
+        const data = await getLadderRecordsService(filters, token); // Usa filters directamente
         setLadderRecords(data);
       } catch (error) {
         setError(error.message);

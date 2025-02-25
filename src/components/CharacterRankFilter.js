@@ -72,8 +72,10 @@ const CharacterRankFilter = ({ ladderRecords }) => {
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <h3>Check your place in the ladder (Filter by your characters)</h3>
+    <>
+     <h3>Check your place in the ladder (Filter by your characters)</h3>
+   { user ? (<div style={{ marginTop: "20px" }}>
+     
       <div>
         <select
           ref={characterSelectRef}
@@ -151,7 +153,9 @@ const CharacterRankFilter = ({ ladderRecords }) => {
       ) : selectedCharacter !== "select" ? (
         <p style={{ marginTop: "10px" }}>This character was not found in the ladder results.</p>
       ) : null}
-    </div>
+    </div>) : (<p>You need to log in to use this feature</p>)}
+    
+    </>
   );
 };
 

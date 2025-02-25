@@ -35,10 +35,10 @@ export const getSingleRecordService = async (id) =>  {
 /*----------------------- GET LADDER RECORDS --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const getLadderRecordsService = async (filters = {}) => {
+export const getLadderRecordsService = async (filters = {}, token) => {
     // Valores por defecto si no se proporcionan filtros
     const defaultFilters = {
-      dungeon_name: "*",// Ajusta este valor por defecto según tu caso
+      dungeon_name: "*",
       dungeonDifficulty: "*",
       season: "*",
       numPlayers: "*",
@@ -53,7 +53,12 @@ export const getLadderRecordsService = async (filters = {}) => {
     // Construir la URL con los parámetros en el formato de rutas
     const url = `${process.env.REACT_APP_BACKEND}/records/${finalFilters.dungeon_name}/${finalFilters.dungeonDifficulty}/${finalFilters.season}/${finalFilters.numPlayers}/${finalFilters.charClass}/${finalFilters.charSpec}/${finalFilters.server}`;
   
-    const response = await fetch(url);
+    // Enviar la solicitud con el token en los headers
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token en el formato esperado por validateAuth
+      },
+    });
     const json = await response.json();
   
     if (!response.ok) {
