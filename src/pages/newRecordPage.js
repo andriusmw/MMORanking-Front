@@ -121,6 +121,7 @@ export const NewRecordPage = () => {
               {sending ? <p>Sending New data for post</p> : null}
               {error ? <p>{error}</p> : null }
             </form>
+            
             {isLoading && (
               <div className="spinner-overlay">
                  <div className="spinner"></div>

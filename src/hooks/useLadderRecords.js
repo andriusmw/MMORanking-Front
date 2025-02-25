@@ -1,36 +1,16 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react"; // Eliminamos useMemo porque no lo necesitamos
 import { getLadderRecordsService } from "../services";
 
-const useLadderRecords = (filters) => {
+const useLadderRecords = (filters, token) => {
   const [ladderRecords, setLadderRecords] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Cambiado a false para evitar "cargando" inicial
   const [error, setError] = useState("");
-
-  // Valores predeterminados estables
-  const defaultFilters = useMemo(
-    () => ({
-      dungeonId: "1", // Ajusta según tu caso
-      dungeonDifficulty: "*",
-      season: "*",
-      numPlayers: "*",
-      charClass: "*",
-      charSpec: "*",
-      server: "*",
-    }),
-    []
-  );
-
-  // Usar filtros recibidos o los predeterminados si no se pasan
-  const currentFilters = useMemo(
-    () => (filters && Object.keys(filters).length > 0 ? filters : defaultFilters),
-    [filters]
-  );
 
   useEffect(() => {
     const loadRecords = async () => {
       try {
         setLoading(true);
-        const data = await getLadderRecordsService(currentFilters);
+        const data = await getLadderRecordsService(filters, token); // Usa filters directamente
         setLadderRecords(data);
       } catch (error) {
         setError(error.message);
@@ -39,8 +19,10 @@ const useLadderRecords = (filters) => {
       }
     };
 
-    loadRecords();
-  }, [currentFilters]); // Dependencia estable
+    if (filters) { // Solo ejecuta si filters no es null/undefined
+      loadRecords();
+    }
+  }, [filters]); // Dependencia directa en filters
 
   return { ladderRecords, loading, error };
 };
