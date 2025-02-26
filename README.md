@@ -2,7 +2,8 @@
 INSTALL: 
 
 choco install mkcert
-npm install sweetalert --save para poder usar alertas personalizadas
+npm install sweetalert --save -->para poder usar alertas personalizadas
+npm install react-datepicker -->para el calendario
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

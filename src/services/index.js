@@ -382,3 +382,29 @@ export const getStatsService = async () => {
     return json.data;
      
 }
+
+
+
+/*----------------------- GET PRIVATE STATS --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getPrivateStatsService = async (startDate = null, endDate = null) => {
+    // Construir la URL con parámetros de consulta si existen las fechas
+    let url = `${process.env.REACT_APP_BACKEND}/privatestats`;
+    if (startDate && endDate) {
+      const params = new URLSearchParams({
+        start: startDate.toISOString(),
+        end: endDate.toISOString(),
+      });
+      url += `?${params.toString()}`;
+    }
+  
+    const response = await fetch(url);
+    const json = await response.json();
+  
+    if (!response.ok) {
+      throw new Error(json.message);
+    }
+  
+    return json.data;
+  };

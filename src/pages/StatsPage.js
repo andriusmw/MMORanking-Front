@@ -1,4 +1,5 @@
 import { ErrorMessage } from "../components/ErrorMessage";
+import { PrivateStatsComp } from "../components/privateStatsComp";
 import { StatsComp } from "../components/StatsComp";
 import useStats from "../hooks/useStats";
 
@@ -15,5 +16,7 @@ export const StatsPage = () => {
         <h2>Public Stats</h2>
      
         <StatsComp stats={stats} />
+
+        <PrivateStatsComp />
     </section> 
 } 
