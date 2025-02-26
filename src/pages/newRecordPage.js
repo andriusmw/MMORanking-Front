@@ -30,6 +30,7 @@ export const NewRecordPage = () => {
       data.append("user_id", idUser);
       data.append("character_id", characterData?.id || '');
       data.append("character_name", characterData?.name || '');
+      data.append("character_class", characterData.classFront || '');
       data.append("character_server",characterData?.server || '');
       data.append("log_link", logURL);
 
@@ -87,7 +88,7 @@ export const NewRecordPage = () => {
                 {user.characters.map((character) => (
               <option
                 key={character.id}
-                value={JSON.stringify({ id: character.id, name: character.name, server:character.server })}
+                value={JSON.stringify({ id: character.id, name: character.name, classFront: character.class1, server:character.server })}
                >
                 {character.name} {character.class1} {character.server}
               </option>
