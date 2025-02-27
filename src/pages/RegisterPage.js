@@ -34,13 +34,26 @@ export const RegisterPage = () => {
       return;
     }
 
+    // Obtener el token de reCAPTCHA
+    const recaptchaToken = window.grecaptcha.getResponse();
+    if (!recaptchaToken) {
+      setError("Please complete the reCAPTCHA");
+      return;
+    }
+
     try {
-      await registerUserService({ name, email, password: pass1, region, WLname });
+      await registerUserService({
+        name,
+        email,
+        password: pass1,
+        region,
+        WLname,
+        recaptchaToken, // Añadimos el token al servicio
+      });
       setSuccess(true);
       // navigate('/login'); // Descomentado si quieres redirigir tras éxito
     } catch (error) {
       setSuccess(false);
-      // Extraer el mensaje del error del backend
       setError(error.message || "An unexpected error occurred");
     }
   };
@@ -161,8 +174,14 @@ export const RegisterPage = () => {
           </div>
         )}
 
+        {/* Widget de reCAPTCHA */}
+        <div
+          className="g-recaptcha"
+          data-sitekey="6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i" // Reemplaza con tu Site Key real
+        ></div>
+
         <button>Register</button>
-        {error ? <p>{error}</p> : null}
+        {error ? <p style={{ color: "red" }}>{error}</p> : null}
         {success ? (
           <p>
             Register initiated, check your E-mail Inbox to activate your Account. Click here to go to{" "}
@@ -170,6 +189,9 @@ export const RegisterPage = () => {
           </p>
         ) : null}
       </form>
+
+      {/* Script de reCAPTCHA */}
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </section>
   );
 };

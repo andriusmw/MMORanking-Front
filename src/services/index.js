@@ -74,25 +74,23 @@ export const getLadderRecordsService = async (filters = {}, token) => {
 /*--------------------------------- REGISTER --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const registerUserService = async ({name, email, password , region, WLname}) => {
+export const registerUserService = async ({ name, email, password, region, WLname, recaptchaToken }) => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name, email, password, region, WLname})
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password, region, WLname, recaptchaToken }),
     });
-
+  
     const json = await response.json();
-
-    if(!response.ok) {
-        throw new Error(json.message);
+  
+    if (!response.ok) {
+      throw new Error(json.message || "Failed to register user");
     }
-
-
-
-}
-
+  
+    return json.data;
+  };
 
 /*--------------------------------- LOGIN --------------------------------
 ----------------------------------------------------------------------------*/
