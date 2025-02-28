@@ -1,21 +1,37 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export const NavBar = () => {
-    const {token, user, logout} = useContext(AuthContext);
+    const { token, user, logout } = useContext(AuthContext);
+    const [isActive, setIsActive] = useState(false);
+
+    const toggleMenu = () => {
+        setIsActive(!isActive);
+    };
 
     return (
-        <nav>
-              <span><Link to={'/'}>Home</Link></span> 
-                  <span><Link to={'/news'}>News</Link></span> 
-                  <span><Link to={'/ladders'}>Ladders</Link></span>
-                  <span><Link to={'/newrecord'}>New Record</Link></span>
-                  <span><Link to={'/profile'}>Profile</Link></span>
-                  <span><Link to={'/stats'}>Stats</Link></span>
-                  <span><Link to={'/contact'}>Contact</Link></span>
-                
-               {  user?.user?.role == "admin" ? <span><Link to={'/admin-panel'}>Admin Panel</Link></span> : null}
+        <nav className="navbar">
+            <ul className={`nav-list ${isActive ? "active" : ""}`}>
+                <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+                <li><Link to="/news" onClick={toggleMenu}>News</Link></li>
+                <li><Link to="/ladders" onClick={toggleMenu}>Ladders</Link></li>
+                <li><Link to="/newrecord" onClick={toggleMenu}>New Record</Link></li>
+                <li><Link to="/profile" onClick={toggleMenu}>Profile</Link></li>
+                <li><Link to="/stats" onClick={toggleMenu}>Stats</Link></li>
+                <li><Link to="/contact" onClick={toggleMenu}>Contact</Link></li>
+                {user?.user?.role === "admin" && (
+                    <li><Link to="/admin-panel" onClick={toggleMenu}>Admin Panel</Link></li>
+                )}
+            </ul>
+            <div
+                className={`burger-menu ${isActive ? "active" : ""}`}
+                onClick={toggleMenu}
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
-    )
-}
+    );
+};

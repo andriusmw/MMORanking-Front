@@ -1,12 +1,15 @@
-/* Variables CSS definidas en :root para acceso global */
+/* Variables CSS */
 :root {
-  --main-color: #1e90ff; /* Azul principal */
-  --secondary-color: #f0f0f0; /* Gris claro */
-  --text-color: #333; /* Gris oscuro para texto */
-  --error-color: #ff4444; /* Rojo para errores */
-  --success-color: #28a745; /* Verde para éxito */
-  --border-color: #ccc; /* Gris claro para bordes */
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra suave */
+  --main-color: #1e90ff;
+  --secondary-color: #f0f0f0;
+  --text-color: #333;
+  --error-color: #ff4444;
+  --success-color: #28a745;
+  --border-color: #ccc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --header-bg: #1e40af; /* Azul más oscuro */
+  --hover-blue: #3b82f6;
+  --nav-hover: #93c5fd;
 }
 
 /* Estilos generales */
@@ -14,9 +17,10 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: var(--secondary-color);
+  overflow-x: hidden;
 }
 
-/* Contenedor principal (común para Register y Login) */
+/* Contenedor principal */
 .form-section {
   display: flex;
   flex-direction: column;
@@ -26,7 +30,7 @@ body {
   padding: 20px;
 }
 
-/* Título (común para Register y Login) */
+/* Título */
 .form-title {
   color: var(--main-color);
   font-size: 2.5rem;
@@ -34,10 +38,10 @@ body {
   text-align: center;
 }
 
-/* Contenedor del formulario (reutiliza .form-container) */
+/* Contenedor del formulario */
 .form-container {
   position: relative;
-  max-width: 500px; /* Ancho máximo para Register */
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   background-color: white;
@@ -70,8 +74,9 @@ body {
   margin-bottom: 5px;
 }
 
-/* Inputs */
-.form-input {
+/* Inputs y Textarea */
+.form-input,
+.form-textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--border-color);
@@ -81,12 +86,17 @@ body {
   box-sizing: border-box;
 }
 
-.form-input:focus {
+.form-textarea {
+  resize: vertical;
+}
+
+.form-input:focus,
+.form-textarea:focus {
   border-color: var(--main-color);
   outline: none;
 }
 
-/* Selector de región (específico de Register) */
+/* Selector */
 .form-select {
   width: 100%;
   padding: 10px;
@@ -101,14 +111,15 @@ body {
   outline: none;
 }
 
-/* Contenedor de región (específico de Register) */
-.region-container {
+/* Contenedores específicos */
+.region-container,
+.input-with-help {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Botones de ayuda (específico de Register) */
+/* Botón de ayuda */
 .help-button {
   background-color: var(--main-color);
   color: white;
@@ -122,10 +133,10 @@ body {
 }
 
 .help-button:hover {
-  background-color: darken(var(--main-color), 10%);
+  background-color: #1877cc;
 }
 
-/* Texto de ayuda (específico de Register) */
+/* Texto de ayuda */
 .help-text {
   background-color: var(--secondary-color);
   padding: 10px;
@@ -140,21 +151,14 @@ body {
   margin: 5px 0;
 }
 
-/* Contenedor de input con ayuda (específico de Register) */
-.input-with-help {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* reCAPTCHA (específico de Register) */
+/* reCAPTCHA */
 .recaptcha-container {
   margin: 15px 0;
   display: flex;
   justify-content: center;
 }
 
-/* Botón de envío (común) */
+/* Botón de envío */
 .submit-button {
   background-color: var(--main-color);
   color: white;
@@ -168,10 +172,10 @@ body {
 }
 
 .submit-button:hover {
-  background-color: darken(var(--main-color), 10%);
+  background-color: #1877cc;
 }
 
-/* Mensajes (común) */
+/* Mensajes */
 .error-message {
   color: var(--error-color);
   font-size: 0.9rem;
@@ -179,7 +183,6 @@ body {
   text-align: center;
 }
 
-/* Mensaje de éxito (específico de Register) */
 .success-message {
   color: var(--success-color);
   font-size: 0.9rem;
@@ -187,17 +190,18 @@ body {
   text-align: center;
 }
 
-/* Enlace al login (específico de Register) */
-.login-link {
+/* Enlaces */
+.login-link,
+.forgot-link {
   color: var(--main-color);
   text-decoration: underline;
 }
 
-.login-link:hover {
-  color: darken(var(--main-color), 10%);
+.login-link:hover,
+.forgot-link:hover {
+  color: #1877cc;
 }
 
-/* Enlace de recuperación (específico de Login) */
 .forgot-password {
   margin-top: 10px;
   text-align: center;
@@ -205,16 +209,7 @@ body {
   color: var(--text-color);
 }
 
-.forgot-link {
-  color: var(--main-color);
-  text-decoration: underline;
-}
-
-.forgot-link:hover {
-  color: darken(var(--main-color), 10%);
-}
-
-/* Estilos del spinner */
+/* Spinner */
 .spinner-overlay {
   position: absolute;
   top: 0;
@@ -246,7 +241,229 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Responsive (común) */
+/* Header */
+header {
+  background-color: var(--header-bg);
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* Título h1 */
+header h1 {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Contenedor para Auth */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+}
+
+/* Auth */
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.auth span {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.auth a,
+.auth button {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: 1px solid white;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.auth a:hover,
+.auth button:hover {
+  background-color: var(--hover-blue);
+}
+
+.auth-list {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* NavBar */
+.navbar {
+  width: 100%;
+  order: 0; /* Coloca NavBar después de h1 y ANTES de auth en el flujo */
+  margin-top: 0.5rem; /* Reemplaza el 10% por un valor fijo más controlado */
+}
+
+/* Nav-list */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0 0 0 1rem; /* Alinea a la izquierda con un pequeño отступ */
+  flex-wrap: wrap;
+}
+
+.nav-list li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.nav-list li a:hover {
+  color: var(--nav-hover);
+}
+
+/* Burger Menu */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.burger-menu span {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  header h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .auth-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.3rem;
+  }
+
+  .auth a,
+  .auth button {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .navbar {
+    margin-top: 0;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    padding: 1rem 0;
+  }
+
+  .nav-list.active {
+    display: flex;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-list li a {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+
+  .burger-menu {
+    display: flex;
+    align-self: center;
+  }
+
+  .burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .burger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .auth a,
+  .auth button {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-list li a {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 600px) {
   .form-title {
     font-size: 2rem;
@@ -256,7 +473,9 @@ button:disabled {
     padding: 15px;
   }
 
-  .form-input, .form-select {
+  .form-input,
+  .form-textarea,
+  .form-select {
     font-size: 0.9rem;
   }
 
@@ -266,34 +485,7 @@ button:disabled {
   }
 }
 
-/* Ajuste específico para Login */
+/* Ajuste para Login */
 .login-container {
-  max-width: 400px; /* Ancho más pequeño para Login */
-}
-
-/* Mensaje de envío (específico de NewRecordPage) */
-/*
-.sending-message {
-  color: var(--text-color);
-  font-size: 0.9rem;
-  margin-top: 10px;
-  text-align: center;
-}
-  */
-
-  /* Textarea (específico de ContactPage) */
-.form-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 1rem;
-  color: var(--text-color);
-  box-sizing: border-box;
-  resize: vertical; /* Permite redimensionar verticalmente */
-}
-
-.form-textarea:focus {
-  border-color: var(--main-color);
-  outline: none;
+  max-width: 400px;
 }

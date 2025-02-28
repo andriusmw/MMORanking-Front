@@ -5,15 +5,16 @@ import { useContext } from "react";
 import { NavBar } from "./NavBar";
 
 export const Header = () => {
-    const {token, user, logout} = useContext(AuthContext);
+    const { token, user, logout } = useContext(AuthContext);
 
     return (
         <header>
-            <h1> <Link to={'/'}>Speed Run Dungeons</Link> </h1>
-         
+            <h1><Link to={'/'}>Speed Run Dungeons</Link></h1>
+            <div className="header-right">
+               
+                <NavBar />
                 <Auth />
-                <NavBar/>
-        
+            </div>
         </header>
     );
 };

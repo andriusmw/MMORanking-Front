@@ -3,23 +3,21 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const Auth = () => {
-    const {token, user, logout} = useContext(AuthContext);
+    const { token, user, logout } = useContext(AuthContext);
 
     return (
-        /*is user.user.name cause user is the object that saves the response and the response is an object with properties
-        "characters" and "user" where is the user profile data. */
-    user ? (
-        <p>Wellcome 
-         <Link to={'/profile'}>{user?.user?.name}</Link>  
-         <button onClick={()=>logout()}>logOut</button> 
-        </p>
-    
-    )  : (
-    <ul>
-        <li><Link to={'/register'}>Register</Link></li>
-        <li><Link to={'/login'}>Login</Link></li>
-       
-    </ul>
-       )
+        <div className="auth">
+            {user ? (
+                <>
+                    <span>Welcome, <Link to="/profile">{user?.user?.name || "User"}</Link></span>
+                    <button onClick={() => logout()}>Logout</button>
+                </>
+            ) : (
+                <ul className="auth-list">
+                    <li><Link to="/register">Register</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                </ul>
+            )}
+        </div>
     );
 };
