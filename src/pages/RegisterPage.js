@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { registerUserService } from "../services";
 import { Link, useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const RegisterPage = () => {
   const [showHelp, setShowHelp] = useState(false);
   const [showHelpWLName, setShowHelpWLName] = useState(false);
   const [WLname, setWLName] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState("");
 
   const regionOptions = [
     { value: "", label: "-- Select a region --" },
@@ -21,54 +23,6 @@ export const RegisterPage = () => {
     { value: "US", label: "US" },
     { value: "TW", label: "TW" },
   ];
-
-  useEffect(() => {
-    const loadRecaptcha = () => {
-      // Cargar el script si no está presente
-      if (!document.querySelector("#recaptcha-script")) {
-        const script = document.createElement("script");
-        script.id = "recaptcha-script";
-        script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-
-        script.onload = () => {
-          console.log("reCAPTCHA script loaded");
-          // Renderizar el CAPTCHA explícitamente después de cargar
-          if (window.grecaptcha && window.grecaptcha.render) {
-            window.grecaptcha.render("recaptcha-widget", {
-              sitekey: "6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i",
-            });
-          }
-        };
-        script.onerror = () => {
-          setError("Failed to load reCAPTCHA");
-        };
-      } else if (window.grecaptcha && window.grecaptcha.render) {
-        // Si el script ya está cargado, renderizar el CAPTCHA
-        window.grecaptcha.render("recaptcha-widget", {
-          sitekey: "6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i",
-        });
-      }
-    };
-
-    loadRecaptcha();
-
-    // Limpieza al desmontar
-    return () => {
-      // Solo limpiar si hay un widget renderizado
-      const widget = document.querySelector(".g-recaptcha");
-      if (widget && window.grecaptcha) {
-        try {
-          window.grecaptcha.reset(); // Resetear solo si existe el widget
-        } catch (err) {
-          console.log("Error resetting reCAPTCHA:", err);
-        }
-      }
-      // No eliminamos el script para que esté disponible al volver
-    };
-  }, []);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -80,20 +34,19 @@ export const RegisterPage = () => {
       return;
     }
 
-    const recaptchaToken = window.grecaptcha?.getResponse();
     if (!recaptchaToken) {
       setError("Please complete the reCAPTCHA");
       return;
     }
 
     try {
+      // No enviamos recaptchaToken a registerUserService
       await registerUserService({
         name,
         email,
         password: pass1,
         region,
         WLname,
-        recaptchaToken,
       });
       setSuccess(true);
     } catch (error) {
@@ -216,13 +169,10 @@ export const RegisterPage = () => {
             </div>
           )}
         </fieldset>
-        <div className="recaptcha-container">
-          <div
-            id="recaptcha-widget"
-            className="g-recaptcha"
-            data-sitekey="6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i"
-          ></div>
-        </div>
+        <ReCAPTCHA
+          sitekey="6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i"
+          onChange={(token) => setRecaptchaToken(token)}
+        />
         <button className="submit-button">Register</button>
         {error && <p className="error-message">{error}</p>}
         {success && (

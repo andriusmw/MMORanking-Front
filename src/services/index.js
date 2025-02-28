@@ -74,13 +74,13 @@ export const getLadderRecordsService = async (filters = {}, token) => {
 /*--------------------------------- REGISTER --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const registerUserService = async ({ name, email, password, region, WLname, recaptchaToken }) => {
+export const registerUserService = async ({ name, email, password, region, WLname }) => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password, region, WLname, recaptchaToken }),
+      body: JSON.stringify({ name, email, password, region, WLname}),
     });
   
     const json = await response.json();
