@@ -5,6 +5,9 @@ choco install mkcert
 npm install sweetalert --save -->para poder usar alertas personalizadas
 npm install react-datepicker -->para el calendario
 npm install html2pdf.js  -->para imprimir / guardar en pdf
+npm install react-google-recaptcha
+
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

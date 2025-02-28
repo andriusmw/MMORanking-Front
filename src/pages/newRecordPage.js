@@ -5,33 +5,29 @@ import swal from "sweetalert";
 import { createRecordService } from "../services";
 
 export const NewRecordPage = () => {
-   
-   const { token, user, setUser, logout } = useContext(AuthContext); // Asegúrate de que setUser esté disponible en el contexto
-   const [error, setError] = useState("");
-   const [sending, setSending] = useState(false);
-   const [logURL, setLogURL] = useState("");
-   const [selectedCharacter, setSelectedCharacter] = useState('');
-   const [isLoading, setIsLoading] = useState(false); // Estado para el spinner
+  const { token, user, setUser, logout } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
+  const [logURL, setLogURL] = useState("");
+  const [selectedCharacter, setSelectedCharacter] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-
- //--------------------- FUNCTION TO CREATE A NEW RECORD ------------------------------------
- const CreateRecord = async (e) => {
+  const CreateRecord = async (e) => {
     e.preventDefault();
     setError("");
     let idUser = user?.user?.id;
 
-    // Parsear el valor seleccionado de JSON a objeto
     const characterData = selectedCharacter ? JSON.parse(selectedCharacter) : null;
 
     try {
       setSending(true);
-      setIsLoading(true); // Mostrar spinner
+      setIsLoading(true);
       const data = new FormData();
       data.append("user_id", idUser);
-      data.append("character_id", characterData?.id || '');
-      data.append("character_name", characterData?.name || '');
-      data.append("character_class", characterData.classFront || '');
-      data.append("character_server",characterData?.server || '');
+      data.append("character_id", characterData?.id || "");
+      data.append("character_name", characterData?.name || "");
+      data.append("character_class", characterData?.classFront || "");
+      data.append("character_server", characterData?.server || "");
       data.append("log_link", logURL);
 
       console.log({
@@ -40,98 +36,80 @@ export const NewRecordPage = () => {
         character_name: characterData?.name,
       });
 
-      // Aquí iría tu llamada al backend
-          // Llamar al servicio para actualizar los datos del usuario
-    const CreateRecordS = await createRecordService( {data, token });
+      const CreateRecordS = await createRecordService({ data, token });
 
+      // LIMPIA EL ESTADO
+      setError("");
+      setLogURL("");
+      setSelectedCharacter("");
+    } catch (error) {
+      swal(`Error`, `${error.message}`, `error`);
+      setError(error.message);
+    } finally {
+      setSending(false);
+      setIsLoading(false);
+    }
+  };
 
- // LIMPIA EL ESTADO 
-    setError("");
-    setLogURL("");
-    setSelectedCharacter("")
- 
-   
-
-  } catch (error) {
-    swal(`Error`, `${error.message}`, `error`);
-    setError(error.message);
-  } finally {
-    setSending(false);
-    setIsLoading(false); // Ocultar spinner
-  }
-};
-
-//-------------------------------------------------------------------
-
-
-   
-  
-  return <section>
-    
-    
-        {user?.user ? (
-          <>
-          
-            <form onSubmit={CreateRecord} className="editform">
-              <h1 className="edith1">UPLOAD A NEW RECORD!</h1>
-           
-             <fieldset>
-                <label htmlFor="character">Select Character: </label>
-                <select
-                  id="character"
-                  name="character"
-                  value={selectedCharacter}
-                  onChange={(e) => setSelectedCharacter(e.target.value)}
-                  disabled={isLoading} // Deshabilitar inputs durante carga
-                >
-              <option value="">-- Select a character --</option>
-                {user.characters.map((character) => (
-              <option
-                key={character.id}
-                value={JSON.stringify({ id: character.id, name: character.name, classFront: character.class1, server:character.server })}
-               >
-                {character.name} {character.class1} {character.server}
-              </option>
+  return (
+    <section className="form-section">
+      {user?.user ? (
+        <>
+          <h1 className="form-title">Upload a New Record!</h1>
+          <form onSubmit={CreateRecord} className="form-container">
+            <fieldset className="form-fieldset">
+              <label htmlFor="character" className="form-label">Select Character:</label>
+              <select
+                id="character"
+                name="character"
+                value={selectedCharacter}
+                onChange={(e) => setSelectedCharacter(e.target.value)}
+                disabled={isLoading}
+                className="form-select"
+              >
+                <option value="">-- Select a character --</option>
+                {user?.characters?.map((character) => (
+                  <option
+                    key={character.id}
+                    value={JSON.stringify({
+                      id: character.id,
+                      name: character.name,
+                      classFront: character.class1,
+                      server: character.server,
+                    })}
+                  >
+                    {character.name} {character.class1} {character.server}
+                  </option>
                 ))}
               </select>
             </fieldset>
-
-
-              <fieldset>
-                <label htmlFor="logURL">WARCRAFT LOGS URL HERE: </label>
-                <input
-                  type="text"
-                  id="logURL"
-                  name="logURL"
-                  value={logURL}
-                  onChange={(e) => setLogURL(e.target.value)}
-                  disabled={isLoading} // Deshabilitar inputs durante carga
-                />
-              </fieldset>
-
-              
-               
-                
-              
-            
-            
-         
-              <button type="submit"  disabled={isLoading} >
-                   {isLoading ? 'Sending...' : '  Send Record!'}
-               </button>
-              {sending ? <p>Sending New data for post</p> : null}
-              {error ? <p>{error}</p> : null }
-            </form>
-            
-            {isLoading && (
-              <div className="spinner-overlay">
-                 <div className="spinner"></div>
-             </div>
-            )}
-            </>
-          ) : <p>User not logged in</p>}
-      
-
-     
-    </section> 
-} 
+            <fieldset className="form-fieldset">
+              <label htmlFor="logURL" className="form-label">Warcraft Logs URL:</label>
+              <input
+                type="text"
+                id="logURL"
+                name="logURL"
+                value={logURL}
+                onChange={(e) => setLogURL(e.target.value)}
+                disabled={isLoading}
+                className="form-input"
+              />
+            </fieldset>
+            <button type="submit" disabled={isLoading} className="submit-button">
+              {isLoading ? "Sending..." : "Send Record!"}
+            </button>
+           {/* {sending && <p className="sending-message">Sending New data for post</p>}*/} 
+            {error && <p className="error-message">{error}</p>}
+          </form>
+          {isLoading && (
+            <div className="spinner-overlay">
+              <div className="spinner"></div>
+            </div>
+          )}
+        </>
+      ) : (
+        <p className="error-message">User not logged in</p>
+      )}
+    </section>
+  );
+};

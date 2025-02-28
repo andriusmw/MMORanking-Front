@@ -1,55 +1,299 @@
+/* Variables CSS definidas en :root para acceso global */
+:root {
+  --main-color: #1e90ff; /* Azul principal */
+  --secondary-color: #f0f0f0; /* Gris claro */
+  --text-color: #333; /* Gris oscuro para texto */
+  --error-color: #ff4444; /* Rojo para errores */
+  --success-color: #28a745; /* Verde para éxito */
+  --border-color: #ccc; /* Gris claro para bordes */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--secondary-color);
+}
+
+/* Contenedor principal (común para Register y Login) */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Título (común para Register y Login) */
+.form-title {
+  color: var(--main-color);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Contenedor del formulario (reutiliza .form-container) */
 .form-container {
-    position: relative;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
+  position: relative;
+  max-width: 500px; /* Ancho máximo para Register */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  width: 100%;
+}
+
+/* Formulario interno */
+.editform {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Fieldsets */
+.form-fieldset {
+  margin-bottom: 15px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Etiquetas */
+.form-label {
+  display: block;
+  color: var(--text-color);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-color);
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: var(--main-color);
+  outline: none;
+}
+
+/* Selector de región (específico de Register) */
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.form-select:focus {
+  border-color: var(--main-color);
+  outline: none;
+}
+
+/* Contenedor de región (específico de Register) */
+.region-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Botones de ayuda (específico de Register) */
+.help-button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.help-button:hover {
+  background-color: darken(var(--main-color), 10%);
+}
+
+/* Texto de ayuda (específico de Register) */
+.help-text {
+  background-color: var(--secondary-color);
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.help-list {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+/* Contenedor de input con ayuda (específico de Register) */
+.input-with-help {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* reCAPTCHA (específico de Register) */
+.recaptcha-container {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botón de envío (común) */
+.submit-button {
+  background-color: var(--main-color);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: darken(var(--main-color), 10%);
+}
+
+/* Mensajes (común) */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Mensaje de éxito (específico de Register) */
+.success-message {
+  color: var(--success-color);
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Enlace al login (específico de Register) */
+.login-link {
+  color: var(--main-color);
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  color: darken(var(--main-color), 10%);
+}
+
+/* Enlace de recuperación (específico de Login) */
+.forgot-password {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.forgot-link {
+  color: var(--main-color);
+  text-decoration: underline;
+}
+
+.forgot-link:hover {
+  color: darken(var(--main-color), 10%);
+}
+
+/* Estilos del spinner */
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive (común) */
+@media (max-width: 600px) {
+  .form-title {
+    font-size: 2rem;
   }
-  
-  .editform {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+
+  .form-container {
+    padding: 15px;
   }
-  
-  .edith1 {
-    text-align: center;
+
+  .form-input, .form-select {
+    font-size: 0.9rem;
   }
-  
-  fieldset {
-    border: none;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+
+  .submit-button {
+    font-size: 1rem;
+    padding: 10px;
   }
-  
-  /* Estilos del spinner */
-  .spinner-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3; /* Color claro */
-    border-top: 4px solid #3498db; /* Color destacado */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+}
+
+/* Ajuste específico para Login */
+.login-container {
+  max-width: 400px; /* Ancho más pequeño para Login */
+}
+
+/* Mensaje de envío (específico de NewRecordPage) */
+/*
+.sending-message {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+  */
+
+  /* Textarea (específico de ContactPage) */
+.form-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-color);
+  box-sizing: border-box;
+  resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+.form-textarea:focus {
+  border-color: var(--main-color);
+  outline: none;
+}
