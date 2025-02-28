@@ -1,0 +1,121 @@
+/* Header */
+header {
+    background-color: var(--header-bg);
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  
+  /* Título h1 */
+  header h1 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+    flex: 0 0 auto;
+  }
+  
+  header h1 a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Contenedor para Auth */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+  }
+  
+  /* Auth */
+  .auth {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+  }
+  
+  .auth span {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .auth a,
+  .auth button {
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: 1px solid white;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .auth a:hover,
+  .auth button:hover {
+    background-color: var(--hover-blue);
+  }
+  
+  .auth-list {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* NavBar */
+  .navbar {
+    width: 100%;
+    order: 0;
+    margin-top: 0.5rem;
+  }
+  
+  /* Nav-list */
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0 0 0 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .nav-list li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.3rem 0.8rem;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  
+  .nav-list li a:hover {
+    color: var(--nav-hover);
+  }
+  
+  /* Burger Menu */
+  .burger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  .burger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }

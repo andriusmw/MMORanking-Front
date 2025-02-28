@@ -1,0 +1,18 @@
+/* Importar todos los archivos CSS */
+@import url('./variables.css');
+@import url('./forms.css');
+@import url('./header.css');
+@import url('./responsive.css');
+
+/* Estilos generales básicos */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--secondary-color);
+  overflow-x: hidden;
+}
+
+/* Ajuste específico para Login */
+.login-container {
+  max-width: 400px;
+}

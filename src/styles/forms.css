@@ -1,0 +1,228 @@
+@import url('./variables.css');
+
+/* Contenedor principal */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    --text-color:black;
+  }
+  
+  /* Título */
+  .form-title {
+    color: var(--main-color);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Contenedor del formulario */
+  .form-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--form-color);;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    width: 100%;
+  }
+  
+  /* Formulario interno */
+  .editform {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Fieldsets */
+  .form-fieldset {
+    margin-bottom: 15px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* Etiquetas */
+  .form-label {
+    display: block;
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Inputs y Textarea */
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+    box-sizing: border-box;
+  }
+  
+  .form-textarea {
+    resize: vertical;
+  }
+  
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--main-color);
+    outline: none;
+  }
+  
+  /* Selector */
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  .form-select:focus {
+    border-color: var(--main-color);
+    outline: none;
+  }
+  
+  /* Contenedores específicos */
+  .region-container,
+  .input-with-help {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Botón de ayuda */
+  .help-button {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .help-button:hover {
+    background-color: #1877cc;
+  }
+  
+  /* Texto de ayuda */
+  .help-text {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+  
+  .help-list {
+    padding-left: 20px;
+    margin: 5px 0;
+  }
+  
+  /* reCAPTCHA */
+  .recaptcha-container {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Botón de envío */
+  .submit-button {
+    background-color: var(--main-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #1877cc;
+  }
+  
+  /* Mensajes */
+  .error-message {
+    color: var(--error-color);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .success-message {
+    color: var(--success-color);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Enlaces */
+  .login-link,
+  .forgot-link {
+    color: var(--main-color);
+    text-decoration: underline;
+  }
+  
+  .login-link:hover,
+  .forgot-link:hover {
+    color: #1877cc;
+  }
+  
+  .forgot-password {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+  
+  /* Spinner */
+  .spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Ajuste para Login */
+  .login-container {
+    max-width: 400px;
+  }

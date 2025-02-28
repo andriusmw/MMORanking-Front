@@ -1,0 +1,19 @@
+:root {
+    --main-color: #1e90ff;
+    --secondary-color: #333;
+    --text-color: white;
+    --color:white;
+    --error-color: #ff4444;
+    --success-color: hsl(134, 61%, 41%);
+    --border-color: gold;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --header-bg: #1e40af;
+    --hover-blue: #3b82f6;
+    --nav-hover: #93c5fd;
+    --form-color:#4d4d4d;
+   
+  }
+
+  #root {
+    color: white;
+  }
