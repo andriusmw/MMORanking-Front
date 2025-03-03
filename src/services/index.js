@@ -278,6 +278,28 @@ export const getSingleNewService = async (id) =>  {
 }
 
 
+/*----------------------- GET LAST 3 NEWS --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getLastestNewsService = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/latestNews`);
+
+    const json = await response.json();
+
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json;  
+}
+
+
+
+
+
+
+
+
 /*------------------------------CREATE POST -----------------------------*/
 /*-----------------------------------------------------------------------*/
 
