@@ -50,6 +50,18 @@
     line-height: 1.4;
 }
 
+.news-card-title {
+    float: left;
+}
+
+.news-card-date { 
+    float: right;
+}
+
+.news-info { /* section with img and preview */
+    margin-top: 2%;
+}
+
 /* News metadata (date and author) */
 .news-card span {
     display: block;
@@ -60,6 +72,7 @@
 
 /* News preview text */
 .news-card p {
+    float: left;
     font-size: 1rem;
     color: var(--text-color); /* Use text-color for preview text */
     line-height: 1.6;
@@ -68,7 +81,8 @@
 
 /* News image */
 .news-card img {
-    width: 100%;
+    width: 40%;
+    float: left;
     height: auto;
     border-radius: 4px;
     object-fit: cover;

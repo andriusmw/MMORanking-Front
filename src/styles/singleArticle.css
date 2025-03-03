@@ -1,0 +1,157 @@
+@import url('./variables.css');
+
+/* Container for the single article */
+.single-article {
+    max-width: 800px; /* Adjusted max-width for a detailed view */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--form-color); /* Using form-color as background for consistency */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color); /* Slightly larger shadow for emphasis */
+    overflow: hidden; /* Prevent overflow of content */
+}
+
+/* Article title */
+.single-article h1 {
+    font-size: 2.5rem;
+    color: var(--main-color); /* Use main-color for title */
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Article content (text) */
+.single-article p {
+    font-size: 1.1rem;
+    color: var(--text-color); /* Use text-color for text */
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    word-wrap: break-word; /* Prevent long words from breaking layout */
+}
+
+/* Article metadata (date and author) */
+.single-article .metadata {
+    font-size: 0.9rem;
+    color: var(--secondary-color); /* Use secondary-color for meta text */
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Article image */
+.single-article img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px var(--shadow-color); /* Subtle shadow for image */
+}
+
+/* Go back button */
+.single-article .go-back-button {
+    background-color: var(--main-color); /* Use main-color for button */
+    color: var(--text-color); /* Use text-color for text */
+    border: none;
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Make it a block element for full width */
+    width: 100%; /* Full width for better mobile usability */
+    max-width: 200px; /* Limit max width for aesthetics */
+    margin-left: auto;
+    margin-right: auto; /* Center the button */
+}
+
+.single-article .go-back-button:hover,
+.single-article .go-back-button:focus {
+    background-color: var(--hover-blue); /* Use hover-blue for hover/focus */
+    transform: scale(1.05);
+}
+
+/* Delete button (for admin/mod) */
+.single-article .delete-button {
+    background-color: var(--error-color); /* Use error-color for delete action */
+    color: var(--text-color); /* Use text-color for text */
+    border: none;
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Make it a block element for full width */
+    width: 100%; /* Full width for better mobile usability */
+    max-width: 200px; /* Limit max width for aesthetics */
+    margin-left: auto;
+    margin-right: auto; /* Center the button */
+}
+
+.single-article .delete-button:hover,
+.single-article .delete-button:focus {
+    background-color: #ff6666; /* Darker shade of error-color for hover/focus */
+    transform: scale(1.05);
+}
+
+/* Error message */
+.single-article .error-message {
+    color: var(--error-color); /* Use error-color for error text */
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .single-article {
+        max-width: 600px;
+        padding: 15px;
+    }
+
+    .single-article h1 {
+        font-size: 2rem;
+    }
+
+    .single-article p {
+        font-size: 1rem;
+    }
+
+    .single-article .metadata {
+        font-size: 0.8rem;
+    }
+
+    .single-article .go-back-button,
+    .single-article .delete-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .single-article {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .single-article h1 {
+        font-size: 1.5rem;
+    }
+
+    .single-article p {
+        font-size: 0.9rem;
+    }
+
+    .single-article .metadata {
+        font-size: 0.7rem;
+    }
+
+    .single-article .go-back-button,
+    .single-article .delete-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        max-width: 160px;
+    }
+}

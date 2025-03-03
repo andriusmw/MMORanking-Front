@@ -6,7 +6,7 @@
 @import url('./Footer.css');
 @import url('./newsHomeList.css');
 @import url('./newsList.css');
-
+@import url('./singleArticle.css');
 
 /* Estilos generales básicos */
 html, body {
@@ -45,4 +45,13 @@ main > * {
 /* Ajuste específico para Login */
 .login-container {
     max-width: 400px;
+}
+
+.single-article {
+  border: var(--border-gold);
+  margin-bottom: 10px;
+}
+
+.news-card {
+  border: var(--border-gold);
 }

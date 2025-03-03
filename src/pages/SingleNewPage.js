@@ -16,7 +16,7 @@ export const SingleNewPage = () => {
 
     return (
         <section>
-            <h1>RecordPage</h1>
+           
             <SingleArticle article={article} />
         </section>
     )
