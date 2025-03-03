@@ -21,8 +21,11 @@ import { ContactPage } from "./pages/ContactPage";
 
 function App() {
   return (
-    <main>
-      <Header />
+
+    <div id="root">
+        <Header />
+
+       <main>
        <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage/>} /> 
@@ -40,8 +43,14 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
-      <Footer />
-    </main>
+        </main>
+            
+        <Footer />
+
+    </div>
+
+  
+    
   );
 }
 
