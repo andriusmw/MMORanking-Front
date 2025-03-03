@@ -36,7 +36,7 @@
     width: 100%; /* Ensure full width */
     display: block; /* Makes them block elements for consistent width */
     box-sizing: border-box; /* Ensures padding doesn’t add extra width */
-    margin: 0.2rem 0; /* Small vertical spacing */
+    margin: 0; /* Remove any margins to prevent extra width */
     background-color: var(--header-bg); /* Match background for consistency */
     color: var(--text-color); /* Match text color */
     border: 1px solid var(--border-color); /* Optional: Add border for visual consistency */
@@ -44,6 +44,8 @@
     text-decoration: none; /* Remove underline from links */
     cursor: pointer; /* Match cursor for both */
     text-align: center; /* Center text for consistency */
+    line-height: 1.2; /* Ensure consistent line height for text */
+    min-width: 0; /* Prevent default button min-width from browsers */
   }
 
   .navbar {
@@ -112,7 +114,7 @@
     width: 100%; /* Ensure full width */
     display: block; /* Makes them block elements for consistent width */
     box-sizing: border-box; /* Ensures padding doesn’t add extra width */
-    margin: 0.2rem 0; /* Small vertical spacing */
+    margin: 0; /* Remove any margins to prevent extra width */
     background-color: var(--header-bg); /* Match background for consistency */
     color: var(--text-color); /* Match text color */
     border: 1px solid var(--border-color); /* Optional: Add border for visual consistency */
@@ -120,6 +122,8 @@
     text-decoration: none; /* Remove underline from links */
     cursor: pointer; /* Match cursor for both */
     text-align: center; /* Center text for consistency */
+    line-height: 1.2; /* Ensure consistent line height for text */
+    min-width: 0; /* Prevent default button min-width from browsers */
   }
 
   .nav-list li a {
@@ -160,6 +164,21 @@
       font-size: 0.9rem;
   }
 }
+
+
+
+
+
+
+
+
+
+
+/*------------------------Apart styles for footer ----------------------*/
+
+
+
+
 
 
 /* Footer styles for tablets (768px) */
