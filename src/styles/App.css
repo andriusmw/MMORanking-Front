@@ -4,14 +4,9 @@
 @import url('./header.css');
 @import url('./responsive.css');
 @import url('./Footer.css');
+@import url('./newsHomeList.css');
+@import url('./newsList.css');
 
-
-/* Importar todos los archivos CSS */
-@import url('./variables.css');
-@import url('./forms.css');
-@import url('./header.css');
-@import url('./responsive.css');
-@import url('./Footer.css');
 
 /* Estilos generales básicos */
 html, body {

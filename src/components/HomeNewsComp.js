@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 
 export const HomeNews = ({ latestNews }) => {
   return latestNews.length ? (
-  <>
-        {latestNews.map((newItem) => (
-           <div key={newItem.id}>
+  <>   
+  <div className="news-list"> {/* Wrap the news items in a container with class news-list */}
+  {latestNews?.map((newItem) => (
+    <div key={newItem.id} className="news-card"> {/* Add class news-card to each news item */}
            <span>
              <Link to={`/news/${newItem.id}`}>
                <h3>{newItem.title}</h3>
@@ -16,10 +17,12 @@ export const HomeNews = ({ latestNews }) => {
            {newItem.image && <img src={newItem.image} alt={newItem.title} />}
          </div>
 
-
+       
         ))}
+         </div>
     </>
   ) : (
     <p>There are no News yet</p>
   );
+ 
 };
