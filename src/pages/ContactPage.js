@@ -37,7 +37,7 @@ export const ContactPage = () => {
 
   return (
     <section className="form-section">
-      <h2 className="form-title">Contact <span>Me!</span></h2>
+      <h2>Contact <span>Me!</span></h2>
       <form onSubmit={handleSubmit} className="form-container">
         <fieldset className="form-fieldset">
           <label htmlFor="email" className="form-label">Your email:</label>

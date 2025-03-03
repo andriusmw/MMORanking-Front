@@ -24,7 +24,7 @@ export const LoginPage = () => {
 
   return (
     <section className="form-section">
-      <h1 className="form-title">Login</h1>
+     <h2>Login</h2>
       <form onSubmit={handleForm} className="form-container login-container">
         <fieldset className="form-fieldset">
           <label htmlFor="email" className="form-label">Email</label>

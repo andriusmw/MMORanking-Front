@@ -111,7 +111,7 @@ export const ForgotPassPage = () => {
 
                     //console.log("llama al service")
                     const userId = user?.user?.id
-                    const data2 = await editUserPasswordService({userId, data, token});
+                    const data2 = await editUserPasswordService({email, data, token});
                     setVisible4(true);
                     setVisible3(false);
 
@@ -140,16 +140,17 @@ export const ForgotPassPage = () => {
     <>
         {/* FORM 1 FORGOT YOUR PASSWORD? */}
         {visible1 ? (
-             <section>
-             <h1>FORGOT YOUR PASSWORD? PHASE 1</h1>
+             <section className="form-section">
+             <h2>FORGOT YOUR PASSWORD? PHASE 1</h2>
+             <form  className="form-container"   onSubmit={handleForm} >
              <p>If you forgot your password or want to change it, please write down your email and you will receive
                  a code for changing your password. 
              </p>
              <p>NOTE: This is a delicated process, for security there is no "going back button" so if you need to change
                 something during the process you will need to reload the page and re-start the process instead.
              </p>
-            <form onSubmit={handleForm}>
-             <fieldset>
+           
+             <fieldset className="form-fieldset">
                  <label htmlFor="email">Email</label>
                  <input type="email" id="email" name="email" required 
                      onChange={(e) => setEmail(e.target.value)}
@@ -157,7 +158,7 @@ export const ForgotPassPage = () => {
              </fieldset>
             
  
-             <button>Send recovery code</button>
+             <button className="submit-button">Send recovery code</button>
              {error ? <p>{error}</p>: null}
             </form>
          </section>
@@ -167,12 +168,13 @@ export const ForgotPassPage = () => {
 
          {/* FORM 2 FORGOT YOUR PASSWORD? */}
         { visible2 ? (
-         <section>
-            <h1>FORGOT YOUR PASSWORD? PHASE 2</h1>
+         <section className="form-section">
+            <h2>FORGOT YOUR PASSWORD? PHASE 2</h2>
+            <form className="form-container" onSubmit={handleForm2}>
             <p>Introduce the code you received by E-mail. 
             </p>
-           <form onSubmit={handleForm2}>
-            <fieldset>
+        
+            <fieldset className="form-fieldset">
                 <label htmlFor="recCodeForm">Email</label>
                 <input type="text" id="recCodeForm" name="recCodeForm" required 
                     onChange={(e) => setReccodeForm(e.target.value)}
@@ -180,25 +182,26 @@ export const ForgotPassPage = () => {
             </fieldset>
            
 
-            <button>Check Code</button>
+            <button className="submit-button">Check Code</button>
             {error ? <p>{error}</p>: null}
            </form>
         </section> ) : (null) }
 
               {/* FORM 3 FORGOT YOUR PASSWORD? */}
         { visible3 ? (
-         <section>
-            <h1>FORGOT YOUR PASSWORD? PHASE 3</h1>
+         <section className="form-section">
+            <h2>FORGOT YOUR PASSWORD? PHASE 3</h2>
+            <form className="form-container" onSubmit={handleForm3}>
             <p>Introduce the the new password 
             </p>
-           <form onSubmit={handleForm3}>
-            <fieldset>
+        
+            <fieldset className="form-fieldset">
                 <label htmlFor="pass1">Password:</label>
                 <input type="password" id="pass1" name="pass1" required 
                     onChange={(e) => setPass1(e.target.value)}
                 />
             </fieldset>
-            <fieldset>
+            <fieldset className="form-fieldset">
                 <label htmlFor="pass2">Repeat password:</label>
                 <input type="password" id="pass2" name="pass2" required 
                     onChange={(e) => setPass2(e.target.value)}
@@ -206,7 +209,7 @@ export const ForgotPassPage = () => {
             </fieldset>
            
 
-            <button>Check Code</button>
+            <button className="submit-button">Change Password</button>
             {error ? <p>{error}</p>: null}
            </form>
         </section> ) : (null) }
@@ -215,10 +218,18 @@ export const ForgotPassPage = () => {
 
         {/* view 4 FORGOT YOUR PASSWORD? */}
         { visible4 ? (
-         <section>
-            <h1>SUCCES!!</h1>
-            <p>Your password has ben changed! </p>
-            <p>Please go to  <Link to={"/login"}>LOGIN PAGE?</Link> </p>
+         <section className="form-section">
+              <h1>SUCCES!!</h1>
+             <form className="form-container" >
+
+            <p>Your password has ben changed! Please go to  </p>
+       
+            
+            <button className="submit-button">
+             <Link to={"/login"} >LOGIN PAGE</Link> 
+             </button>
+             </form>
+            
       
         
         </section> ) : (null) }     

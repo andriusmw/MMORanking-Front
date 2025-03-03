@@ -37,7 +37,7 @@ export const StatsPage = () => {
 
       {user?.user?.role === "mod" || user?.user?.role === "admin" ? (
         <>
-          <h2>Private Stats</h2>
+          
           <PrivateStatsComp />
         </>
       ) : null}

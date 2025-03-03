@@ -223,9 +223,9 @@ export const getUserByEmailService = async (email) =>  {
 //------------------------ EDIT USER PASSWORD SERVICE -------------------
 /*********************************************************************** */
 
-export const editUserPasswordService = async ({userId, data, token}) => {
+export const editUserPasswordService = async ({userId, data, token, email}) => {
   
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/userpass/${userId}`,{
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/userpass/${email}`,{
         method: "PATCH",
         body: data,
         headers: {

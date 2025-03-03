@@ -7,7 +7,7 @@
     align-items: center;
     /* Removed justify-content: center to prevent vertical centering */
     min-height: auto; /* Removed min-height: 100vh to allow natural height */
-    padding: 20px 20px 40px; /* Adjusted padding: top/bottom for spacing, left/right for consistency */
+    /*padding: 20px 20px 40px; /* Adjusted padding: top/bottom for spacing, left/right for consistency */
     --text-color: black;
    
 }

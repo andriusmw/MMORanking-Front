@@ -55,7 +55,8 @@ export const NewRecordPage = () => {
     <section className="form-section">
       {user?.user ? (
         <>
-          <h1 className="form-title">Upload a New Record!</h1>
+       <h2> Upload a New Record!</h2>
+         {/* <h1 className="form-title">Upload a New Record!</h1> */}
           <form onSubmit={CreateRecord} className="form-container">
             <fieldset className="form-fieldset">
               <label htmlFor="character" className="form-label">Select Character:</label>
