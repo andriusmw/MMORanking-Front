@@ -7,17 +7,28 @@ export const HomeNews = ({ latestNews }) => {
   <div className="news-list"> {/* Wrap the news items in a container with class news-list */}
   {latestNews?.map((newItem) => (
     <div key={newItem.id} className="news-card"> {/* Add class news-card to each news item */}
-           <span>
+        <section className="news-card-headerHome"> 
+            <span>
              <Link to={`/news/${newItem.id}`}>
                <h3>{newItem.title}</h3>
              </Link>
-             {newItem.created_at} by {newItem.user_name}
+           
            </span>
-           <p>{newItem.preview}</p>
-           {newItem.image && <img src={newItem.image} alt={newItem.title} />}
+        </section>
+          
+          <section className="news-card-dataHome">
+          
+          {newItem.image ? (
+                <img
+                    src={`${process.env.REACT_APP_BACKEND}/uploads/${newItem.image}`}
+                    alt={newItem.title}
+                />
+            ) : null}
+        
+         </section>
+         <p>{newItem.preview}</p>
+        <p> {newItem.created_at} by {newItem.user_name}</p>
          </div>
-
-       
         ))}
          </div>
     </>

@@ -14,7 +14,7 @@
 /* Article title */
 .single-article h1 {
     font-size: 2.5rem;
-    color: var(--main-color); /* Use main-color for title */
+    color: var(--border-color); /* Use main-color for title */
     margin-bottom: 1rem;
     line-height: 1.4;
     text-align: center;

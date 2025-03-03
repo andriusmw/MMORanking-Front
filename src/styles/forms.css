@@ -9,6 +9,7 @@
     min-height: auto; /* Removed min-height: 100vh to allow natural height */
     padding: 20px 20px 40px; /* Adjusted padding: top/bottom for spacing, left/right for consistency */
     --text-color: black;
+   
 }
 
 /* Título */
@@ -29,6 +30,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px var(--shadow-color);
     width: 100%;
+    border: var(--border-gold)
 }
 
 /* Formulario interno */

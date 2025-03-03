@@ -45,7 +45,7 @@
     display: block;
     font-size: 0.9rem;
     color: var(--secondary-color); /* Use secondary-color for meta text */
-    margin-bottom: 1rem;
+   
 }
 
 /* News preview text */
@@ -57,12 +57,12 @@
 }
 
 /* News image */
-.news-card img {
+.news-card .news-card-dataHome img {
     width: 100%;
     height: auto;
     border-radius: 4px;
     object-fit: cover;
-    margin-top: 1rem;
+   /* margin-top: 1rem;*/
 }
 
 /* Hover effect for cards */

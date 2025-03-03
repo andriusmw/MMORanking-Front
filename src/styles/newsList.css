@@ -55,6 +55,8 @@
     font-size: 1.5rem;
     margin: 0; /* Remove default margins */
     color: var(--text-color); /* Use text-color for text */
+    
+    color: var(--border-color);
     line-height: 1.4;
 }
 
@@ -69,7 +71,15 @@
 .news-card-header {
     max-height: 3vh;
     margin-top: 1%;
+   
 }
+
+.news-card .news-card-date {
+    color: var(--border-color);
+}
+
+
+
 
 /* News content section (image and preview) */
 .news-card-data {
