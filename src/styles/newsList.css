@@ -1,5 +1,9 @@
 @import url('./variables.css');
 
+h2 {
+    text-align: center;
+}
+
 /* Container for the news list (default horizontal grid for HomePage or other pages) */
 .news-list {
     max-width: 1200px;
@@ -70,7 +74,7 @@
 /* for the header of the card */
 .news-card-header {
     max-height: 3vh;
-    margin-top: 1%;
+    margin-bottom: 1%;
    
 }
 

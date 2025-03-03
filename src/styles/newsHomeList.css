@@ -65,6 +65,23 @@
    /* margin-top: 1rem;*/
 }
 
+
+.see-more-link {
+    position: relative;
+    float: right;
+    margin-right: 10vw;
+    font-size: 1.5rem;
+    color: gold;
+}
+
+.see-more-link a {
+    color: gold;
+}
+
+.see-more-link a:visited {
+    color: gold;
+}
+
 /* Hover effect for cards */
 .news-card:hover,
 .news-card:focus-within {
