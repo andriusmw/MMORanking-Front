@@ -42,51 +42,59 @@
     text-decoration: underline;
 }
 
+/* News title and metadata section (top of card) */
+.news-card section {
+    display: flex;
+    justify-content: space-between; /* Title on left, metadata on right */
+    align-items: center; /* Vertically align items */
+   /* margin-bottom: 1rem; /* Space before the image and preview */
+}
+
 /* News title */
 .news-card h3 {
     font-size: 1.5rem;
-    margin: 0 0 0.5rem 0;
+    margin: 0; /* Remove default margins */
     color: var(--text-color); /* Use text-color for text */
     line-height: 1.4;
 }
 
-.news-card-title {
-    float: left;
-}
-
-.news-card-date { 
-    float: right;
-}
-
-.news-info { /* section with img and preview */
-    margin-top: 2%;
-}
-
 /* News metadata (date and author) */
 .news-card span {
-    display: block;
     font-size: 0.9rem;
     color: var(--secondary-color); /* Use secondary-color for meta text */
-    margin-bottom: 1rem;
+    text-align: right; /* Align metadata to the right */
+}
+
+/* for the header of the card */
+.news-card-header {
+    max-height: 3vh;
+    margin-top: 1%;
+}
+
+/* News content section (image and preview) */
+.news-card-data {
+    display: flex;
+    gap: 1rem; /* Space between image and preview text */
+    align-items: flex-start; /* Align items at the top */
+    margin-top: 0; /* No additional top margin to keep it close to title */
 }
 
 /* News preview text */
 .news-card p {
-    float: left;
     font-size: 1rem;
     color: var(--text-color); /* Use text-color for preview text */
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin: 0; /* Remove default margins */
+    flex: 1; /* Allow text to grow and fill remaining space */
 }
 
 /* News image */
 .news-card img {
-    width: 40%;
-    float: left;
+    width: 40%; /* Maintain image width as requested */
     height: auto;
     border-radius: 4px;
     object-fit: cover;
-    margin-top: 1rem;
+    margin: 0; /* Remove default margins to keep it flush with the left */
 }
 
 /* Hover effect for cards */
@@ -160,6 +168,14 @@
         font-size: 0.9rem;
     }
 
+    .news-info {
+        gap: 0.8rem;
+    }
+
+    .news-card img {
+        width: 35%; /* Slightly smaller image on tablets */
+    }
+
     .pagination {
         flex-direction: column;
         gap: 0.3rem;
@@ -192,6 +208,16 @@
 
     .news-card p {
         font-size: 0.8rem;
+    }
+
+    .news-info {
+        flex-direction: column; /* Stack image and text vertically on mobile */
+        gap: 0.5rem;
+    }
+
+    .news-card img {
+        width: 100%; /* Full width image on mobile */
+        margin-bottom: 0.5rem;
     }
 
     .pagination {

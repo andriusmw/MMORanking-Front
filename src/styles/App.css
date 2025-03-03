@@ -54,4 +54,5 @@ main > * {
 
 .news-card {
   border: var(--border-gold);
+  padding: 2%;
 }

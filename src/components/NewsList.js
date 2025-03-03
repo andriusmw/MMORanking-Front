@@ -22,7 +22,7 @@ export const NewsList = () => {
         <div className={isNewsPage ? "news-list-vertical" : "news-list"}> {/* Conditional class */}
           {news.map((newItem) => (
             <div key={newItem.id} className="news-card">
-              <section>
+              <section className="news-card-header">
               <span className="news-card-title">
                 <Link to={`/news/${newItem.id}`}>
                   <h3>{newItem.title}</h3>
@@ -34,7 +34,7 @@ export const NewsList = () => {
             </span>
             </section>
 
-              <section className="news-info">
+              <section className="news-card-data">
               {newItem.image ? (
                 <img
                     src={`${process.env.REACT_APP_BACKEND}/uploads/${newItem.image}`}
