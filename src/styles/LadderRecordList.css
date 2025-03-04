@@ -10,106 +10,194 @@
     overflow: hidden;
 }
 
-/* Large screens: Limit table width to 900px and center it with side margins */
+/* Desktop (1024px and above): Limit table width to 900px and center it with side margins */
 @media (min-width: 1024px) {
     .ladder-table {
         max-width: 900px; /* Standard width for desktop */
         margin: 0 auto; /* Center the table horizontally with side margins */
     }
+
+    /* Table headers (red background, black text) */
+    .ladder-table thead th {
+        background-color: var(--error-color); /* Red background for headers */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 4px; /* Reduced padding for compactness */
+        text-align: center;
+        font-weight: bold;
+        /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+    }
+
+    /* Table data cells (white background, black text) */
+    .ladder-table tbody td {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 6px; /* Reduced padding for compactness */
+        border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+        text-align: left;
+    }
 }
 
-/* Tablets and Mobile: Full width, no side margins */
-@media (max-width: 1023px) {
+/* Tablet (768px to 1023px): Full width, no side margins, moderate adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
     .ladder-table {
         max-width: 100%; /* Full width, no side margins */
         margin: 0; /* Remove margins to stretch the table */
     }
-}
 
-/* Table headers (red background, black text) */
-.ladder-table thead th {
-    background-color: var(--error-color); /* Using error-color (red) for headers */
-    color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
-    padding: 4px; /* Reduced padding for compactness */
-    text-align: center;
-    font-weight: bold;
-    /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
-}
+    /* Table headers (red background, black text) */
+    .ladder-table thead th {
+        background-color: var(--error-color); /* Red background for headers */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 3px; /* Slightly reduced padding for tablets */
+        font-size: 0.9rem; /* Larger font for better readability on tablets */
+        width: 35px; /* Slightly wider for tablets */
+        text-align: center;
+        font-weight: bold;
+        /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+    }
 
-/* Table data cells (white background, black text) */
-.ladder-table tbody td {
-    background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
-    color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
-    padding: 6px; /* Reduced padding for compactness */
-    border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-    text-align: left;
-}
+    /* Table data cells (white background, black text) */
+    .ladder-table tbody td {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 5px; /* Slightly reduced padding for tablets */
+        font-size: 1rem; /* Larger font for better readability on tablets */
+        border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+        text-align: left;
+    }
 
-/* Default: No truncation or wrapping for data cells on large screens */
-.ladder-table tbody td {
-    max-width: none; /* No truncation by default on larger screens */
-    overflow: visible; /* Show full content */
-    white-space: normal; /* Allow wrapping */
-    word-break: normal; /* Default word breaking */
-}
-
-/* Adjust wrapping for data cells on smaller screens, except for Rank and Time */
-@media (max-width: 768px) {
-    .ladder-table tbody td:not(.rank-cell):not(.time-cell) {
-        max-width: 100%; /* Allow full width on tablets and mobile */
+    /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
+    .ladder-table tbody td:not(.rank-cell):not(.players-cell):not(.time-cell):not(.details-cell) {
+        max-width: 100%; /* Allow full width on tablets */
         overflow: visible; /* Show full content */
         white-space: normal; /* Allow wrapping onto new lines */
         word-break: break-all; /* Force wrapping of long words, including single words */
     }
 
-    /* Ensure Rank and Time cells show full content on tablets */
+    /* Ensure Rank, Players, Time, and Details cells show full content on tablets */
     .ladder-table tbody .rank-cell,
-    .ladder-table tbody .time-cell {
+    .ladder-table tbody .players-cell,
+    .ladder-table tbody .time-cell,
+    .ladder-table tbody .details-cell {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
         max-width: none; /* No truncation */
         overflow: visible; /* Show full content */
         white-space: normal; /* Allow wrapping if needed */
         word-break: break-all; /* Allow wrapping for very long values if necessary */
-    }
-
-    .ladder-table thead th {
-        padding: 2px; /* Further reduce padding on tablets */
-        font-size: 0.8rem;
-        width: 30px; /* Fixed width for abbreviations */
+        padding: 5px; /* Match other cells for consistency */
     }
 }
 
-@media (max-width: 480px) {
-    .ladder-table tbody td:not(.rank-cell):not(.time-cell) {
+/* Small Tablet/Mobile (600px to 767px): Further adjustments for smaller tablets */
+@media (min-width: 600px) and (max-width: 767px) {
+    .ladder-table {
+        max-width: 100%; /* Full width, no side margins */
+        margin: 0; /* Remove margins to stretch the table */
+    }
+
+    /* Table headers (red background, black text) */
+    .ladder-table thead th {
+        background-color: var(--error-color); /* Red background for headers */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 2px; /* Further reduce padding for smaller tablets */
+        font-size: 0.8rem; /* Smaller font for compactness */
+        width: 30px; /* Slightly narrower for smaller tablets */
+        text-align: center;
+        font-weight: bold;
+        /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+    }
+
+    /* Table data cells (white background, black text) */
+    .ladder-table tbody td {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 4px; /* Further reduce padding for smaller tablets */
+        font-size: 0.9rem; /* Smaller font for compactness */
+        border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+        text-align: left;
+    }
+
+    /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
+    .ladder-table tbody td:not(.rank-cell):not(.players-cell):not(.time-cell):not(.details-cell) {
+        max-width: 100%; /* Allow full width on smaller tablets */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping onto new lines */
+        word-break: break-all; /* Force wrapping of long words, including single words */
+    }
+
+    /* Ensure Rank, Players, Time, and Details cells show full content on smaller tablets */
+    .ladder-table tbody .rank-cell,
+    .ladder-table tbody .players-cell,
+    .ladder-table tbody .time-cell,
+    .ladder-table tbody .details-cell {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        max-width: 25px; /* Slightly wider than mobile for better readability */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping if needed */
+        word-break: break-all; /* Allow wrapping for very long values if necessary */
+        padding: 2px; /* Reduced padding for compactness */
+    }
+}
+
+/* Mobile (480px to 599px): Tight adjustments for mobile devices */
+@media (min-width: 480px) and (max-width: 599px) {
+    .ladder-table {
+        max-width: 100%; /* Full width, no side margins */
+        margin: 0; /* Remove margins to stretch the table */
+    }
+
+    /* Table headers (red background, black text) */
+    .ladder-table thead th {
+        background-color: var(--error-color); /* Red background for headers */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 2px; /* Maintain reduced padding for mobile */
+        font-size: 0.7rem; /* Smaller font for compactness */
+        width: 25px; /* Maintain narrower width for mobile */
+        text-align: center;
+        font-weight: bold;
+        /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+    }
+
+    /* Table data cells (white background, black text) */
+    .ladder-table tbody td {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 4px; /* Maintain reduced padding for mobile */
+        font-size: 0.9rem; /* Maintain font for readability */
+        border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+        text-align: left;
+    }
+
+    /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
+    .ladder-table tbody td:not(.rank-cell):not(.players-cell):not(.time-cell):not(.details-cell) {
         max-width: 100%; /* Allow full width on mobile */
         overflow: visible; /* Show full content */
         white-space: normal; /* Allow wrapping onto new lines */
         word-break: break-all; /* Force wrapping of long words, including single words */
-        padding: 4px; /* Further reduce padding on mobile */
     }
 
-    /* Ensure Rank and Time are still legible on mobile */
+    /* Ensure Rank, Players, Time, and Details cells have limited width on mobile */
     .ladder-table tbody .rank-cell,
-    .ladder-table tbody .time-cell {
-        max-width: none; /* No truncation */
+    .ladder-table tbody .players-cell,
+    .ladder-table tbody .time-cell,
+    .ladder-table tbody .details-cell {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        max-width: 20px; /* Limit width to fit ~2 characters on mobile */
         overflow: visible; /* Show full content */
         white-space: normal; /* Allow wrapping if needed */
         word-break: break-all; /* Allow wrapping for very long values if necessary */
-        padding: 4px; /* Further reduce padding on mobile */
-        font-size: 1rem; /* Slightly larger for readability */
+        padding: 2px; /* Even smaller padding for compactness */
     }
 
+    /* Fix filter indicators (arrows) and dropdowns on mobile */
     .ladder-table thead th {
-        padding: 2px; /* Further reduce padding on mobile */
-        font-size: 0.7rem;
-        width: 25px; /* Slightly smaller width for mobile */
+        position: relative;
+        overflow: visible; /* Ensure arrows and dropdowns are visible */
     }
 
-    .ladder-table tbody td {
-        padding: 4px; /* Further reduce padding on mobile */
-        font-size: 0.9rem;
-    }
-
-    /* Fix filter indicators (arrows) on mobile */
     .ladder-table thead th:after {
         content: attr(data-sort); /* Use data-sort for arrows */
         position: absolute;
@@ -120,9 +208,96 @@
         font-size: 0.6rem; /* Smaller font size for arrows on mobile */
     }
 
+    .ladder-table select,
+    .ladder-table input {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        width: 120px; /* Adjusted width for mobile */
+        max-width: 100%; /* Ensure it doesn’t overflow the screen */
+        padding: 4px; /* Reduced padding for mobile */
+        font-size: 0.8rem; /* Smaller font for mobile */
+    }
+}
+
+/* Small Mobile (below 480px): Tightest adjustments for very small screens */
+@media (max-width: 479px) {
+    .ladder-table {
+        max-width: 100%; /* Full width, no side margins */
+        margin: 0; /* Remove margins to stretch the table */
+    }
+
+    /* Table headers (red background, black text) */
+    .ladder-table thead th {
+        background-color: var(--error-color); /* Red background for headers */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 1px; /* Tighter padding for very small screens */
+        font-size: 0.6rem; /* Even smaller font for compactness */
+        width: 20px; /* Narrowest width for very small screens */
+        text-align: center;
+        font-weight: bold;
+        /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+    }
+
+    /* Table data cells (white background, black text) */
+    .ladder-table tbody td {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        padding: 3px; /* Tighter padding for very small screens */
+        font-size: 0.8rem; /* Smaller font for readability */
+        border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+        text-align: left;
+    }
+
+    /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
+    .ladder-table tbody td:not(.rank-cell):not(.players-cell):not(.time-cell):not(.details-cell) {
+        max-width: 100%; /* Allow full width on very small mobile */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping onto new lines */
+        word-break: break-all; /* Force wrapping of long words, including single words */
+    }
+
+    /* Ensure Rank, Players, Time, and Details cells have limited width on very small mobile */
+    .ladder-table tbody .rank-cell,
+    .ladder-table tbody .players-cell,
+    .ladder-table tbody .time-cell,
+    .ladder-table tbody .details-cell {
+        background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+        color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+        max-width: 15px; /* Even tighter limit to fit ~2 characters on very small mobile */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping if needed */
+        word-break: break-all; /* Allow wrapping for very long values if necessary */
+        padding: 1px; /* Tighter padding for compactness */
+    }
+
+    /* Fix filter indicators (arrows) and dropdowns on very small mobile */
     .ladder-table thead th {
         position: relative;
-        overflow: visible; /* Ensure arrows are visible */
+        overflow: visible; /* Ensure arrows and dropdowns are visible */
+    }
+
+    .ladder-table thead th:after {
+        content: attr(data-sort); /* Use data-sort for arrows */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50%;
+        font-weight: bold;
+        font-size: 0.5rem; /* Even smaller font size for arrows on very small mobile */
+    }
+
+    .ladder-table select,
+    .ladder-table input {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        width: 100px; /* Narrower width for very small mobile */
+        max-width: 100%; /* Ensure it doesn’t overflow the screen */
+        padding: 3px; /* Tighter padding for very small mobile */
+        font-size: 0.7rem; /* Even smaller font for mobile */
     }
 }
 
