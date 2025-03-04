@@ -4,6 +4,16 @@ h2 {
     text-align: center;
 }
 
+ .news-button {
+        max-width: fit-content;
+        color: white;
+}
+
+.news-button a {
+    color: white;
+}
+
+
 /* Container for the news list (default horizontal grid for HomePage or other pages) */
 .news-list {
     max-width: 1200px;

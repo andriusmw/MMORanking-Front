@@ -28,7 +28,7 @@ export const SingleArticle = ({ article }) => {
 
     return (
       <>
-       <button onClick={handleGoBack} className="go-back-button">Go back</button>
+       <button className="submit-button news-button" onClick={handleGoBack} >Go back</button>
         <article className="single-article"> {/* Add class single-article to the article element */}
            
             

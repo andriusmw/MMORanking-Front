@@ -15,8 +15,10 @@ export const NewsPage = () => {
   
   return <section>
         <h2>News Page!</h2>
-        <button>   <Link to={"/news/create"}>CREATE NEW!</Link></button>
-     
-        <NewsList news={news} />
+      
+        <button className="submit-button news-button" id="news-button" >   <Link to={"/news/create"}>CREATE NEW!</Link></button>
+      
+  <NewsList news={news} />
+        
     </section> 
 } 
