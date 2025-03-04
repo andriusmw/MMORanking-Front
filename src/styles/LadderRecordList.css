@@ -10,12 +10,27 @@
     overflow: hidden;
 }
 
+/*section with the pagination */
+.ladder-pagination {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.character-rank {
+    margin-top:20px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+
 /* Desktop (1024px and above): Limit table width to 900px and center it with side margins */
 @media (min-width: 1024px) {
     .ladder-table {
         max-width: 900px; /* Standard width for desktop */
         margin: 0 auto; /* Center the table horizontally with side margins */
     }
+
+
 
     /* Table headers (red background, black text) */
     .ladder-table thead th {
@@ -319,3 +334,6 @@
 .ladder-table {
     overflow-x: auto; /* Horizontal scrolling if content overflows on small screens */
 }
+
+
+

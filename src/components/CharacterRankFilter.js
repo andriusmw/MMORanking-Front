@@ -73,9 +73,9 @@ const CharacterRankFilter = ({ ladderRecords }) => {
 
   return (
     <>
-     <h3>Check your place in the ladder (Filter by your characters)</h3>
-   { user ? (<div style={{ marginTop: "20px" }}>
-     
+    
+   { user ? (<div className="character-rank">
+    <h3>Check your place in the ladder (Filter by your characters)</h3>
       <div>
         <select
           ref={characterSelectRef}

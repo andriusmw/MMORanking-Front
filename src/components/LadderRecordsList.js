@@ -355,6 +355,8 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
               )}
             </tbody>
           </table>
+
+          <section className="ladder-pagination">
           {recordsToDisplay.length > 0 && (
             <div style={{ marginTop: "10px" }}>
               <p>Total of Results: {recordsToDisplay.length}</p>
@@ -385,6 +387,10 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
               Limpiar
             </button>
           </div>
+
+
+          </section>
+
 
           {isLoading && ( //Spinner
             <div className="spinner-overlay">
