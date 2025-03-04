@@ -1,18 +1,14 @@
 @import url('./variables.css');
 
-/* Contenedor principal */
+/* Estilos base (se aplican por defecto) */
 .form-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Removed justify-content: center to prevent vertical centering */
-    min-height: auto; /* Removed min-height: 100vh to allow natural height */
-    /*padding: 20px 20px 40px; /* Adjusted padding: top/bottom for spacing, left/right for consistency */
+    min-height: auto;
     --text-color: black;
-   
 }
 
-/* Título */
 .form-title {
     color: var(--main-color);
     font-size: 2.5rem;
@@ -20,7 +16,6 @@
     text-align: center;
 }
 
-/* Contenedor del formulario */
 .form-container {
     position: relative;
     max-width: 500px;
@@ -30,17 +25,16 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px var(--shadow-color);
     width: 100%;
-    border: var(--border-gold)
+    border: var(--border-gold);
 }
 
-/* Formulario interno */
 .editform {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Fieldsets */
+/* Resto de estilos base sin cambios */
 .form-fieldset {
     margin-bottom: 15px;
     border: none;
@@ -49,7 +43,6 @@
     gap: 5px;
 }
 
-/* Etiquetas */
 .form-label {
     display: block;
     color: var(--text-color);
@@ -57,7 +50,6 @@
     margin-bottom: 5px;
 }
 
-/* Inputs y Textarea */
 .form-input,
 .form-textarea {
     width: 100%;
@@ -79,7 +71,6 @@
     outline: none;
 }
 
-/* Selector */
 .form-select {
     width: 100%;
     padding: 10px;
@@ -94,7 +85,6 @@
     outline: none;
 }
 
-/* Contenedores específicos */
 .region-container,
 .input-with-help {
     display: flex;
@@ -102,7 +92,6 @@
     gap: 10px;
 }
 
-/* Botón de ayuda */
 .help-button {
     background-color: var(--main-color);
     color: white;
@@ -119,7 +108,6 @@
     background-color: #1877cc;
 }
 
-/* Texto de ayuda */
 .help-text {
     background-color: var(--secondary-color);
     padding: 10px;
@@ -134,14 +122,12 @@
     margin: 5px 0;
 }
 
-/* reCAPTCHA */
 .recaptcha-container {
     margin: 15px 0;
     display: flex;
     justify-content: center;
 }
 
-/* Botón de envío */
 .submit-button {
     background-color: var(--main-color);
     color: white;
@@ -158,7 +144,6 @@
     background-color: #1877cc;
 }
 
-/* Mensajes */
 .error-message {
     color: var(--error-color);
     font-size: 0.9rem;
@@ -173,7 +158,6 @@
     text-align: center;
 }
 
-/* Enlaces */
 .login-link,
 .forgot-link {
     color: var(--main-color);
@@ -192,7 +176,6 @@
     color: var(--text-color);
 }
 
-/* Spinner */
 .spinner-overlay {
     position: absolute;
     top: 0;
@@ -224,7 +207,141 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Ajuste para Login */
 .login-container {
     max-width: 400px;
+}
+
+/* Media Queries */
+
+/* Menor a 1024px (tablets grandes y pantallas medianas) */
+@media (max-width: 1024px) {
+    .form-container {
+        max-width: 450px;
+        padding: 15px;
+    }
+    
+    .form-title {
+        font-size: 2.2rem;
+    }
+    
+    .form-input,
+    .form-textarea,
+    .form-select {
+        padding: 8px;
+    }
+    
+    .submit-button {
+        padding: 10px 15px;
+    }
+}
+
+/* Menor a 768px (tablets) */
+@media (max-width: 768px) {
+    .form-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+    
+    .form-title {
+        font-size: 2rem;
+    }
+    
+    .region-container,
+    .input-with-help {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .help-button {
+        width: 20px;
+        height: 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Menor a 600px (móviles grandes) */
+@media (max-width: 600px) {
+    .form-container {
+        max-width: 95%;
+        padding: 10px;
+    }
+    
+    .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .editform {
+        gap: 10px;
+    }
+    
+    .form-input,
+    .form-textarea,
+    .form-select {
+        font-size: 0.9rem;
+    }
+    
+    .submit-button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    
+    .help-text {
+        font-size: 0.8rem;
+    }
+}
+
+/* Menor a 480px (móviles pequeños) */
+@media (max-width: 480px) {
+    .form-container {
+        max-width: 90%;
+        padding: 8px;  /* Reducido de 10px a 8px para menos espacio vertical */
+        border-radius: 4px;
+    }
+    
+    .form-title {
+        font-size: 1.4rem;  /* Reducido de 1.5rem para un título más pequeño */
+        margin-bottom: 8px;  /* Reducido de 10px para menos espacio vertical */
+    }
+    
+    .editform {
+        gap: 6px;  /* Reducido de 8px para menos espacio entre campos */
+    }
+    
+    .form-fieldset {
+        margin-bottom: 8px;  /* Reducido de 10px para menos espacio vertical */
+    }
+    
+    .form-label {
+        font-size: 0.85rem;  /* Reducido de 0.9rem para etiquetas más pequeñas */
+        margin-bottom: 4px;  /* Reducido de 5px para menos espacio vertical */
+    }
+    
+    .form-input,
+    .form-textarea,
+    .form-select {
+        padding: 5px;  /* Reducido de 6px para campos más compactos */
+        font-size: 0.8rem;  /* Reducido de 0.85rem para texto más pequeño */
+    }
+    
+    .submit-button {
+        padding: 6px;  /* Reducido de 8px para un botón más pequeño */
+        font-size: 0.85rem;  /* Reducido de 0.9rem para texto más pequeño */
+    }
+    
+    .forgot-password {
+        font-size: 0.75rem;  /* Reducido de 0.8rem para texto más pequeño */
+        margin-top: 8px;  /* Reducido de 10px para menos espacio vertical */
+    }
+    
+    .spinner {
+        width: 25px;  /* Reducido de 30px para un spinner más pequeño */
+        height: 25px;  /* Reducido de 30px para un spinner más pequeño */
+    }
+    
+    .help-text {
+        padding: 8px;  /* Reducido de 10px para menos espacio vertical */
+        font-size: 0.75rem;  /* Reducido de 0.8rem para texto más pequeño */
+    }
 }
