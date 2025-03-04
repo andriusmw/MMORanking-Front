@@ -1,5 +1,6 @@
-/* Media Query para pantallas pequeñas (header) */
+/* Media Query para pantallas de hasta 768px (tablets) */
 @media (max-width: 768px) {
+  /* Header */
   header {
     flex-direction: column;
     padding: 0.5rem;
@@ -9,6 +10,7 @@
     width: 100%;
     text-align: center;
     margin-bottom: 0.5rem;
+    font-size: 1.5rem; /* Ajuste para mejor legibilidad */
   }
 
   .header-right {
@@ -31,21 +33,21 @@
 
   .auth a,
   .auth button {
-    padding: 0.3rem 0.8rem; /* Consistent padding */
+    padding: 0.3rem 0.8rem;
     font-size: 0.9rem;
-    width: 100%; /* Ensure full width */
-    display: block; /* Makes them block elements for consistent width */
-    box-sizing: border-box; /* Ensures padding doesn’t add extra width */
-    margin: 0; /* Remove any margins to prevent extra width */
-    background-color: var(--header-bg); /* Match background for consistency */
-    color: var(--text-color); /* Match text color */
-    border: 1px solid var(--border-color); /* Optional: Add border for visual consistency */
-    border-radius: 4px; /* Optional: Add rounded corners for uniformity */
-    text-decoration: none; /* Remove underline from links */
-    cursor: pointer; /* Match cursor for both */
-    text-align: center; /* Center text for consistency */
-    line-height: 1.2; /* Ensure consistent line height for text */
-    min-width: 0; /* Prevent default button min-width from browsers */
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.2;
+    min-width: 0;
   }
 
   .navbar {
@@ -94,51 +96,67 @@
     transform: rotate(-45deg) translate(7px, -7px);
   }
 
-  /* Footer styles for tablets (768px) */
+  /* Formularios */
+  .form-title {
+    font-size: 2.2rem; /* Ajuste inicial para tablets */
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+
+  /* Footer */
   .footer {
-      padding: 0.75rem 1rem;
-      font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
-/* Media Query para pantallas muy pequeñas (mobile) */
-@media (max-width: 480px) {
+/* Media Query para pantallas de hasta 600px (móviles pequeños) */
+@media (max-width: 600px) {
+  /* Header */
+  header {
+    padding: 0.4rem;
+  }
+
   header h1 {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Reducción para pantallas más pequeñas */
+  }
+
+  .header-right {
+    margin-bottom: 0.4rem;
   }
 
   .auth a,
   .auth button {
-    padding: 0.2rem 0.6rem; /* Reduced padding for mobile */
-    font-size: 0.8rem;
-    width: 100%; /* Ensure full width */
-    display: block; /* Makes them block elements for consistent width */
-    box-sizing: border-box; /* Ensures padding doesn’t add extra width */
-    margin: 0; /* Remove any margins to prevent extra width */
-    background-color: var(--header-bg); /* Match background for consistency */
-    color: var(--text-color); /* Match text color */
-    border: 1px solid var(--border-color); /* Optional: Add border for visual consistency */
-    border-radius: 4px; /* Optional: Add rounded corners for uniformity */
-    text-decoration: none; /* Remove underline from links */
-    cursor: pointer; /* Match cursor for both */
-    text-align: center; /* Center text for consistency */
-    line-height: 1.2; /* Ensure consistent line height for text */
-    min-width: 0; /* Prevent default button min-width from browsers */
+    padding: 0.25rem 0.7rem;
+    font-size: 0.85rem;
   }
 
   .nav-list li a {
+    padding: 0.7rem;
     font-size: 1rem;
   }
 
-  /* Footer styles for mobile (480px) */
-  .footer {
-      padding: 0.5rem 0.75rem;
-      font-size: 0.8rem;
+  .burger-menu {
+    scale: 0.9; /* Reducción ligera para mejor ajuste */
   }
-}
 
-/* Media Query para pantallas pequeñas (forms) */
-@media (max-width: 600px) {
+  /* Formularios */
   .form-title {
     font-size: 2rem;
   }
@@ -158,52 +176,72 @@
     padding: 10px;
   }
 
-  /* Footer styles for smaller screens (600px) - optional, but included for consistency */
+  /* Footer */
   .footer {
-      padding: 0.75rem 1rem; /* Slightly more padding for 600px screens than 480px */
-      font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
+/* Media Query para pantallas de hasta 480px (móviles muy pequeños) */
+@media (max-width: 480px) {
+  /* Header */
+  header {
+    padding: 0.3rem;
+  }
 
+  header h1 {
+    font-size: 1.2rem;
+  }
 
+  .header-right {
+    margin-bottom: 0.3rem;
+  }
 
+  .auth a,
+  .auth button {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
 
+  .nav-list li a {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
 
+  .burger-menu {
+    scale: 0.85; /* Reducción adicional */
+  }
 
+  /* Formularios */
+  .form-title {
+    font-size: 1.8rem;
+  }
 
+  .form-container {
+    padding: 10px;
+  }
 
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-size: 0.85rem;
+  }
 
-/*------------------------Apart styles for footer ----------------------*/
+  .submit-button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
 
-
-
-
-
-
-/* Footer styles for tablets (768px) */
-.footer {
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  box-sizing: border-box; /* Ensures padding doesn’t exceed 100% width */
-  max-width: 100vw; /* Prevents footer from exceeding viewport width */
-  overflow-x: hidden; /* Hides any horizontal overflow */
-}
-
-/* Footer styles for mobile (480px) */
-.footer {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
-  box-sizing: border-box; /* Ensures padding doesn’t exceed 100% width */
-  max-width: 100vw; /* Prevents footer from exceeding viewport width */
-  overflow-x: hidden; /* Hides any horizontal overflow */
-}
-
-/* Footer styles for smaller screens (600px) */
-.footer {
-  padding: 0.75rem 1rem; /* Slightly more padding for 600px screens than 480px */
-  font-size: 0.9rem;
-  box-sizing: border-box; /* Ensures padding doesn’t exceed 100% width */
-  max-width: 100vw; /* Prevents footer from exceeding viewport width */
-  overflow-x: hidden; /* Hides any horizontal overflow */
+  /* Footer */
+  .footer {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
