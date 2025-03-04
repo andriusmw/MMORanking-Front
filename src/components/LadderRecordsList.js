@@ -45,6 +45,53 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Hook personalizado para obtener registros del backend cuando appliedFilters cambia
   const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters, token);
 
+
+  // Detectar cambios en el tamaño de la pantalla
+function updateHeaderText() {
+  const headers = document.querySelectorAll('.ladder-table thead th');
+  const isMobile = window.innerWidth <= 768;
+
+  headers.forEach((header, index) => {
+      if (isMobile) {
+          // Cambiar el texto a abreviaturas
+          switch (index) {
+              case 0: header.textContent = 'RK'; break; // Rank
+              case 1: header.textContent = 'CN'; break; // Char.Name
+              case 2: header.textContent = 'CL'; break; // Class
+              case 3: header.textContent = 'SP'; break; // Spec
+              case 4: header.textContent = 'DN'; break; // Dungeon Name
+              case 5: header.textContent = 'DF'; break; // Difficulty
+              case 6: header.textContent = 'SN'; break; // Season
+              case 7: header.textContent = 'TM'; break; // Time
+              case 8: header.textContent = 'PL'; break; // Players
+              case 9: header.textContent = 'SV'; break; // Server
+              case 10: header.textContent = 'DT'; break; // Details
+              default: break;
+          }
+      } else {
+          // Restaurar el texto original (debes almacenarlo o definirlo en tu HTML/JS)
+          switch (index) {
+              case 0: header.textContent = 'Rank'; break;
+              case 1: header.textContent = 'Char.Name'; break;
+              case 2: header.textContent = 'Class'; break;
+              case 3: header.textContent = 'Spec'; break;
+              case 4: header.textContent = 'Dungeon'; break;
+              case 5: header.textContent = 'Difficulty'; break;
+              case 6: header.textContent = 'Season'; break;
+              case 7: header.textContent = 'Time'; break;
+              case 8: header.textContent = 'Players'; break;
+              case 9: header.textContent = 'Server'; break;
+              case 10: header.textContent = 'Details'; break;
+              default: break;
+          }
+      }
+  });
+}
+
+// Llamar a la función al cargar la página y al redimensionar la ventana
+window.addEventListener('load', updateHeaderText);
+window.addEventListener('resize', updateHeaderText);
+
   // Actualiza cachedRecords cuando se obtienen nuevos datos del servidor
   useEffect(() => {
     if (useLocalData && fetchedRecords && fetchedRecords.length >= 0) {

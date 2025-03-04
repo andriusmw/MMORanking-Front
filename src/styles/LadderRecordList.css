@@ -304,31 +304,31 @@
 /* Responsive header abbreviations (2 initials) for smaller screens */
 @media (max-width: 768px) {
     /* Hide full header text completely, show only abbreviations */
-    .ladder-table thead th {
+  /*  .ladder-table thead th {
         overflow: hidden;
         text-indent: -9999px; /* Hide full text visually */
     }
 
     /* Map full header names to 2-initial abbreviations */
-    .ladder-table thead th:nth-child(1):after { content: "RK"; } /* Rank */
-    .ladder-table thead th:nth-child(2):after { content: "CN"; } /* Char.Name */
-    .ladder-table thead th:nth-child(3):after { content: "CL"; } /* Class */
-    .ladder-table thead th:nth-child(4):after { content: "SP"; } /* Spec */
-    .ladder-table thead th:nth-child(5):after { content: "DN"; } /* Dungeon Name */
-    .ladder-table thead th:nth-child(6):after { content: "DF"; } /* Difficulty */
-    .ladder-table thead th:nth-child(7):after { content: "SN"; } /* Season */
-    .ladder-table thead th:nth-child(8):after { content: "TM"; } /* Time */
-    .ladder-table thead th:nth-child(9):after { content: "PL"; } /* Players */
-    .ladder-table thead th:nth-child(10):after { content: "SV"; } /* Server */
-    .ladder-table thead th:nth-child(11):after { content: "DT"; } /* Details */
+/*    .ladder-table thead th:nth-child(1):after { content: "RK"; } /* Rank */
+ /*   .ladder-table thead th:nth-child(2):after { content: "CN"; } /* Char.Name */
+ /*    .ladder-table thead th:nth-child(3):after { content: "CL"; } /* Class */
+ /*    .ladder-table thead th:nth-child(4):after { content: "SP"; } /* Spec */
+ /*    .ladder-table thead th:nth-child(5):after { content: "DN"; } /* Dungeon Name */
+  /*   .ladder-table thead th:nth-child(6):after { content: "DF"; } /* Difficulty */
+ /*    .ladder-table thead th:nth-child(7):after { content: "SN"; } /* Season */
+  /*   .ladder-table thead th:nth-child(8):after { content: "TM"; } /* Time */
+ /*    .ladder-table thead th:nth-child(9):after { content: "PL"; } /* Players */
+  /*   .ladder-table thead th:nth-child(10):after { content: "SV"; } /* Server */
+  /*   .ladder-table thead th:nth-child(11):after { content: "DT"; } /* Details */
 
-    .ladder-table thead th:after {
+  /*   .ladder-table thead th:after {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         font-weight: bold;
         text-indent: 0; /* Reset text-indent for abbreviations */
-    }
+  /*   }
 }
 
 /* Style for filter dropdowns and inputs (optional, to match table design) */
