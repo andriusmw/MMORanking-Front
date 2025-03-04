@@ -1,0 +1,174 @@
+@import url('./variables.css');
+
+/* Table container for better spacing and responsiveness */
+.ladder-table {
+    width: 100%; /* Full width by default on all screens */
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--form-color); /* Consistent background for the table */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Large screens: Limit table width to 900px and center it with side margins */
+@media (min-width: 1024px) {
+    .ladder-table {
+        max-width: 900px; /* Standard width for desktop */
+        margin: 0 auto; /* Center the table horizontally with side margins */
+    }
+}
+
+/* Tablets and Mobile: Full width, no side margins */
+@media (max-width: 1023px) {
+    .ladder-table {
+        max-width: 100%; /* Full width, no side margins */
+        margin: 0; /* Remove margins to stretch the table */
+    }
+}
+
+/* Table headers (red background, black text) */
+.ladder-table thead th {
+    background-color: var(--error-color); /* Using error-color (red) for headers */
+    color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+    padding: 4px; /* Reduced padding for compactness */
+    text-align: center;
+    font-weight: bold;
+    /* border-bottom: 2px solid var(--border-color); Optional: Add border for separation */
+}
+
+/* Table data cells (white background, black text) */
+.ladder-table tbody td {
+    background-color: var(--secondary-color); /* White background (assuming secondary-color is white or light) */
+    color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
+    padding: 6px; /* Reduced padding for compactness */
+    border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
+    text-align: left;
+}
+
+/* Default: No truncation or wrapping for data cells on large screens */
+.ladder-table tbody td {
+    max-width: none; /* No truncation by default on larger screens */
+    overflow: visible; /* Show full content */
+    white-space: normal; /* Allow wrapping */
+    word-break: normal; /* Default word breaking */
+}
+
+/* Adjust wrapping for data cells on smaller screens, except for Rank and Time */
+@media (max-width: 768px) {
+    .ladder-table tbody td:not(.rank-cell):not(.time-cell) {
+        max-width: 100%; /* Allow full width on tablets and mobile */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping onto new lines */
+        word-break: break-all; /* Force wrapping of long words, including single words */
+    }
+
+    /* Ensure Rank and Time cells show full content on tablets */
+    .ladder-table tbody .rank-cell,
+    .ladder-table tbody .time-cell {
+        max-width: none; /* No truncation */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping if needed */
+        word-break: break-all; /* Allow wrapping for very long values if necessary */
+    }
+
+    .ladder-table thead th {
+        padding: 2px; /* Further reduce padding on tablets */
+        font-size: 0.8rem;
+        width: 30px; /* Fixed width for abbreviations */
+    }
+}
+
+@media (max-width: 480px) {
+    .ladder-table tbody td:not(.rank-cell):not(.time-cell) {
+        max-width: 100%; /* Allow full width on mobile */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping onto new lines */
+        word-break: break-all; /* Force wrapping of long words, including single words */
+        padding: 4px; /* Further reduce padding on mobile */
+    }
+
+    /* Ensure Rank and Time are still legible on mobile */
+    .ladder-table tbody .rank-cell,
+    .ladder-table tbody .time-cell {
+        max-width: none; /* No truncation */
+        overflow: visible; /* Show full content */
+        white-space: normal; /* Allow wrapping if needed */
+        word-break: break-all; /* Allow wrapping for very long values if necessary */
+        padding: 4px; /* Further reduce padding on mobile */
+        font-size: 1rem; /* Slightly larger for readability */
+    }
+
+    .ladder-table thead th {
+        padding: 2px; /* Further reduce padding on mobile */
+        font-size: 0.7rem;
+        width: 25px; /* Slightly smaller width for mobile */
+    }
+
+    .ladder-table tbody td {
+        padding: 4px; /* Further reduce padding on mobile */
+        font-size: 0.9rem;
+    }
+
+    /* Fix filter indicators (arrows) on mobile */
+    .ladder-table thead th:after {
+        content: attr(data-sort); /* Use data-sort for arrows */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50%;
+        font-weight: bold;
+        font-size: 0.6rem; /* Smaller font size for arrows on mobile */
+    }
+
+    .ladder-table thead th {
+        position: relative;
+        overflow: visible; /* Ensure arrows are visible */
+    }
+}
+
+/* Responsive header abbreviations (2 initials) for smaller screens */
+@media (max-width: 768px) {
+    /* Hide full header text completely, show only abbreviations */
+    .ladder-table thead th {
+        overflow: hidden;
+        text-indent: -9999px; /* Hide full text visually */
+    }
+
+    /* Map full header names to 2-initial abbreviations */
+    .ladder-table thead th:nth-child(1):after { content: "RK"; } /* Rank */
+    .ladder-table thead th:nth-child(2):after { content: "CN"; } /* Char.Name */
+    .ladder-table thead th:nth-child(3):after { content: "CL"; } /* Class */
+    .ladder-table thead th:nth-child(4):after { content: "SP"; } /* Spec */
+    .ladder-table thead th:nth-child(5):after { content: "DN"; } /* Dungeon Name */
+    .ladder-table thead th:nth-child(6):after { content: "DF"; } /* Difficulty */
+    .ladder-table thead th:nth-child(7):after { content: "SN"; } /* Season */
+    .ladder-table thead th:nth-child(8):after { content: "TM"; } /* Time */
+    .ladder-table thead th:nth-child(9):after { content: "PL"; } /* Players */
+    .ladder-table thead th:nth-child(10):after { content: "SV"; } /* Server */
+    .ladder-table thead th:nth-child(11):after { content: "DT"; } /* Details */
+
+    .ladder-table thead th:after {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: bold;
+        text-indent: 0; /* Reset text-indent for abbreviations */
+    }
+}
+
+/* Style for filter dropdowns and inputs (optional, to match table design) */
+.ladder-table select,
+.ladder-table input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: var(--secondary-color); /* White background for inputs */
+    color: var(--text-color); /* Black text for inputs */
+}
+
+/* Ensure the table fits within its container and doesn’t overflow */
+.ladder-table {
+    overflow-x: auto; /* Horizontal scrolling if content overflows on small screens */
+}

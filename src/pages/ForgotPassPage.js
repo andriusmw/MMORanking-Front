@@ -87,7 +87,7 @@ export const ForgotPassPage = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify({ userId: userId , email: email})
+                    body: JSON.stringify({ email: email})
                 });
             } catch (error) {
                 console.error("Failed to lock account:", error);

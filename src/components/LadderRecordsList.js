@@ -2,9 +2,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import useLadderRecords from "../hooks/useLadderRecords";
 import CharacterRankFilter from "./CharacterRankFilter"; // Ajusta la ruta según tu estructura
-
 import { AuthContext } from "../context/AuthContext"; // Ajusta la ruta según tu estructura
-
 
 // Componente que muestra una lista paginada de registros con filtros seleccionables
 export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
@@ -67,9 +65,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Opciones disponibles para cada filtro en los desplegables
   const filterOptions = {
     dungeon_name: [
-      "select", "Fungal Folly", "Kriegval's Rest", "The Waterworks", "The Dread Pit", "Mycomancer Cavern", "Skittering Breach",
-      "The Sinkhole", "Nightfall Sanctum", "The Underkeep", "The Spiral Weave", "Zekvir's Lair", "Tak-Rethan Abyss",
-      "Sidestreet Sluice", "Excavation Site 9", "Ara-Kara, City of Echoes", "City of Threads", "Grim Batol",
+      "Ara-Kara, City of Echoes", "City of Threads", "Grim Batol",
       "Mists of Tirna Scithe", "Siege of Boralus", "The Dawnbreaker", "The Necrotic Wake", "The Stonevault",
       "Cinderbrew Meadery", "Darkflame Cleft", "The Rookery", "Priory of the Sacred Flame", "The MOTHERLODE!!",
       "Theater of Pain", "Operation: Mechagon - Workshop", "Operation: Floodgate"
@@ -178,7 +174,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     setCurrentPage(newPage); // Actualiza la página actual
   };
 
-  // Mapeo de nombres de columnas a etiquetas visibles en la tabla
+  // Mapeo de nombres de columnas a etiquetas visibles en la tabla (usado para headers y abreviaturas)
   const columnMap = {
     character_name: "Char.Name",
     class1: "Class",
@@ -191,6 +187,19 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     server: "Server",
   };
 
+  // Mapeo para abreviaturas de 2 iniciales en pantallas pequeñas
+  const columnAbbreviations = {
+    "Char.Name": "CN",
+    "Class": "CL",
+    "Spec": "SP",
+    "Dungeon Name": "DN",
+    "Difficulty": "DF",
+    "Season": "SN",
+    "Time": "TM",
+    "Players": "PL",
+    "Server": "SV",
+  };
+
   // Muestra mensajes de carga o error si corresponde
   if (loading && useLocalData) return <p>Loading...</p>;
   if (error && useLocalData) return <p>Error: {error}</p>;
@@ -199,15 +208,19 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
     <>
     {user ? (  
       <div>
-      <table>
+      <table className="ladder-table">
         <thead>
-          <tr><th>Rank</th>{Object.keys(columnMap).map((column) => (
+          <tr>
+            <th>Rank</th>
+            {Object.keys(columnMap).map((column) => (
               <th
                 key={column}
+                data-label={columnMap[column]} /* Store full label for accessibility */
                 onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
                 style={{ cursor: filterOptions[column] || column === "server" ? "pointer" : "default", position: "relative" }}
               >
-                {columnMap[column]} {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
+                {columnMap[column]}
+                {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
                 {openDropdown === column && (
                   <>
                     {column === "server" ? (
@@ -250,27 +263,33 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                   </>
                 )}
               </th>
-            ))}<th>Details</th></tr>
-          <tr><th style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}></th>{Object.keys(columnMap).map((column) => (
+            ))}
+            <th>Details</th>
+          </tr>
+          <tr>
+            <th style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}></th>
+            {Object.keys(columnMap).map((column) => (
               <th key={column} style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}>
-                {column === "character_name" || column === "time" ? "" : (filters[column] || "select")} {/* No muestra "select" para character_name y time */}
+                {column === "character_name" || column === "time" ? "" : (filters[column] || "select")}
               </th>
-            ))}<th></th></tr>
+            ))}
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {currentRecords.length ? (
             currentRecords.map((record, index) => (
               <tr key={record.id}>
-                <td>{indexOfFirstRecord + index + 1}</td>
-                <td>{record.character_name}</td>
-                <td>{record.class1}</td>
-                <td>{record.class2}</td>
-                <td>{record.dungeon_name}</td>
-                <td>{record.difficulty}</td>
-                <td>{record.season}</td>
-                <td>{record.time}</td>
-                <td>{record.num_players}</td>
-                <td>{record.server}</td>
+                <td className="rank-cell">{indexOfFirstRecord + index + 1}</td>
+                <td className={columnMap.character_name === "Char.Name" ? "truncate-cell" : "rank-cell"}>{record.character_name}</td>
+                <td className="truncate-cell">{record.class1}</td>
+                <td className="truncate-cell">{record.class2}</td>
+                <td className="truncate-cell">{record.dungeon_name}</td>
+                <td className="truncate-cell">{record.difficulty}</td>
+                <td className="truncate-cell">{record.season}</td>
+                <td className="time-cell">{record.time}</td>
+                <td className="truncate-cell">{record.num_players}</td>
+                <td className="truncate-cell">{record.server}</td>
                 <td>
                   <Link to={`/record/${record.id}`}>+</Link>
                 </td>
@@ -317,17 +336,17 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       </div>
 
       {isLoading && ( //Spinner
-              <div className="spinner-overlay">
-                 <div className="spinner"></div>
-             </div>
-            )}
-
-
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
 
       {/* Añade el componente hijo, pasando los resultados de la búsqueda */}
       <CharacterRankFilter ladderRecords={recordsToDisplay} />
-    </div>) : (<p>You need to log in to use this feature</p>)}
-  
+    </div>
+    ) : (
+      <p>You need to log in to use this feature</p>
+    )}
     </>
   );
 };

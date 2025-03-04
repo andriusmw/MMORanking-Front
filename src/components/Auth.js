@@ -10,7 +10,7 @@ export const Auth = () => {
             {user ? (
                 <>
                     <span>Welcome, <Link to="/profile">{user?.user?.name || "User"}</Link></span>
-                    <button onClick={() => logout()}>Logout</button>
+                    <button id="logout" onClick={() => logout()}>Logout</button>
                 </>
             ) : (
                 <ul className="auth-list">

@@ -64,6 +64,10 @@ header {
   .auth button:hover {
     background-color: var(--hover-blue);
   }
+
+  #logout {
+    max-width: 40%;
+  }
   
   .auth-list {
     list-style: none;
