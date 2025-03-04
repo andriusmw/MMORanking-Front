@@ -30,7 +30,8 @@ export const NewsList = () => {
               
               </span>
             <span className="news-card-date">
-            {newItem.created_at} by {newItem.user_name}
+            {new Date(newItem.created_at).toLocaleDateString()} by {newItem.user_name}
+          
             </span>
             </section>
 

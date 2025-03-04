@@ -24,7 +24,9 @@ export const HomeNews = ({ latestNews }) => {
               ) : null}
             </section>
             <p>{newItem.preview}</p>
-            <p>{newItem.created_at} by {newItem.user_name}</p>
+           
+            <p>{new Date(newItem.created_at).toLocaleDateString()} by {newItem.user_name}</p>
+      
           </div>
         ))}
       </div>

@@ -42,7 +42,8 @@ export const SingleArticle = ({ article }) => {
                 />
             ) : null}
 
-            <p className="metadata">{article.created_at} by {article.user_name}</p>
+           
+            <p className="metadata">{new Date(article.created_at).toLocaleDateString()} by {article.user_name}</p>
          
             {/*LOAD DELETE BUTTON */}
             {user?.user && (user?.user?.role === "admin" || user?.user?.role === "mod") ? (
