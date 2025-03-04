@@ -6,7 +6,6 @@ import { AuthContext } from "../context/AuthContext"; // Ajusta la ruta según t
 
 // Componente que muestra una lista paginada de registros con filtros seleccionables
 export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
-  
   // Obtiene el usuario logueado desde el AuthContext
   const { user } = useContext(AuthContext);
   const { token } = useContext(AuthContext);
@@ -39,58 +38,26 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Estado para la página actual en la paginación
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Estado para los textos de los encabezados
+  const [headerTexts, setHeaderTexts] = useState({
+    0: "Rank",
+    1: "Char.Name",
+    2: "Class",
+    3: "Spec",
+    4: "Dungeon",
+    5: "Difficulty",
+    6: "Season",
+    7: "Time",
+    8: "Players",
+    9: "Server",
+    10: "Details",
+  });
+
   // Constante que define cuántos registros se muestran por página
   const recordsPerPage = 10;
 
   // Hook personalizado para obtener registros del backend cuando appliedFilters cambia
   const { ladderRecords: fetchedRecords, loading, error } = useLadderRecords(appliedFilters, token);
-
-
-  // Detectar cambios en el tamaño de la pantalla
-function updateHeaderText() {
-  const headers = document.querySelectorAll('.ladder-table thead th');
-  const isMobile = window.innerWidth <= 768;
-
-  headers.forEach((header, index) => {
-      if (isMobile) {
-          // Cambiar el texto a abreviaturas
-          switch (index) {
-              case 0: header.textContent = 'RK'; break; // Rank
-              case 1: header.textContent = 'CN'; break; // Char.Name
-              case 2: header.textContent = 'CL'; break; // Class
-              case 3: header.textContent = 'SP'; break; // Spec
-              case 4: header.textContent = 'DN'; break; // Dungeon Name
-              case 5: header.textContent = 'DF'; break; // Difficulty
-              case 6: header.textContent = 'SN'; break; // Season
-              case 7: header.textContent = 'TM'; break; // Time
-              case 8: header.textContent = 'PL'; break; // Players
-              case 9: header.textContent = 'SV'; break; // Server
-              case 10: header.textContent = 'DT'; break; // Details
-              default: break;
-          }
-      } else {
-          // Restaurar el texto original (debes almacenarlo o definirlo en tu HTML/JS)
-          switch (index) {
-              case 0: header.textContent = 'Rank'; break;
-              case 1: header.textContent = 'Char.Name'; break;
-              case 2: header.textContent = 'Class'; break;
-              case 3: header.textContent = 'Spec'; break;
-              case 4: header.textContent = 'Dungeon'; break;
-              case 5: header.textContent = 'Difficulty'; break;
-              case 6: header.textContent = 'Season'; break;
-              case 7: header.textContent = 'Time'; break;
-              case 8: header.textContent = 'Players'; break;
-              case 9: header.textContent = 'Server'; break;
-              case 10: header.textContent = 'Details'; break;
-              default: break;
-          }
-      }
-  });
-}
-
-// Llamar a la función al cargar la página y al redimensionar la ventana
-window.addEventListener('load', updateHeaderText);
-window.addEventListener('resize', updateHeaderText);
 
   // Actualiza cachedRecords cuando se obtienen nuevos datos del servidor
   useEffect(() => {
@@ -135,6 +102,28 @@ window.addEventListener('resize', updateHeaderText);
   // Referencia para el input de "server" para detectar clics fuera de él
   const serverInputRef = useRef(null);
 
+  //----------------------------------------------FUNCTIONS -------------------------------------------------------------------------
+
+  //---------------------------------------------------------------------------------------------------------------------------------
+
+  const updateHeaderText = () => {
+    const isMobile = window.innerWidth <= 768;
+    setHeaderTexts((prev) => ({
+      ...prev,
+      0: isMobile ? "RK" : "Rank",
+      1: isMobile ? "CN" : "Char.Name",
+      2: isMobile ? "CL" : "Class",
+      3: isMobile ? "SP" : "Spec",
+      4: isMobile ? "DN" : "Dungeon",
+      5: isMobile ? "DF" : "Difficulty",
+      6: isMobile ? "SN" : "Season",
+      7: isMobile ? "TM" : "Time",
+      8: isMobile ? "PL" : "Players",
+      9: isMobile ? "SV" : "Server",
+      10: isMobile ? "DT" : "Details",
+    }));
+  };
+
   // Configura un listener para cerrar el input de "server" al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -155,7 +144,7 @@ window.addEventListener('resize', updateHeaderText);
   // Actualiza el filtro seleccionado desde un <select> y cierra el desplegable
   const handleFilterChange = (column, value) => {
     // Convierte "select" a null para campos obligatorios, usa el valor directamente para otros
-    const newValue = value === "select" && (column === "dungeon_name" || column === "difficulty" || column === "season" || column === "num_players" ) ? null : value;
+    const newValue = value === "select" && (column === "dungeon_name" || column === "difficulty" || column === "season" || column === "num_players") ? null : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
       [column]: newValue, // Actualiza el filtro correspondiente
@@ -174,8 +163,8 @@ window.addEventListener('resize', updateHeaderText);
   // Inicia una búsqueda con los filtros seleccionados, validando campos obligatorios
   const handleSearch = () => {
     // Valida que los campos obligatorios tengan valores seleccionados
-    setIsLoading(true)
-    if (!filters.dungeon_name || !filters.difficulty || !filters.season || !filters.num_players ) {
+    setIsLoading(true);
+    if (!filters.dungeon_name || !filters.difficulty || !filters.season || !filters.num_players) {
       setIsLoading(false);
       alert("Please select a value for Dungeon Name, Difficulty, Season and Players.");
       return;
@@ -195,7 +184,7 @@ window.addEventListener('resize', updateHeaderText);
     setUseLocalData(true); // Indica que se usarán datos filtrados
     setOpenDropdown(null); // Cierra cualquier desplegable/input
     setCachedRecords([]); // Reinicia el caché para nuevos datos
-    setIsLoading(false); 
+    setIsLoading(false);
   };
 
   // Limpia todos los filtros y restablece el estado inicial
@@ -235,7 +224,7 @@ window.addEventListener('resize', updateHeaderText);
   };
 
   // Mapeo para abreviaturas de 2 iniciales en pantallas pequeñas
-  const columnAbbreviations = {
+/*  const columnAbbreviations = {
     "Char.Name": "CN",
     "Class": "CL",
     "Spec": "SP",
@@ -245,7 +234,22 @@ window.addEventListener('resize', updateHeaderText);
     "Time": "TM",
     "Players": "PL",
     "Server": "SV",
-  };
+  };*/
+
+  // Función para actualizar dinámicamente el texto de los encabezados al montar y redimensionar
+  useEffect(() => {
+    // Llamar a la función inicialmente y al redimensionar la ventana
+    updateHeaderText();
+    window.addEventListener('resize', updateHeaderText);
+
+    // Limpia el listener al desmontar el componente
+    return () => window.removeEventListener('resize', updateHeaderText);
+  }, []); // El array vacío asegura que solo se ejecute al montar y desmontar
+
+  // Actualiza los encabezados cuando cambian los datos mostrados
+  useEffect(() => {
+    updateHeaderText();
+  }, [recordsToDisplay]);
 
   // Muestra mensajes de carga o error si corresponde
   if (loading && useLocalData) return <p>Loading...</p>;
@@ -253,147 +257,147 @@ window.addEventListener('resize', updateHeaderText);
 
   return (
     <>
-    {user ? (  
-      <div>
-      <table className="ladder-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            {Object.keys(columnMap).map((column) => (
-              <th
-                key={column}
-                data-label={columnMap[column]} /* Store full label for accessibility */
-                onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
-                style={{ cursor: filterOptions[column] || column === "server" ? "pointer" : "default", position: "relative" }}
-              >
-                {columnMap[column]}
-                {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
-                {openDropdown === column && (
-                  <>
-                    {column === "server" ? (
-                      <input
-                        ref={serverInputRef}
-                        type="text"
-                        value={filters.server}
-                        onChange={handleServerInputChange}
-                        onClick={(e) => e.stopPropagation()}
-                        placeholder="write"
-                        style={{
-                          position: "absolute",
-                          top: "100%",
-                          left: 0,
-                          zIndex: 10,
-                          width: "150px",
-                        }}
-                      />
-                    ) : (
-                      filterOptions[column] && (
-                        <select
-                          value={filters[column] || "select"}
-                          onChange={(e) => handleFilterChange(column, e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            position: "absolute",
-                            top: "100%",
-                            left: 0,
-                            zIndex: 10,
-                          }}
-                        >
-                          {filterOptions[column].map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      )
+      {user ? (
+        <div>
+          <table className="ladder-table">
+            <thead>
+              <tr>
+                <th>{headerTexts[0]}</th>
+                {Object.keys(columnMap).map((column, index) => (
+                  <th
+                    key={column}
+                    data-label={columnMap[column]} /* Almacena la etiqueta completa para accesibilidad */
+                    onClick={() => (filterOptions[column] || column === "server") && handleHeaderClick(column)}
+                    style={{ cursor: filterOptions[column] || column === "server" ? "pointer" : "default", position: "relative" }}
+                  >
+                    {headerTexts[index + 1]}
+                    {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
+                    {openDropdown === column && (
+                      <>
+                        {column === "server" ? (
+                          <input
+                            ref={serverInputRef}
+                            type="text"
+                            value={filters.server}
+                            onChange={handleServerInputChange}
+                            onClick={(e) => e.stopPropagation()}
+                            placeholder="write"
+                            style={{
+                              position: "absolute",
+                              top: "100%",
+                              left: 0,
+                              zIndex: 10,
+                              width: "150px",
+                            }}
+                          />
+                        ) : (
+                          filterOptions[column] && (
+                            <select
+                              value={filters[column] || "select"}
+                              onChange={(e) => handleFilterChange(column, e.target.value)}
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                position: "absolute",
+                                top: "100%",
+                                left: 0,
+                                zIndex: 10,
+                              }}
+                            >
+                              {filterOptions[column].map((option) => (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              ))}
+                            </select>
+                          )
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-              </th>
-            ))}
-            <th>Details</th>
-          </tr>
-          <tr>
-            <th style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}></th>
-            {Object.keys(columnMap).map((column) => (
-              <th key={column} style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}>
-                {column === "character_name" || column === "time" ? "" : (filters[column] || "select")}
-              </th>
-            ))}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRecords.length ? (
-            currentRecords.map((record, index) => (
-              <tr key={record.id}>
-                <td className="rank-cell">{indexOfFirstRecord + index + 1}</td>
-                <td className={columnMap.character_name === "Char.Name" ? "truncate-cell" : "rank-cell"}>{record.character_name}</td>
-                <td className="truncate-cell">{record.class1}</td>
-                <td className="truncate-cell">{record.class2}</td>
-                <td className="truncate-cell">{record.dungeon_name}</td>
-                <td className="truncate-cell">{record.difficulty}</td>
-                <td className="truncate-cell">{record.season}</td>
-                <td className="time-cell">{record.time}</td>
-                <td className="truncate-cell">{record.num_players}</td>
-                <td className="truncate-cell">{record.server}</td>
-                <td>
-                  <Link to={`/record/${record.id}`}>+</Link>
-                </td>
+                  </th>
+                ))}
+                <th>{headerTexts[10]}</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={Object.keys(columnMap).length + 2}>
-                {useLocalData ? "There are no records" : "Select a filter option and click on search to load the ladder"}
-              </td>
-            </tr>
+              <tr>
+                <th style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}></th>
+                {Object.keys(columnMap).map((column) => (
+                  <th key={column} style={{ fontWeight: "normal", fontSize: "0.9em", color: "#666" }}>
+                    {column === "character_name" || column === "time" ? "" : (filters[column] || "select")}
+                  </th>
+                ))}
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentRecords.length ? (
+                currentRecords.map((record, index) => (
+                  <tr key={record.id}>
+                    <td className="rank-cell">{indexOfFirstRecord + index + 1}</td>
+                    <td className={columnMap.character_name === "Char.Name" ? "truncate-cell" : "rank-cell"}>{record.character_name}</td>
+                    <td className="truncate-cell">{record.class1}</td>
+                    <td className="truncate-cell">{record.class2}</td>
+                    <td className="truncate-cell">{record.dungeon_name}</td>
+                    <td className="truncate-cell">{record.difficulty}</td>
+                    <td className="truncate-cell">{record.season}</td>
+                    <td className="time-cell">{record.time}</td>
+                    <td className="truncate-cell">{record.num_players}</td>
+                    <td className="truncate-cell">{record.server}</td>
+                    <td>
+                      <Link to={`/record/${record.id}`}>+</Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={Object.keys(columnMap).length + 2}>
+                    {useLocalData ? "There are no records" : "Select a filter option and click on search to load the ladder"}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          {recordsToDisplay.length > 0 && (
+            <div style={{ marginTop: "10px" }}>
+              <p>Total of Results: {recordsToDisplay.length}</p>
+              <div>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  style={{ marginRight: "10px" }}
+                >
+                  Anterior
+                </button>
+                <span>Página {currentPage} de {totalPages}</span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
           )}
-        </tbody>
-      </table>
-      {recordsToDisplay.length > 0 && (
-        <div style={{ marginTop: "10px" }}>
-          <p>Total of Results: {recordsToDisplay.length}</p>
-          <div>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              style={{ marginRight: "10px" }}
-            >
-              Anterior
+          <div style={{ marginTop: "10px" }}>
+            <button onClick={handleSearch} style={{ marginRight: "10px" }}>
+              Buscar
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              style={{ marginLeft: "10px" }}
-            >
-              Siguiente
+            <button onClick={handleClearFilters}>
+              Limpiar
             </button>
           </div>
-        </div>
-      )}
-      <div style={{ marginTop: "10px" }}>
-        <button onClick={handleSearch} style={{ marginRight: "10px" }}>
-          Buscar
-        </button>
-        <button onClick={handleClearFilters}>
-          Limpiar
-        </button>
-      </div>
 
-      {isLoading && ( //Spinner
-        <div className="spinner-overlay">
-          <div className="spinner"></div>
-        </div>
-      )}
+          {isLoading && ( //Spinner
+            <div className="spinner-overlay">
+              <div className="spinner"></div>
+            </div>
+          )}
 
-      {/* Añade el componente hijo, pasando los resultados de la búsqueda */}
-      <CharacterRankFilter ladderRecords={recordsToDisplay} />
-    </div>
-    ) : (
-      <p>You need to log in to use this feature</p>
-    )}
+          {/* Añade el componente hijo, pasando los resultados de la búsqueda */}
+          <CharacterRankFilter ladderRecords={recordsToDisplay} />
+        </div>
+      ) : (
+        <p>You need to log in to use this feature</p>
+      )}
     </>
   );
 };
