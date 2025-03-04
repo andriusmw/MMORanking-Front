@@ -94,7 +94,7 @@ const CharacterRankFilter = ({ ladderRecords }) => {
         <div style={{ marginTop: "10px" }}>
          
 
-        <table>
+        <table class="ladder-table">
             <thead>
                 <tr>
                     <th>

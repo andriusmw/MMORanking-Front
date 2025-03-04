@@ -3,19 +3,17 @@ import { Link } from "react-router-dom";
 
 export const RecordList = ({ records }) => {
   return records.length ? (
-    <table>
+    <table class="ladder-table">
       <thead>
         <tr>
-          <th>Character Name</th>
+          <th>Char.Name</th>
           <th>Class</th>
-          <th>Dungeon Name</th>
+          <th>Dungeon</th>
           <th>Difficulty</th>
-          <th>Season</th>
           <th>time</th>
-          <th>Num.Players</th>
+          <th>Players</th>
           <th>Server</th>
           <th>Date</th>
-          <th>status</th>
           <th>Details</th>
      
         </tr>
@@ -27,12 +25,11 @@ export const RecordList = ({ records }) => {
             <td>{record.class1}</td>
             <td>{record.dungeon_name}</td>
             <td>{record.difficulty}</td>
-            <td>{record.season}</td>
+          
             <td>{record.time}</td>
             <td>{record.num_players}</td>
             <td>{record.server}</td>
-            <td>{new Date(record.Date_completed).toLocaleString()}</td>
-            <td>{record.status}</td>
+            <td>{new Date(record.Date_completed).toLocaleDateString()}</td>
             <td><Link to={`/record/${record.id}`}>+</Link></td>
           </tr>
         ))}
