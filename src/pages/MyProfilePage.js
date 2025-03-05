@@ -14,7 +14,7 @@ export const ProfilePage = () => {
   const { token, user, setUser, logout } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false); // Controla la visibilidad del modal
+  const [visible, setVisible] = useState(false);
   const [sending, setSending] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -25,13 +25,11 @@ export const ProfilePage = () => {
   const [previewPhoto, setPreviewPhoto] = useState("");
   const [characters, setCharacters] = useState(user?.characters || []);
 
-  // Función para sincronizar personajes
   const redirectBack = async () => {
     const url = "https://localhost:3000/123";
     window.open(url, "_blank");
   };
 
-  // Función para editar datos del usuario
   const EditEntry = async (e) => {
     e.preventDefault();
     let idUser = user?.user?.id;
@@ -41,9 +39,16 @@ export const ProfilePage = () => {
       const data = new FormData();
       data.append("name", userName);
       data.append("email", userEmail);
+
+      // Si hay una nueva imagen, agregar la imagen y la referencia a la anterior
       if (imageInputRef.current.files[0]) {
         data.append("image", imageInputRef.current.files[0]);
+        // Enviar la referencia a la imagen anterior para que el backend la elimine
+        if (user?.user?.avatar) {
+          data.append("oldAvatar", user.user.avatar); // Enviar el nombre/ruta del avatar anterior
+        }
       }
+
       data.append("bio", biography);
       data.append("region", region);
       data.append("wl_username", wlUsername);
@@ -68,7 +73,7 @@ export const ProfilePage = () => {
       }
 
       setError("");
-      setVisible(false); // Cierra el modal tras el éxito
+      setVisible(false);
       swal("Success", "Your profile has been updated!", "success");
     } catch (error) {
       swal("Error", `${error.message}`, "error");
@@ -78,14 +83,12 @@ export const ProfilePage = () => {
     }
   };
 
-  // Función para eliminar un personaje
   const handleDeleteCharacter = (id) => {
     setCharacters((prevCharacters) =>
       prevCharacters.filter((character) => character.id !== id)
     );
   };
 
-  // Función para eliminar la cuenta
   const deleteACC = async () => {
     const confirmation = await swal({
       title: "Are you sure?",
@@ -118,7 +121,6 @@ export const ProfilePage = () => {
     }
   };
 
-  // Función para abrir el modal y precargar los datos
   const openEditModal = () => {
     setVisible(true);
     setUserName(user?.user?.name || "");
@@ -126,7 +128,7 @@ export const ProfilePage = () => {
     setBiography(user?.user?.bio || "");
     setRegion(user?.user?.region || "");
     setWlUsername(user?.user?.wl_username || "");
-    setPreviewPhoto(""); // Reinicia la vista previa
+    setPreviewPhoto("");
   };
 
   return (
@@ -180,7 +182,6 @@ export const ProfilePage = () => {
               onDeleteCharacter={handleDeleteCharacter}
             />
 
-            {/* Modal para el formulario de edición */}
             {visible && (
               <div className="modal-overlay">
                 <div className="modal-content">
