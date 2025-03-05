@@ -17,8 +17,9 @@ export const PrivateStatsComp = () => {
   };
 
   return (
-    <div>
+    <div className="form-section">
         <h2>Private Stats</h2>
+        <div className="form-container">
       <button 
         onClick={() => setShowCalendar(!showCalendar)}
         style={{ marginBottom: '10px' }}
@@ -80,6 +81,7 @@ export const PrivateStatsComp = () => {
       ) : (
         !loading && !error && <p>Please select a date range to view stats</p>
       )}
+      </div>
     </div>
   );
 };

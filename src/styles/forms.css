@@ -1,11 +1,18 @@
 @import url('./variables.css');
 
+.print-button {
+    margin:0 auto;
+    width:fit-content;
+    margin-bottom: 20px
+}
+
 /* Estilos base (se aplican por defecto) */
 .form-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: auto;
+    margin-bottom: 10px;
     --text-color: black;
 }
 

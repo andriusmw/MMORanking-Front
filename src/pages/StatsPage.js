@@ -42,7 +42,7 @@ export const StatsPage = () => {
         </>
       ) : null}
 
-      <div style={{ marginTop: "20px" }}>
+      <div className="print-button">
         <button onClick={handleExportToPDF} style={{ marginRight: "10px" }}>
           Export to PDF
         </button>
