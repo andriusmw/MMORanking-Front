@@ -1,0 +1,15 @@
+
+
+.profile-page-data {
+    border: var(--border-gold);
+    max-width: 50%;
+    text-align: left;
+    padding-left: 10px;
+    margin: 2rem;
+    background-color: var(--form-color);
+}
+
+.profile-button {
+    max-width: fit-content;
+    margin-top: 10px;
+}

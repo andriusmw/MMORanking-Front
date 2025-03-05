@@ -92,10 +92,11 @@ export const ProfilePage = () => {
     <section>
       {user ? (
         <>
-          <div>
             <h2>My profile page!</h2>
-            <div>
-              <button
+          <div className="profile-page-data">
+        
+            <div >
+              <button className="submit-button profile-button"
                 onClick={() => {
                   setVisible(true);
                   setUserName(user?.user?.name);
@@ -108,8 +109,8 @@ export const ProfilePage = () => {
                 EDIT
               </button>
             </div>
-            <button onClick={() => redirectBack()}>Sync Characters</button>
-          </div>
+         
+          
 
           <p>Avatar: {user?.user?.avatar}</p>
           {user?.user?.avatar ? (
@@ -123,7 +124,7 @@ export const ProfilePage = () => {
           <p>Email: {user?.user?.email}</p>
           <p>
             Password: Hidden{" "}
-            <Link to={"/forpass"}>Do you wish to change it?</Link>
+            <Link to={"/forpass"} className="forgot-link">Do you wish to change it?</Link>
           </p>
           <p>Role: {user?.user?.role}</p>
           <p>Biography: {user?.user?.bio}</p>
@@ -131,7 +132,10 @@ export const ProfilePage = () => {
           <p>BattleTag: {user?.user?.battle_tag}</p>
           <p>Warcraft Logs Username: {user?.user?.wl_username}</p>
 
+
+          <button className="submit-button profile-button"   onClick={() => redirectBack()}>Sync Characters</button>
           <h3>My Characters!</h3>
+      
           <CharacterList
             characters={characters}
             onDeleteCharacter={handleDeleteCharacter}
@@ -218,6 +222,8 @@ export const ProfilePage = () => {
               {error ? <p>{error}</p> : null}
             </form>
           ) : null}
+
+        </div>  
         </>
       ) : (
         <p>user not logged</p>
