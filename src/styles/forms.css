@@ -1,5 +1,14 @@
 @import url('./variables.css');
 
+/*respect jump of lines for text on news */
+.news-content {
+    white-space: pre-wrap
+}
+
+
+
+
+
 .print-button {
     margin:0 auto;
     width:fit-content;

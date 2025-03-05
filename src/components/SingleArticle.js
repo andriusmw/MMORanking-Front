@@ -33,7 +33,7 @@ export const SingleArticle = ({ article }) => {
            
             
             <h1>{article.title}</h1> {/* Changed p to h1 for semantic heading */}
-            <p>{article.text}</p>
+            <p className="news-content">{article.text}</p>
 
             {article.image ? (
                 <img

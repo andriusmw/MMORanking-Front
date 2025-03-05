@@ -67,7 +67,7 @@ export const NewPostPage = () => {
     
         {user?.user?.role == "mod" || user?.user?.role == "admin" ? (
           <>
-            <form className="form-section editform" onSubmit={CreatePost} >
+            <section className="form-section editform" onSubmit={CreatePost} >
               <h1 className="edith1">CREATE A NEW POST!</h1>
               <form  className="form-container">
               <fieldset className="form-fieldset">
@@ -122,7 +122,7 @@ export const NewPostPage = () => {
               {sending ? <p>Sending New data for post</p> : null}
               {error ? <p>{error}</p> : null }
               </form>
-            </form>
+            </section>
             </>
           ) : <p>Not an admin or mod</p>}
       

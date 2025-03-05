@@ -21,8 +21,8 @@ export const CharacterList = ({ characters, onDeleteCharacter }) => {
     <table>
       <thead>
         <tr>
-          <th>Character id</th>
-          <th>Character Name</th>
+       
+          <th>Char.Name</th>
           <th>Class</th>
           <th>Server</th>
         </tr>
@@ -30,7 +30,7 @@ export const CharacterList = ({ characters, onDeleteCharacter }) => {
       <tbody>
         {characters?.map((character) => (
           <tr key={character?.id}>
-            <td>{character?.id}</td>
+          
             <td>{character?.name}</td>
             <td>{character?.class1}</td>
             <td>{character?.server}</td>

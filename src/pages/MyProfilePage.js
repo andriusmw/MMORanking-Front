@@ -280,6 +280,66 @@ export const ProfilePage = () => {
               </div>
             )}
           </div>
+          <div className="profile-page-instructions">
+            <h2>INSTRUCTIONS:</h2>
+
+            <p>Welcome dear user, this is your profile page, here you can do
+            several things but before you start changing your personal data
+            lets start syncronizing your characters so you can use the
+            website properly.</p>
+
+
+            <h2>HOW TO SYNC CHARACTERS:</h2>
+
+          <p>When you registered your account you introduced you BattleTag and
+            the REGION, both fields must be completed. Now just click on
+            "Sync Characters" button. The first time you do it you will be
+            re-directed to Blizzard's Login page, you must introduce your password
+            and email and if everything is ok, magic! all your characters
+            will be loaded and linked to your profile on the database.</p>
+
+         <p> NOW you need to re-log in again once more on this page so
+            the browser gets your data from the server and you can see 
+            a list of your characters. </p>
+
+          <p>note: If you have an error trying to sync your characters, logout, 
+          log in and try again and if you cotinue having issues send an
+          e-mail using the contact form with all possible information.</p>
+
+            <h2>ABOUT DELETING CHARACTERS:</h2>
+
+If you have the same name on your characters twice or more,
+you will be ask to delete one of them FROM THE LIST, YOU WILL
+STILL HAVE YOUR CHARACTER IN THE GAME. But for security reasons
+here all your characters should have unique names to avoid confusions.
+
+You can Delete a character FROM YOUR LIST ONLY, by clicking on
+the "Delete" button at the end of its row.
+
+            <h2>Notes</h2>
+
+<p>Due to security reasons you can not change your BattleTag or
+Warcraft Logs Username because those are used to authenticate you
+and to link you to your characters allowing integrity and honor
+during the competition. </p>
+
+<p>However you can change your region if you want to add characters from
+other servers that you created in your acount.</p>
+
+<p>If you introduced a wrong WarcraftLogUsername during
+your register and wish to change it, you can delete your account 
+and create a new account.</p>
+
+
+<p> BattleTag name is linked to your account in order 
+to load your characters and use the website, This means if you are banned from this website, you will need
+to create a new blizzard account and buy the game again if you want
+to play so be careful.</p>
+
+<p>ENJOY!!!</p>
+
+
+          </div>
         </>
       ) : (
         <p>user not logged</p>

@@ -1,8 +1,20 @@
 @import url('./variables.css');
 
 .profile-page-data {
+    float: left;
     border: var(--border-gold);
-    max-width: 50%;
+    max-width: 45%;
+    text-align: left;
+    padding-left: 10px;
+    margin: 2rem;
+    background-color: var(--form-color);
+}
+
+
+.profile-page-instructions {
+    float: left;
+    border: var(--border-gold);
+    max-width: 45%;
     text-align: left;
     padding-left: 10px;
     margin: 2rem;
