@@ -67,9 +67,10 @@ export const NewPostPage = () => {
     
         {user?.user?.role == "mod" || user?.user?.role == "admin" ? (
           <>
-            <form onSubmit={CreatePost} className="editform">
+            <form className="form-section editform" onSubmit={CreatePost} >
               <h1 className="edith1">CREATE A NEW POST!</h1>
-              <fieldset>
+              <form  className="form-container">
+              <fieldset className="form-fieldset">
                 <label htmlFor="title">Titlte: </label>
                 <input
                   type="text"
@@ -79,7 +80,7 @@ export const NewPostPage = () => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </fieldset>
-              <fieldset>
+              <fieldset className="form-fieldset">
                 <label htmlFor="preview">Preview: </label>
                 <input
                   type="text"
@@ -90,19 +91,15 @@ export const NewPostPage = () => {
                 />
               </fieldset>
 
-              <fieldset>
-                <label htmlFor="biography">Text: </label>
-                <input
-                  type="text"
-                  id="text"
-                  name="text"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                />
+              <fieldset className="form-fieldset">
+              <label htmlFor="text" className="form-label">Text:</label>
+              <textarea id="text" name="text" rows="50" className="form-textarea" value={text} onChange={(e) => setText(e.target.value)}></textarea>
+             
+               
               </fieldset>
 
 
-              <fieldset>
+              <fieldset className="form-fieldset">
                 <label htmlFor="image">Image (optional): </label>
                 <input
                   type="file"
@@ -121,9 +118,10 @@ export const NewPostPage = () => {
               </fieldset>
             
          
-              <button type="submit">Send Post</button>
+              <button type="submit" className="submit-button">Send Post</button>
               {sending ? <p>Sending New data for post</p> : null}
               {error ? <p>{error}</p> : null }
+              </form>
             </form>
             </>
           ) : <p>Not an admin or mod</p>}
