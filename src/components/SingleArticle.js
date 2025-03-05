@@ -4,9 +4,14 @@ import { ErrorMessage } from "../components/ErrorMessage";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import swal from "sweetalert";
+import SocialShareButtons from "./SocialShareButtons";
 
 
 export const SingleArticle = ({ article }) => {
+
+     // URL base de tu sitio más el ID de la noticia (ajusta según tu estructura)
+  const newsUrl = `${window.location.origin}/news/${article.id}`;
+
     const { token, user, setUser, logout } = useContext(AuthContext); // Asegúrate de que setUser esté disponible en el contexto
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -44,6 +49,9 @@ export const SingleArticle = ({ article }) => {
 
            
             <p className="metadata">{new Date(article.created_at).toLocaleDateString()} by {article.user_name}</p>
+
+
+            <SocialShareButtons title={article.title} url={newsUrl} />
          
             {/*LOAD DELETE BUTTON */}
             {user?.user && (user?.user?.role === "admin" || user?.user?.role === "mod") ? (
