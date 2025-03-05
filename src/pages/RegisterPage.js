@@ -143,7 +143,10 @@ export const RegisterPage = () => {
         </fieldset>
         <fieldset className="form-fieldset">
           <div className="input-with-help">
-            <label htmlFor="wlusername" className="form-label">Warcraft Logs Username:</label>
+            <label htmlFor="wlusername" className="form-label">Warcraft Logs Username: (you CAN NOT change it later be sure about Caps and puntuation)
+             </label>
+     
+
             <input
               type="text"
               id="wlusername"
@@ -159,6 +162,7 @@ export const RegisterPage = () => {
             >
               ?
             </button>
+     
           </div>
           {showHelpWLName && (
             <div className="help-text">

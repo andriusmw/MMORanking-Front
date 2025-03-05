@@ -6,14 +6,15 @@ import { CharacterList } from "../components/CharacterList";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import swal from "sweetalert";
-import { editUserDataService } from "../services";
+import { deleteAccountService, editUserDataService } from "../services";
 import { getAllCharactersService } from "../services";
 
+
 export const ProfilePage = () => {
-  const { token, user, setUser, logout } = useContext(AuthContext); // Asegúrate de que setUser esté disponible en el contexto
+  const { token, user, setUser, logout } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false); // Controla la visibilidad del modal
   const [sending, setSending] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -22,18 +23,17 @@ export const ProfilePage = () => {
   const [region, setRegion] = useState("");
   const [wlUsername, setWlUsername] = useState("");
   const [previewPhoto, setPreviewPhoto] = useState("");
-
-  // Estado para los personajes
   const [characters, setCharacters] = useState(user?.characters || []);
-  //----------------------FUNCIÓN PARA SYNCRONIZAR PJS ----------------------------------
+
+  // Función para sincronizar personajes
   const redirectBack = async () => {
     const url = "https://localhost:3000/123";
     window.open(url, "_blank");
   };
 
-  //---------------------FUNCIÓN PARA EDITAR DATOS DEL USUARIO ------------------------------------
+  // Función para editar datos del usuario
   const EditEntry = async (e) => {
-    e.preventDefault(); // Evita el comportamiento predeterminado del formulario
+    e.preventDefault();
     let idUser = user?.user?.id;
 
     try {
@@ -48,10 +48,8 @@ export const ProfilePage = () => {
       data.append("region", region);
       data.append("wl_username", wlUsername);
 
-      // Llamar al servicio para actualizar los datos del usuario
       const updatedUserData = await editUserDataService({ idUser, data, token });
 
-      // Actualizar el estado del usuario en el contexto
       setUser({
         ...user,
         user: {
@@ -61,169 +59,226 @@ export const ProfilePage = () => {
           bio: biography,
           region: region,
           wl_username: wlUsername,
-          avatar: updatedUserData.avatar || user.user.avatar, // Actualiza el avatar si se proporciona uno nuevo
+          avatar: updatedUserData.avatar || user.user.avatar,
         },
       });
 
-      // Si el backend devuelve los personajes actualizados, actualiza el estado de characters
       if (updatedUserData.characters) {
         setCharacters(updatedUserData.characters);
       }
 
       setError("");
-      setVisible(false); // Oculta el formulario de edición
+      setVisible(false); // Cierra el modal tras el éxito
+      swal("Success", "Your profile has been updated!", "success");
     } catch (error) {
-      swal(`Error`, `${error.message}`, `error`);
+      swal("Error", `${error.message}`, "error");
       setError(error.message);
     } finally {
       setSending(false);
     }
   };
 
-  //--------------------------- Función para eliminar un personaje del estado---------------------------
+  // Función para eliminar un personaje
   const handleDeleteCharacter = (id) => {
     setCharacters((prevCharacters) =>
       prevCharacters.filter((character) => character.id !== id)
     );
   };
 
-  //-------------------------------------------RETURN ---------------------------------------------------
+  // Función para eliminar la cuenta
+  const deleteACC = async () => {
+    const confirmation = await swal({
+      title: "Are you sure?",
+      text: "This action will permanently delete your account and all associated data. This cannot be undone!",
+      icon: "warning",
+      buttons: {
+        cancel: "Cancel",
+        confirm: {
+          text: "Yes, delete my account",
+          value: true,
+          className: "swal-delete-button",
+        },
+      },
+      dangerMode: true,
+    });
+
+    if (confirmation) {
+      try {
+        let idUser = user?.user?.id;
+        await deleteAccountService(idUser, token);
+        swal("Success", "Your account has been deleted!", "success");
+        logout();
+        navigate("/");
+      } catch (error) {
+        swal("Error", `Failed to delete account: ${error.message}`, "error");
+        setError(error.message);
+      }
+    } else {
+      swal("Cancelled", "Your account is safe!", "info");
+    }
+  };
+
+  // Función para abrir el modal y precargar los datos
+  const openEditModal = () => {
+    setVisible(true);
+    setUserName(user?.user?.name || "");
+    setUserEmail(user?.user?.email || "");
+    setBiography(user?.user?.bio || "");
+    setRegion(user?.user?.region || "");
+    setWlUsername(user?.user?.wl_username || "");
+    setPreviewPhoto(""); // Reinicia la vista previa
+  };
+
   return (
     <section>
       {user ? (
         <>
-            <h2>My profile page!</h2>
+          <h2>My profile page!</h2>
           <div className="profile-page-data">
-        
-            <div >
-              <button className="submit-button profile-button"
-                onClick={() => {
-                  setVisible(true);
-                  setUserName(user?.user?.name);
-                  setUserEmail(user?.user?.email);
-                  setBiography(user?.user?.bio);
-                  setRegion(user?.user?.region);
-                  setWlUsername(user?.user?.wl_username);
-                }}
-              >
+            <button className="submit-button profile-button" onClick={deleteACC}>
+              DELETE ACCOUNT
+            </button>
+
+            <div>
+              <button className="submit-button profile-button" onClick={openEditModal}>
                 EDIT
               </button>
             </div>
-         
-          
 
-          <p>Avatar: {user?.user?.avatar}</p>
-          {user?.user?.avatar ? (
-            <img
-              src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
-              alt={user?.user?.name}
+            <p>Avatar: {user?.user?.avatar}</p>
+            {user?.user?.avatar ? (
+              <img className="profile-img"
+                src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
+                alt={user?.user?.name}
+              />
+            ) : null}
+
+            <p>Name: {user?.user?.name}</p>
+            <p>Email: {user?.user?.email}</p>
+            <p>
+              Password: Hidden{" "}
+              <Link to={"/forpass"} className="forgot-link">
+                Do you wish to change it?
+              </Link>
+            </p>
+            <p>Role: {user?.user?.role}</p>
+            <p>Biography: {user?.user?.bio}</p>
+            <p>Region: {user?.user?.region}</p>
+            <p>BattleTag: {user?.user?.battle_tag}</p>
+            <p>Warcraft Logs Username: {user?.user?.wl_username}</p>
+
+            <button
+              className="submit-button profile-button"
+              onClick={() => redirectBack()}
+            >
+              Sync Characters
+            </button>
+            <h3>My Characters!</h3>
+
+            <CharacterList
+              characters={characters}
+              onDeleteCharacter={handleDeleteCharacter}
             />
-          ) : null}
 
-          <p>Name: {user?.user?.name}</p>
-          <p>Email: {user?.user?.email}</p>
-          <p>
-            Password: Hidden{" "}
-            <Link to={"/forpass"} className="forgot-link">Do you wish to change it?</Link>
-          </p>
-          <p>Role: {user?.user?.role}</p>
-          <p>Biography: {user?.user?.bio}</p>
-          <p>Region: {user?.user?.region}</p>
-          <p>BattleTag: {user?.user?.battle_tag}</p>
-          <p>Warcraft Logs Username: {user?.user?.wl_username}</p>
-
-
-          <button className="submit-button profile-button"   onClick={() => redirectBack()}>Sync Characters</button>
-          <h3>My Characters!</h3>
-      
-          <CharacterList
-            characters={characters}
-            onDeleteCharacter={handleDeleteCharacter}
-          />
-
-          {/*---------------------------------FORMULARIO EDITAR--------------------------------- */}
-          {visible ? (
-            <form onSubmit={EditEntry} className="editform">
-              <h1 className="edith1">EDIT USER DATA</h1>
-              <fieldset>
-                <label htmlFor="username">Username: </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  defaultValue={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-              </fieldset>
-              <fieldset>
-                <label htmlFor="email">Email: </label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  defaultValue={userEmail}
-                  onChange={(e) => setUserEmail(e.target.value)}
-                />
-              </fieldset>
-              <fieldset>
-                <label htmlFor="image">Avatar (optional): </label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  ref={imageInputRef}
-                  onChange={() =>
-                    setPreviewPhoto(
-                      URL.createObjectURL(imageInputRef.current.files[0])
-                    )
-                  }
-                />
-                {previewPhoto ? (
-                  <img src={previewPhoto} alt={user?.user?.name} />
-                ) : (
-                  <img
-                    src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
-                    alt={user?.user?.name}
-                  />
-                )}
-              </fieldset>
-              <fieldset>
-                <label htmlFor="biography">Biography: </label>
-                <input
-                  type="text"
-                  id="biography"
-                  name="biography"
-                  defaultValue={biography}
-                  onChange={(e) => setBiography(e.target.value)}
-                />
-              </fieldset>
-              <fieldset>
-                <label htmlFor="region">Region: </label>
-                <input
-                  type="text"
-                  id="region"
-                  name="region"
-                  defaultValue={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                />
-              </fieldset>
-              <fieldset>
-                <label htmlFor="wlusername">Warcraft Log Username: </label>
-                <input
-                  type="text"
-                  id="wlusername"
-                  name="wlusername"
-                  defaultValue={wlUsername}
-                  onChange={(e) => setWlUsername(e.target.value)}
-                />
-              </fieldset>
-              <button type="submit">Send Entry</button>
-              {sending ? <p>Sending New data for User</p> : null}
-              {error ? <p>{error}</p> : null}
-            </form>
-          ) : null}
-
-        </div>  
+            {/* Modal para el formulario de edición */}
+            {visible && (
+              <div className="modal-overlay">
+                <div className="modal-content">
+                  <h1 className="edith1">EDIT USER DATA</h1>
+                  <form onSubmit={EditEntry} className="editform">
+                    <fieldset>
+                      <label htmlFor="username">Username: </label>
+                      <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <label htmlFor="email">Email: </label>
+                      <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <label htmlFor="image">Avatar (optional): </label>
+                      <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        ref={imageInputRef}
+                        onChange={() =>
+                          setPreviewPhoto(
+                            URL.createObjectURL(imageInputRef.current.files[0])
+                          )
+                        }
+                      />
+                      {previewPhoto ? (
+                        <img src={previewPhoto} alt={user?.user?.name} />
+                      ) : (
+                        user?.user?.avatar && (
+                          <img
+                            src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
+                            alt={user?.user?.name}
+                          />
+                        )
+                      )}
+                    </fieldset>
+                    <fieldset>
+                      <label htmlFor="biography">Biography: </label>
+                      <input
+                        type="text"
+                        id="biography"
+                        name="biography"
+                        value={biography}
+                        onChange={(e) => setBiography(e.target.value)}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <label htmlFor="region">Region: </label>
+                      <input
+                        type="text"
+                        id="region"
+                        name="region"
+                        value={region}
+                        onChange={(e) => setRegion(e.target.value)}
+                      />
+                    </fieldset>
+                    <fieldset>
+                      <label htmlFor="wlusername">Warcraft Log Username: </label>
+                      <input
+                        type="text"
+                        id="wlusername"
+                        name="wlusername"
+                        value={wlUsername}
+                        onChange={(e) => setWlUsername(e.target.value)}
+                      />
+                    </fieldset>
+                    <div className="modal-buttons">
+                      <button type="submit" disabled={sending}>
+                        Send Entry
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setVisible(false)}
+                        disabled={sending}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    {sending && <p>Sending New data for User</p>}
+                    {error && <p>{error}</p>}
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
         </>
       ) : (
         <p>user not logged</p>

@@ -1,4 +1,4 @@
-
+@import url('./variables.css');
 
 .profile-page-data {
     border: var(--border-gold);
@@ -13,3 +13,83 @@
     max-width: fit-content;
     margin-top: 10px;
 }
+
+.profile-img {
+    height: 15vh;
+    width: 15vh;
+
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Fondo gris semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    border: var(--border-gold);
+    background-color: var(--form-color);
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .editform fieldset {
+    margin-bottom: 15px;
+  }
+  
+  .editform label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .editform input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .editform img {
+    max-width: 100%;
+    margin-top: 10px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .modal-buttons button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .modal-buttons button[type="button"] {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .modal-buttons button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

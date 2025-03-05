@@ -205,6 +205,38 @@ export const deleteCharacterService = async ({id, token}) => {
   
 }
 
+//------------------ DELETE ACCOUNT SERVICE --------------
+
+export const deleteAccountService = async (idUser, token) => {
+   
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/usersALL/${idUser}`,{
+        method: "DELETE",
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log("error trying to delete it")
+        console.log(json)
+        throw new Error(json.message);
+    }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*----------------------- GET USER BY EMAIL (To change password) --------------------------------
 ----------------------------------------------------------------------------*/
