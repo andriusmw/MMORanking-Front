@@ -9,6 +9,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Obtiene el usuario logueado desde el AuthContext
   const { user } = useContext(AuthContext);
   const { token } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
 
   // Estado para almacenar los filtros seleccionados por el usuario
   const [filters, setFilters] = useState({
@@ -105,6 +106,12 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   //----------------------------------------------FUNCTIONS -------------------------------------------------------------------------
 
   //---------------------------------------------------------------------------------------------------------------------------------
+
+  // Funciones para abrir y cerrar el modal
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+
 
   const updateHeaderText = () => {
     const isMobile = window.innerWidth <= 768;
@@ -257,8 +264,24 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
 
   return (
     <>
+      <div className="title-with-info">
+      <h2>Check the Ladder of a Dungeon:</h2> 
+      <button
+                  type="button"
+                  className="info-button"
+                  onClick={openModal}
+                  aria-label="More information about Warcraft Logs URL"
+                >
+                  ?
+      </button> 
+      
+    
+      </div>
       {user ? (
         <div>
+
+              
+
           <table className="ladder-table">
             <thead>
               <tr>
@@ -354,7 +377,37 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                 </tr>
               )}
             </tbody>
+
+              
+          
+               
+            
+
+          {isModalOpen && (
+  <div className="modal-overlay" onClick={closeModal}>
+    <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
+      <h3>Instructions</h3>
+              <ul>
+                <li>
+                  <p>Select an option for "Dungeon", "Difficulty", "Season" and "Players"</p>
+
+
+                </li>
+
+              </ul>
+
+      <button className="modal-close-button" onClick={closeModal}>
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
+
+
           </table>
+
+     
 
           <section className="ladder-pagination">
           {recordsToDisplay.length > 0 && (
