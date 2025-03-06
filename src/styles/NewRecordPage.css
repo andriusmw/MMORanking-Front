@@ -127,10 +127,36 @@
     background-color: #c82333;
   }
 
+
+
+
   .WLINFO {
     color: black;
   }
 
   .modal-image {
     max-width: 80%;
+  }
+
+  .p-record-instructions {
+    max-width: 80%;
+  }
+
+
+  @media (max-width: 1024px) { 
+
+
+    .WLINFO {
+        color: black;
+      }
+    
+      .modal-image {
+        max-width: 100%;
+      }
+    
+      .p-record-instructions {
+        max-width: 100%;
+      }
+
+
   }
