@@ -382,15 +382,59 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
           
                
             
-
+              {/*OPEN MODAL FOR INFO */}
           {isModalOpen && (
   <div className="modal-overlay" onClick={closeModal}>
     <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
       <h3>Instructions</h3>
               <ul>
                 <li>
-                  <p>Select an option for "Dungeon", "Difficulty", "Season" and "Players"</p>
+                  <p className="p-record-instructions">
+                    Select an option for "Dungeon", "Difficulty", "Season" and "Players" and click on "Search"</p>
+                  <img
+            src={`${process.env.REACT_APP_BACKEND}/images/filters1.png`}
+            alt="filters1"
+            className="modal-image"
+          />
 
+                </li>
+                <li>
+                  <p className="p-record-instructions">
+                    Additionally you can filter by server writing part of the name of the server. If you
+                    play with other language and you don't know how your server is named in English you can Check it
+                    from your characters list bellow or in your profile. 
+                  </p>
+                  <img
+                src={`${process.env.REACT_APP_BACKEND}/images/filters2.png`}
+                 alt="filters2"
+                   className="modal-image"
+                 />
+
+                </li>
+
+                <li>
+                  <p className="p-record-instructions">
+                    Additionally you can filter by class, spec or Number of Players; the "*" means you allow all to appear on that filter
+
+                  </p>
+                  <img
+                src={`${process.env.REACT_APP_BACKEND}/images/filters3.png`}
+                 alt="filters3"
+                 className="modal-image"
+                />
+
+                </li>
+
+                <li>
+                  <p className="p-record-instructions">
+                    Finally you can check your place with your character on the selected ladder with the selected
+                    combination of filters.
+                  </p>
+                  <img
+            src={`${process.env.REACT_APP_BACKEND}/images/filters4.png`}
+            alt="filtes4"
+            className="modal-image"
+          />
 
                 </li>
 
