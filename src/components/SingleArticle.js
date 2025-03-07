@@ -34,10 +34,10 @@ export const SingleArticle = ({ article }) => {
     return (
       <>
        <button className="submit-button news-button" onClick={handleGoBack} >Go back</button>
-        <article className="single-article"> {/* Add class single-article to the article element */}
+        <article className="single-article"> 
            
             
-            <h1>{article.title}</h1> {/* Changed p to h1 for semantic heading */}
+            <h1>{article.title}</h1> 
             <p className="news-content">{article.text}</p>
 
             {article.image ? (

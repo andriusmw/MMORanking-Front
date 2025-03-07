@@ -1,0 +1,13 @@
+@import url('./variables.css');
+
+.record-text {
+    text-align: center;
+}
+
+.record-text b{
+    color: var(--main-color);
+}
+
+.record-link {
+    color: var(--success-color);
+}

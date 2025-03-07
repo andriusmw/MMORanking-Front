@@ -29,14 +29,14 @@ const SocialShareButtons = ({ title, url }) => {
   // Función para copiar el enlace al portapapeles
   const copyToClipboard = () => {
     navigator.clipboard.writeText(url).then(() => {
-      alert("Enlace copiado al portapapeles!");
+      alert("Link Copied!");
     });
   };
 
   return (
     <div className="social-share-buttons">
       <button className="share-button twitter" onClick={shareOnTwitter}>
-        Twitter
+        X post
       </button>
       <button className="share-button facebook" onClick={shareOnFacebook}>
         Facebook
@@ -45,7 +45,7 @@ const SocialShareButtons = ({ title, url }) => {
         WhatsApp
       </button>
       <button className="share-button copy" onClick={copyToClipboard}>
-        Copiar enlace
+        Copy Link
       </button>
     </div>
   );

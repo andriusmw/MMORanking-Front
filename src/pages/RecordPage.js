@@ -15,7 +15,7 @@ export const RecordPage = () => {
 
     return (
         <section>
-            <h1>RecordPage</h1>
+            <h2>RecordPage</h2>
             <Record record={record} />
         </section>
     )
