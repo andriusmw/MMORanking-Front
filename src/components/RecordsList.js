@@ -30,7 +30,11 @@ export const RecordList = ({ records }) => {
             <td>{record.num_players}</td>
             <td>{record.server}</td>
             <td>{new Date(record.Date_completed).toLocaleDateString()}</td>
-            <td><Link to={`/record/${record.id}`}>+</Link></td>
+            <td>
+                <Link to={`/record/${record.id}`}>
+                  <img width="30" height="30" src="/images/icons8-plus-30.png"  alt="plus--v1"/>
+               </Link>
+            </td>
           </tr>
         ))}
       </tbody>

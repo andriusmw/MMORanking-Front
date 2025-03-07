@@ -63,10 +63,13 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Actualiza cachedRecords cuando se obtienen nuevos datos del servidor
   useEffect(() => {
     if (useLocalData && fetchedRecords && fetchedRecords.length >= 0) {
-      setCachedRecords(fetchedRecords); // Guarda los nuevos registros en el caché
-      setCurrentPage(1); // Reinicia a la primera página al cargar nuevos datos
+      // Solo actualiza si fetchedRecords es diferente de cachedRecords
+      if (JSON.stringify(fetchedRecords) !== JSON.stringify(cachedRecords)) {
+        setCachedRecords(fetchedRecords); // Guarda los nuevos registros en el caché
+        setCurrentPage(1); // Reinicia a la primera página al cargar nuevos datos
+      }
     }
-  }, [fetchedRecords, useLocalData]);
+  }, [fetchedRecords, useLocalData, cachedRecords]);
 
   // Determina qué registros mostrar: cachedRecords si hay filtros aplicados, initialRecords si no
   const recordsToDisplay = useLocalData && appliedFilters ? cachedRecords : initialRecords;
@@ -110,8 +113,6 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   // Funciones para abrir y cerrar el modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-
 
   const updateHeaderText = () => {
     const isMobile = window.innerWidth <= 768;
@@ -254,9 +255,10 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
   }, []); // El array vacío asegura que solo se ejecute al montar y desmontar
 
   // Actualiza los encabezados cuando cambian los datos mostrados
-  useEffect(() => {
+  // Este useEffect se eliminó y se combinó con el anterior para evitar bucles infinitos
+  /* useEffect(() => {
     updateHeaderText();
-  }, [recordsToDisplay]);
+  }, [recordsToDisplay]); */
 
   // Muestra mensajes de carga o error si corresponde
   if (loading && useLocalData) return <p>Loading...</p>;
@@ -274,14 +276,9 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                 >
                   ?
       </button> 
-      
-    
       </div>
       {user ? (
         <div>
-
-              
-
           <table className="ladder-table">
             <thead>
               <tr>
@@ -294,7 +291,17 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                     style={{ cursor: filterOptions[column] || column === "server" ? "pointer" : "default", position: "relative" }}
                   >
                     {headerTexts[index + 1]}
-                    {filters[column] === null || filters[column] === "select" || filters[column] === "" ? "↓" : "↑"}
+                    {/* 
+                    {filters[column] === null || filters[column] === "select" || filters[column] === "" ?  <img width="30" height="30" src="/images/icons8-dropdown-24.png"  alt="plus--v2"/> : <img width="30" height="30" src="/images/icons8-dropdown-24.png"  alt="plus--v2"/>}
+                    */}
+                    {filters[column] === null || filters[column] === "select" || filters[column] === "" ?  (
+                      <img className="ladder-dropdown"
+                        width="24"
+                        height="24"
+                        src="/images/icons8-dropdown-24.png"
+                        alt="dropdown"
+                      />
+                    ) : null}
                     {openDropdown === column && (
                       <>
                         {column === "server" ? (
@@ -365,7 +372,9 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                     <td className="truncate-cell">{record.num_players}</td>
                     <td className="truncate-cell">{record.server}</td>
                     <td>
-                      <Link to={`/record/${record.id}`}>+</Link>
+                      <Link to={`/record/${record.id}`}>
+                        <img width="30" height="30" src="/images/icons8-plus-30.png" alt="plus--v1"/>
+                      </Link>
                     </td>
                   </tr>
                 ))
@@ -377,121 +386,101 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
                 </tr>
               )}
             </tbody>
-
-              
-          
-               
-            
-              {/*OPEN MODAL FOR INFO */}
-          {isModalOpen && (
-  <div className="modal-overlay" onClick={closeModal}>
-    <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
-      <h3>Instructions</h3>
-              <ul>
-                <li>
-                  <p className="p-record-instructions">
-                    Select an option for "Dungeon", "Difficulty", "Season" and "Players" and click on "Search"</p>
-                  <img
-            src={`${process.env.REACT_APP_BACKEND}/images/filters1.png`}
-            alt="filters1"
-            className="modal-image"
-          />
-
-                </li>
-                <li>
-                  <p className="p-record-instructions">
-                    Additionally you can filter by server writing part of the name of the server. If you
-                    play with other language and you don't know how your server is named in English you can Check it
-                    from your characters list bellow or in your profile. 
-                  </p>
-                  <img
-                src={`${process.env.REACT_APP_BACKEND}/images/filters2.png`}
-                 alt="filters2"
-                   className="modal-image"
-                 />
-
-                </li>
-
-                <li>
-                  <p className="p-record-instructions">
-                    Additionally you can filter by class, spec or Number of Players; the "*" means you allow all to appear on that filter
-
-                  </p>
-                  <img
-                src={`${process.env.REACT_APP_BACKEND}/images/filters3.png`}
-                 alt="filters3"
-                 className="modal-image"
-                />
-
-                </li>
-
-                <li>
-                  <p className="p-record-instructions">
-                    Finally you can check your place with your character on the selected ladder with the selected
-                    combination of filters.
-                  </p>
-                  <img
-            src={`${process.env.REACT_APP_BACKEND}/images/filters4.png`}
-            alt="filtes4"
-            className="modal-image"
-          />
-
-                </li>
-
-              </ul>
-
-      <button className="modal-close-button" onClick={closeModal}>
-        Close
-      </button>
-    </div>
-  </div>
-)}
-
-
-
           </table>
 
-     
-
           <section className="ladder-pagination">
-          {recordsToDisplay.length > 0 && (
-            <div style={{ marginTop: "10px" }}>
-              <p>Total of Results: {recordsToDisplay.length}</p>
-              <div>
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  style={{ marginRight: "10px" }}
-                >
-                  Anterior
-                </button>
-                <span>Página {currentPage} de {totalPages}</span>
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  style={{ marginLeft: "10px" }}
-                >
-                  Siguiente
-                </button>
+            {recordsToDisplay.length > 0 && (
+              <div style={{ marginTop: "10px" }}>
+                <p>Total of Results: {recordsToDisplay.length}</p>
+                <div>
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    style={{ marginRight: "10px" }}
+                  >
+                    Anterior
+                  </button>
+                  <span>Página {currentPage} de {totalPages}</span>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Siguiente
+                  </button>
+                </div>
               </div>
+            )}
+            <div style={{ marginTop: "10px" }}>
+              <button onClick={handleSearch} style={{ marginRight: "10px" }}>
+                Search
+              </button>
+              <button onClick={handleClearFilters}>
+                Clean filters
+              </button>
             </div>
-          )}
-          <div style={{ marginTop: "10px" }}>
-            <button onClick={handleSearch} style={{ marginRight: "10px" }}>
-              Buscar
-            </button>
-            <button onClick={handleClearFilters}>
-              Limpiar
-            </button>
-          </div>
-
-
           </section>
-
 
           {isLoading && ( //Spinner
             <div className="spinner-overlay">
               <div className="spinner"></div>
+            </div>
+          )}
+
+          {/*OPEN MODAL FOR INFO */}
+          {isModalOpen && (
+            <div className="modal-overlay" onClick={closeModal}>
+              <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
+                <h3>Instructions</h3>
+                <ul>
+                  <li>
+                    <p className="p-record-instructions">
+                      Select an option for "Dungeon", "Difficulty", "Season" and "Players" and click on "Search"
+                    </p>
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND}/images/filters1.png`}
+                      alt="filters1"
+                      className="modal-image"
+                    />
+                  </li>
+                  <li>
+                    <p className="p-record-instructions">
+                      Additionally you can filter by server writing part of the name of the server. If you
+                      play with other language and you don't know how your server is named in English you can Check it
+                      from your characters list bellow or in your profile.
+                    </p>
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND}/images/filters2.png`}
+                      alt="filters2"
+                      className="modal-image"
+                    />
+                  </li>
+                  <li>
+                    <p className="p-record-instructions">
+                      Additionally you can filter by class, spec or Number of Players; the "*" means you allow all to appear on that filter
+                    </p>
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND}/images/filters3.png`}
+                      alt="filters3"
+                      className="modal-image"
+                    />
+                  </li>
+                  <li>
+                    <p className="p-record-instructions">
+                      Finally you can check your place with your character on the selected ladder with the selected
+                      combination of filters.
+                    </p>
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND}/images/filters4.png`}
+                      alt="filtes4"
+                      className="modal-image"
+                    />
+                  </li>
+                </ul>
+                <button className="modal-close-button" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
             </div>
           )}
 

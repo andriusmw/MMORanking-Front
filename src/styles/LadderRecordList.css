@@ -1,5 +1,12 @@
 @import url('./variables.css');
 
+/*ladder dropdown icons*/
+.ladder-dropdown {
+    display: block;
+    float: right;
+}
+
+
 /* Table container for better spacing and responsiveness */
 .ladder-table {
     width: 100%; /* Full width by default on all screens */
@@ -9,6 +16,11 @@
     border-radius: 8px;
     overflow: hidden;
 }
+
+/*makes the text center on all td table */
+.ladder-table tbody td {
+    text-align: center;
+ }
 
 /*section with the pagination */
 .ladder-pagination {
@@ -48,7 +60,7 @@
         color: var(--text-color); /* Black text color (assuming text-color is black or dark) */
         padding: 6px; /* Reduced padding for compactness */
         border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-        text-align: left;
+       
     }
 }
 
@@ -78,7 +90,7 @@
         padding: 5px; /* Slightly reduced padding for tablets */
         font-size: 1rem; /* Larger font for better readability on tablets */
         border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-        text-align: left;
+      
     }
 
     /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
@@ -106,6 +118,18 @@
 
 /* Small Tablet/Mobile (600px to 767px): Further adjustments for smaller tablets */
 @media (min-width: 600px) and (max-width: 767px) {
+
+      /*ladder dropdown icons*/
+      .ladder-dropdown {
+        display: block;
+        float: none;
+        margin: 0 auto;
+        }
+    
+
+
+
+
     .ladder-table {
         max-width: 100%; /* Full width, no side margins */
         margin: 0; /* Remove margins to stretch the table */
@@ -130,7 +154,7 @@
         padding: 4px; /* Further reduce padding for smaller tablets */
         font-size: 0.9rem; /* Smaller font for compactness */
         border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-        text-align: left;
+       
     }
 
     /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
@@ -158,6 +182,16 @@
 
 /* Mobile (480px to 599px): Tight adjustments for mobile devices */
 @media (min-width: 480px) and (max-width: 599px) {
+
+    /*ladder dropdown icons*/
+    .ladder-dropdown {
+    display: block;
+    float: none;
+    margin: 0 auto;
+    }
+
+
+
     .ladder-table {
         max-width: 100%; /* Full width, no side margins */
         margin: 0; /* Remove margins to stretch the table */
@@ -182,7 +216,7 @@
         padding: 4px; /* Maintain reduced padding for mobile */
         font-size: 0.9rem; /* Maintain font for readability */
         border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-        text-align: left;
+       
     }
 
     /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */
@@ -238,6 +272,16 @@
 
 /* Small Mobile (below 480px): Tightest adjustments for very small screens */
 @media (max-width: 479px) {
+
+      /*ladder dropdown icons*/
+      .ladder-dropdown {
+        display: block;
+        float: none;
+        margin: 0 auto;
+        }
+    
+
+
     .ladder-table {
         max-width: 100%; /* Full width, no side margins */
         margin: 0; /* Remove margins to stretch the table */
@@ -262,7 +306,7 @@
         padding: 3px; /* Tighter padding for very small screens */
         font-size: 0.8rem; /* Smaller font for readability */
         border-bottom: 1px solid var(--border-color); /* Optional: Add border for separation */
-        text-align: left;
+       
     }
 
     /* Adjust wrapping for data cells, except for Rank, Players, Time, and Details */

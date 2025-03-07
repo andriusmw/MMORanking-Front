@@ -141,7 +141,9 @@ const CharacterRankFilter = ({ ladderRecords }) => {
                        {characterResult.server}
                     </td>
                     <td>
-                          <Link to={`/record/${characterResult.id}`}>+</Link>
+                          <Link to={`/record/${characterResult.id}`}>
+                          <img width="30" height="30" src="/images/icons8-plus-30.png" alt="plus--v1"/>
+                          </Link>
                     </td>
                 </tr>
             </tbody>
