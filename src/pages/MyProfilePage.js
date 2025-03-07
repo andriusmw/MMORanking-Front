@@ -181,10 +181,10 @@ export const ProfilePage = () => {
               characters={characters}
               onDeleteCharacter={handleDeleteCharacter}
             />
-
+            {/* ----------------------MAKE VISIBLE EDIT PROFILE MODAL ---------------------------*/}
             {visible && (
               <div className="modal-overlay">
-                <div className="modal-content">
+                <div className="modal-content-profile">
                   <h1 className="edith1">EDIT USER DATA</h1>
                   <form onSubmit={EditEntry} className="editform">
                     <fieldset>
@@ -263,7 +263,7 @@ export const ProfilePage = () => {
                     </fieldset>
                     <div className="modal-buttons">
                       <button type="submit" disabled={sending}>
-                        Send Entry
+                        Save
                       </button>
                       <button
                         type="button"
@@ -283,10 +283,9 @@ export const ProfilePage = () => {
           <div className="profile-page-instructions">
             <h2>INSTRUCTIONS:</h2>
 
-            <p>Welcome dear user, this is your profile page, here you can do
-            several things but before you start changing your personal data
-            lets start syncronizing your characters so you can use the
-            website properly.</p>
+            <p>Welcome, this is your profile page, here you can 
+              edit your profile data and add characters to your account.
+            </p>
 
 
             <h2>HOW TO SYNC CHARACTERS:</h2>
@@ -298,25 +297,26 @@ export const ProfilePage = () => {
             and email and if everything is ok, magic! all your characters
             will be loaded and linked to your profile on the database.</p>
 
-         <p> NOW you need to re-log in again once more on this page so
+         <p> NOW you need to logout and login once more on this page so
             the browser gets your data from the server and you can see 
             a list of your characters. </p>
 
-          <p>note: If you have an error trying to sync your characters, logout, 
+          <p><b>NOTE:</b> If you have an error trying to sync your characters, logout, 
           log in and try again and if you cotinue having issues send an
           e-mail using the contact form with all possible information.</p>
 
             <h2>ABOUT DELETING CHARACTERS:</h2>
 
-If you have the same name on your characters twice or more,
-you will be ask to delete one of them FROM THE LIST, YOU WILL
-STILL HAVE YOUR CHARACTER IN THE GAME. But for security reasons
-here all your characters should have unique names to avoid confusions.
+            <p>This is a list of your characters linked to your account,
+            If you delete one of them FROM THE LIST, YOU WILL
+            STILL HAVE YOUR CHARACTER IN THE GAME. for security reasons
+            here all your characters should have unique names to avoid confusions.</p>
 
-You can Delete a character FROM YOUR LIST ONLY, by clicking on
-the "Delete" button at the end of its row.
+            <p>You can Delete a character FROM YOUR LIST by clicking on
+            the "Delete" button at the end of its row.</p>
 
-            <h2>Notes</h2>
+
+            <h2>NOTES</h2>
 
 <p>Due to security reasons you can not change your BattleTag or
 Warcraft Logs Username because those are used to authenticate you
