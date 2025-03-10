@@ -19,7 +19,7 @@ export const NewsPage = () => {
         <h2>News Page!</h2>
       
         {user?.user?.role == "mod" || user?.user?.role == "admin" ? (
-           <button className="submit-button news-button" id="news-button" >   <Link to={"/news/create"}>CREATE NEW!</Link></button>
+           <button className="submit-button news-button button-goBackNew" id="news-button" >   <Link to={"/news/create"}>CREATE NEW!</Link></button>
         ) : (null) }
 
   <NewsList news={news} />

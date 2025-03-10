@@ -14,6 +14,7 @@ export const NavBar = () => {
         <nav className="navbar">
             <ul className={`nav-list ${isActive ? "active" : ""}`}>
                 <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+              
                 <li><Link to="/news" onClick={toggleMenu}>News</Link></li>
                 <li><Link to="/ladders" onClick={toggleMenu}>Ladders</Link></li>
                 <li><Link to="/newrecord" onClick={toggleMenu}>New Record</Link></li>
@@ -21,7 +22,7 @@ export const NavBar = () => {
                 <li><Link to="/stats" onClick={toggleMenu}>Stats</Link></li>
                 <li><Link to="/contact" onClick={toggleMenu}>Contact</Link></li>
                 {user?.user?.role === "admin" && (
-                    <li><Link to="/admin-panel" onClick={toggleMenu}>Admin Panel</Link></li>
+                    <li><Link to="/admin-panel" onClick={toggleMenu}>A.P.</Link></li>
                 )}
             </ul>
             <div

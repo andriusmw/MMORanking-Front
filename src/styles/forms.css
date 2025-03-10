@@ -1,11 +1,16 @@
 @import url('./variables.css');
 
+
+/* go back button and createnew button*/
+.button-goBackNew {
+    margin: 11px;
+}
+
+
 /*respect jump of lines for text on news */
 .news-content {
     white-space: pre-wrap
 }
-
-
 
 
 

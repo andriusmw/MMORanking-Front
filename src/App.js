@@ -19,6 +19,7 @@ import { StatsPage } from "./pages/StatsPage";
 import { ContactPage } from "./pages/ContactPage";
 
 
+
 function App() {
   return (
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/ladders" element={<LaddersPage/>} />
           <Route path="/stats" element={<StatsPage/>} />
           <Route path="/contact" element={<ContactPage/>} />
+      
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>

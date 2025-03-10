@@ -1,0 +1,38 @@
+@import url('./variables.css');
+
+.merch-data {
+    float: left;
+    width: 60%;
+    position: relative;
+    margin-left: 5%;
+    padding: 20px;
+    background-color: var(--form-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: var(--border-gold);
+    display: flex;
+    flex-direction: column;
+}
+
+.merch-support {
+    
+    position: relative;
+    margin-left: 2%;
+    padding: 20px;
+    background-color: var(--form-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: var(--border-gold);
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    float: left;
+}
+
+.merch-container {
+    margin-bottom: 20px;
+}
+
+.merch-title {
+    margin-top: 4%;
+}

@@ -5,6 +5,8 @@ import useRecords from "../hooks/useRecords"
 import useLastNews from "../hooks/useLastNews"
 import { Link } from "react-router-dom";
 
+import { MerchComp } from "../components/Merch";
+
 
 export const HomePage = () => {
   //carga el hook
@@ -23,6 +25,9 @@ export const HomePage = () => {
 
         <h2>Latest News!</h2>
         <HomeNews latestNews={latestNews}/>
+
+       
+        <MerchComp/>
     
     </section> 
 } 
