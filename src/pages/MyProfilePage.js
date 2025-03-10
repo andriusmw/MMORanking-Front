@@ -183,102 +183,112 @@ export const ProfilePage = () => {
             />
             {/* ----------------------MAKE VISIBLE EDIT PROFILE MODAL ---------------------------*/}
             {visible && (
-              <div className="modal-overlay">
-                <div className="modal-content-profile">
-                  <h1 className="edith1">EDIT USER DATA</h1>
-                  <form onSubmit={EditEntry} className="editform">
-                    <fieldset>
-                      <label htmlFor="username">Username: </label>
-                      <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <label htmlFor="email">Email: </label>
-                      <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        value={userEmail}
-                        onChange={(e) => setUserEmail(e.target.value)}
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <label htmlFor="image">Avatar (optional): </label>
-                      <input
-                        type="file"
-                        id="image"
-                        name="image"
-                        ref={imageInputRef}
-                        onChange={() =>
-                          setPreviewPhoto(
-                            URL.createObjectURL(imageInputRef.current.files[0])
-                          )
-                        }
-                      />
-                      {previewPhoto ? (
-                        <img src={previewPhoto} alt={user?.user?.name} />
-                      ) : (
-                        user?.user?.avatar && (
-                          <img
-                            src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
-                            alt={user?.user?.name}
-                          />
-                        )
-                      )}
-                    </fieldset>
-                    <fieldset>
-                      <label htmlFor="biography">Biography: </label>
-                      <input
-                        type="text"
-                        id="biography"
-                        name="biography"
-                        value={biography}
-                        onChange={(e) => setBiography(e.target.value)}
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <label htmlFor="region">Region: </label>
-                      <input
-                        type="text"
-                        id="region"
-                        name="region"
-                        value={region}
-                        onChange={(e) => setRegion(e.target.value)}
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <label htmlFor="wlusername">Warcraft Log Username: </label>
-                      <input
-                        type="text"
-                        id="wlusername"
-                        name="wlusername"
-                        value={wlUsername}
-                        onChange={(e) => setWlUsername(e.target.value)}
-                      />
-                    </fieldset>
-                    <div className="modal-buttons">
-                      <button type="submit" disabled={sending}>
-                        Save
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setVisible(false)}
-                        disabled={sending}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                    {sending && <p>Sending New data for User</p>}
-                    {error && <p>{error}</p>}
-                  </form>
-                </div>
-              </div>
-            )}
+  <div className="modal-overlay">
+    <div className="modal-content-profile">
+      <h1 className="edith1">EDIT USER DATA</h1>
+      <form onSubmit={EditEntry} className="editform">
+        <fieldset>
+          <label htmlFor="username">Username: </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="email">Email: </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="image">Avatar (optional): </label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            ref={imageInputRef}
+            onChange={(e) => {
+              const file = e.target.files[0]; // Obtener el archivo seleccionado
+              const maxSize = 2 * 1024 * 1024; // 2MB en bytes
+
+              if (file && file.size > maxSize) {
+                alert("El archivo es demasiado grande. El tamaño máximo permitido es 2MB.");
+                e.target.value = ""; // Limpiar el input
+                return;
+              }
+
+              // Si el tamaño es válido, actualizar la vista previa
+              if (file) {
+                setPreviewPhoto(URL.createObjectURL(file));
+              }
+            }}
+          />
+          {previewPhoto ? (
+            <img src={previewPhoto} alt={user?.user?.name} />
+          ) : (
+            user?.user?.avatar && (
+              <img
+                src={`${process.env.REACT_APP_BACKEND}/uploads/${user?.user?.avatar}`}
+                alt={user?.user?.name}
+              />
+            )
+          )}
+        </fieldset>
+        <fieldset>
+          <label htmlFor="biography">Biography: </label>
+          <input
+            type="text"
+            id="biography"
+            name="biography"
+            value={biography}
+            onChange={(e) => setBiography(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="region">Region: </label>
+          <input
+            type="text"
+            id="region"
+            name="region"
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <label htmlFor="wlusername">Warcraft Log Username: </label>
+          <input
+            type="text"
+            id="wlusername"
+            name="wlusername"
+            value={wlUsername}
+            onChange={(e) => setWlUsername(e.target.value)}
+          />
+        </fieldset>
+        <div className="modal-buttons">
+          <button type="submit" disabled={sending}>
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => setVisible(false)}
+            disabled={sending}
+          >
+            Cancel
+          </button>
+        </div>
+        {sending && <p>Sending New data for User</p>}
+        {error && <p>{error}</p>}
+      </form>
+    </div>
+  </div>
+        )}
           </div>
           <div className="profile-page-instructions">
             <h2>INSTRUCTIONS:</h2>
