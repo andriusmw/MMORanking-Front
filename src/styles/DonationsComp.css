@@ -1,0 +1,45 @@
+@import url('./variables.css');
+
+.donations-data {
+    float: left;
+    width: 60%;
+    position: relative;
+    margin-left: 5%;
+    padding: 20px;
+    background-color: var(--form-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: var(--border-gold);
+    display: flex;
+    flex-direction: column;
+}
+
+.donations-support {
+    
+    position: relative;
+    margin-left: 2%;
+    padding: 20px;
+    background-color: var(--form-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: var(--border-gold);
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    float: left;
+}
+
+.donations-support img{
+    
+width: 20vw;
+}
+
+
+
+.donations-container {
+    margin-bottom: 20px;
+}
+
+.donations-title {
+    margin-top: 4%;
+}

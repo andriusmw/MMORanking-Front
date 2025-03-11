@@ -5,7 +5,9 @@ import useRecords from "../hooks/useRecords"
 import useLastNews from "../hooks/useLastNews"
 import { Link } from "react-router-dom";
 
-import { MerchComp } from "../components/Merch";
+
+import { DonationsComp } from "../components/DonationsComp";
+import { MerchComp } from "../components/MerchComp";
 
 
 export const HomePage = () => {
@@ -26,8 +28,9 @@ export const HomePage = () => {
         <h2>Latest News!</h2>
         <HomeNews latestNews={latestNews}/>
 
-       
-        <MerchComp/>
+         <MerchComp/>
+
+        <DonationsComp/>
     
     </section> 
 } 

@@ -1,15 +1,15 @@
 
-export const MerchComp = () => {
+export const DonationsComp = () => {
 
 
 
     return (
     <>
 
-<h2 className="merch-title"> WHAT IS SPEED RUN DUNGEONS?
+<h2 className="donations-title"> WHAT IS SPEED RUN DUNGEONS?
 WHAT CAN I DO HERE ?</h2>
-        <section className="merch-container">
-            <div className="merch-data">
+        <section className="donations-container">
+            <div className="donations-data">
   
 
 This is a website that allows players of World of Warcraft
@@ -27,10 +27,10 @@ Play as you like most the class you like most, no more waiting
 no more anger for loosing keys just test your skills and Enjoy!
             </div>
 
-            <div className="merch-support">
+            <div className="donations-support">
       
         <a href="https://www.paypal.com/donate/?hosted_button_id=VWKE3Z3XWJHPN" target="blank">
-       <img src="/images/Donate-Paypal.png" alt="donate-img" />
+       <img src="/images/Donate_Paypal.png" alt="donate-img" />
        </a>
 
 
