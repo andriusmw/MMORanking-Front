@@ -1,0 +1,53 @@
+header {
+    position: relative;
+    background-color: #003087; /* Matches your header background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between NavBar, Auth, etc. */
+}
+
+.translate-container {
+    position: absolute;
+    top: 100%; /* Positions it just below the header */
+    right: 150px; /* Adjust this value to align with the green rectangle */
+    z-index: 1000; /* Ensure it stays above other content */
+    width: 150px; /* Adjust width as needed */
+}
+
+.translate-widget {
+    margin: 0; /* Remove any default margins */
+}
+
+/* Style the Google Translate dropdown */
+.goog-te-combo {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: white;
+    width: 100%; /* Ensure it takes the full width of the container */
+}
+
+/* Hide the Google Translate banner */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Ensure the body top doesn't get pushed down */
+body {
+    top: 0 !important;
+}
+
+/* Add padding to the main content to avoid overlap */
+main {
+    padding-top: 50px; /* Adjust based on the widget height */
+}
