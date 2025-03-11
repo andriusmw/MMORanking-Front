@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 
 
 import { DonationsComp } from "../components/DonationsComp";
-import { MerchComp } from "../components/MerchComp";
+
+import { WordsComp } from "../components/WordsComp";
 
 
 export const HomePage = () => {
@@ -28,9 +29,11 @@ export const HomePage = () => {
         <h2>Latest News!</h2>
         <HomeNews latestNews={latestNews}/>
 
-         <MerchComp/>
+      
 
         <DonationsComp/>
+
+        <WordsComp />
     
     </section> 
 } 

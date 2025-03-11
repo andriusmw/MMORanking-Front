@@ -1,0 +1,27 @@
+@import url('./variables.css');
+
+.words-data {
+    margin: 0 auto;
+    width: fit-content;
+    position: relative;
+    padding: 20px;
+    background-color: var(--form-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: var(--border-gold);
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.words-container {
+    margin-bottom: 20px;
+    margin-top:15%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.words-title {
+    margin-top: 4%;
+}
