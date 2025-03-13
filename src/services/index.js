@@ -299,6 +299,8 @@ export const getUserBRIDService = async (RecordId) =>  {
 ----------------------------------------------------------------------------*/
 
 export const banUserService = async (IdUser, token) => {
+    console.log("token", token)
+    console.log("IdUser", IdUser)
     try {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${IdUser}`, {
             method: "PATCH",
