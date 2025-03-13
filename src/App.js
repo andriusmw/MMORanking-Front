@@ -17,6 +17,8 @@ import { NewRecordPage } from "./pages/newRecordPage";
 import { LaddersPage } from "./pages/LaddersPage";
 import { StatsPage } from "./pages/StatsPage";
 import { ContactPage } from "./pages/ContactPage";
+import { AdminPanelPage } from "./pages/AdminPanelPage";
+
 
 
 
@@ -41,6 +43,7 @@ function App() {
           <Route path="/ladders" element={<LaddersPage/>} />
           <Route path="/stats" element={<StatsPage/>} />
           <Route path="/contact" element={<ContactPage/>} />
+          <Route path="/admin-panel" element={<AdminPanelPage/>} />
       
 
           <Route path="*" element={<NotFoundPage />} />

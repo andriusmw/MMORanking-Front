@@ -1,5 +1,18 @@
 @import url('./variables.css');
 
+
+/* styles.css o dentro de un módulo CSS */
+.record-list-home-container {
+    margin: 0 auto;
+    max-height: 250px; /* Altura máxima antes de que aparezca el scroll */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    display: block; /* Asegura que el contenedor respete la altura máxima */
+    width: fit-content;
+  }
+  
+ 
+
+
 /*ladder dropdown icons*/
 .ladder-dropdown {
     display: block;
@@ -37,6 +50,8 @@
 
 /* Desktop (1024px and above): Limit table width to 900px and center it with side margins */
 @media (min-width: 1024px) {
+
+
     .ladder-table {
         max-width: 900px; /* Standard width for desktop */
         margin: 0 auto; /* Center the table horizontally with side margins */
@@ -66,6 +81,12 @@
 
 /* Tablet (768px to 1023px): Full width, no side margins, moderate adjustments */
 @media (min-width: 768px) and (max-width: 1023px) {
+
+    
+    .record-list-home-container {
+        width: 100%;
+    }
+
     .ladder-table {
         max-width: 100%; /* Full width, no side margins */
         margin: 0; /* Remove margins to stretch the table */
@@ -118,6 +139,11 @@
 
 /* Small Tablet/Mobile (600px to 767px): Further adjustments for smaller tablets */
 @media (min-width: 600px) and (max-width: 767px) {
+
+    
+    .record-list-home-container {
+        width: 100%;
+    }
 
       /*ladder dropdown icons*/
       .ladder-dropdown {
@@ -182,6 +208,11 @@
 
 /* Mobile (480px to 599px): Tight adjustments for mobile devices */
 @media (min-width: 480px) and (max-width: 599px) {
+
+    
+    .record-list-home-container {
+        width: 100%;
+    }
 
     /*ladder dropdown icons*/
     .ladder-dropdown {
@@ -272,6 +303,11 @@
 
 /* Small Mobile (below 480px): Tightest adjustments for very small screens */
 @media (max-width: 479px) {
+
+    
+    .record-list-home-container {
+        width: 100%;
+    }
 
       /*ladder dropdown icons*/
       .ladder-dropdown {

@@ -24,6 +24,7 @@ export const Record = ({record}) => {
             
             <button className="submit-button news-button" onClick={handleGoBack} >Go back</button>
             
+            <p className="record-text"> <b>Record id:</b> {record.id}</p>
             <p className="record-text"> <b>Character Name:</b> {record.character_name}</p>
             <p className="record-text"><b>Class:</b> {record.class1}</p>
             <p className="record-text"><b>Spec:</b> {record.class2}</p>

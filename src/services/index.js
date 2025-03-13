@@ -279,6 +279,69 @@ export const editUserPasswordService = async ({userId, data, token, email}) => {
 
 
 
+/*----------------------- GET USER DATA BY RECORD ID (ADMIN PANEL) --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getUserBRIDService = async (RecordId) =>  {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${RecordId}`);
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+}
+
+
+/*----------------------- BAN USER BY USER ID (ADMIN PANEL) --------------------------------
+----------------------------------------------------------------------------*/
+
+export const banUserService = async (IdUser, token) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${IdUser}`, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`, // Aseguramos formato Bearer correcto
+                "Content-Type": "application/json"  // Agregamos Content-Type por si el backend lo espera
+            },
+        
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(json.message || "Error banning user");
+        }
+
+        return json.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*----------------------- GET ALL NEWS WITH PAGINATION--------------------------------
 ----------------------------------------------------------------------------*/
 
