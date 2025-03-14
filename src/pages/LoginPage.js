@@ -15,16 +15,18 @@ export const LoginPage = () => {
     setError("");
     try {
       const data = await loginUserService({ email, password });
-      login(data.token);
+      await login(data.token); // Esperar a que login verifique el baneo
       navigate("/");
     } catch (error) {
-      setError(error.message);
+      setError(error.message === "Cannot login: User is banned" 
+        ? "Your account is banned. Contact support for more information." 
+        : error.message || "Login failed");
     }
   };
 
   return (
     <section className="form-section">
-     <h2>Login</h2>
+      <h2>Login</h2>
       <form onSubmit={handleForm} className="form-container login-container">
         <fieldset className="form-fieldset">
           <label htmlFor="email" className="form-label">Email</label>
