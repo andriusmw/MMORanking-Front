@@ -282,27 +282,75 @@ export const editUserPasswordService = async ({userId, data, token, email}) => {
 /*----------------------- GET USER DATA BY RECORD ID (ADMIN PANEL) --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const getUserBRIDService = async (RecordId) =>  {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${RecordId}`);
+export const getUserBRIDService = async (RecordId, token) =>  {
 
-    const json = await response.json();
 
-    if(!response.ok) {
-        throw new Error(json.message);
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${RecordId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`, 
+                "Content-Type": "application/json" 
+            },
+        
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(json.message );
+        }
+
+        return json.data;
+    } catch (error) {
+        throw new Error(error.message);
     }
-
-    return json.data;
 }
+
+
+
+
+
+/*----------------------- GET ALL BANNED USERS (ADMIN PANEL) --------------------------------
+----------------------------------------------------------------------------*/
+
+export const getABUService = async (token) =>  {
+
+
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/infoLL/locked-list`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`, 
+                "Content-Type": "application/json" 
+            },
+        
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(json.message );
+        }
+
+        return json.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+
+
 
 
 /*----------------------- BAN USER BY USER ID (ADMIN PANEL) --------------------------------
 ----------------------------------------------------------------------------*/
 
 export const banUserService = async (IdUser, token) => {
-    console.log("token", token)
-    console.log("IdUser", IdUser)
+    //console.log("token", token)
+    //console.log("IdUser", IdUser)
     try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/info/${IdUser}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/infoPM/${IdUser}`, {
             method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${token}`, // Aseguramos formato Bearer correcto
@@ -324,6 +372,34 @@ export const banUserService = async (IdUser, token) => {
 };
 
 
+
+/*----------------------- UN-BAN USER BY USER ID (ADMIN PANEL) --------------------------------
+----------------------------------------------------------------------------*/
+
+export const UnbanUserService = async (IdUser, token) => {
+    //console.log("token", token)
+    //console.log("IdUser", IdUser)
+    try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/infoU/${IdUser}`, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`, // Aseguramos formato Bearer correcto
+                "Content-Type": "application/json"  // Agregamos Content-Type por si el backend lo espera
+            },
+        
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            throw new Error(json.message || "Error banning user");
+        }
+
+        return json.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
 
 
 
