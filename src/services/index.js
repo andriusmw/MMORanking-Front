@@ -228,6 +228,29 @@ export const deleteAccountService = async (idUser, token) => {
 
 
 
+//------------------ DELETE ACCOUNT SERVICE (ADMIN PANEL ) --------------
+
+export const deleteAAPService = async (deleteUser, token) => {
+   let idUser = deleteUser
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/usersALLadmin/${idUser}`,{
+        method: "DELETE",
+        headers: {
+            Authorization: "BEARER " +  token,
+        },
+    });
+    const json = await response.json();
+
+    if(!response.ok) {
+        console.log("error trying to delete it")
+        console.log(json)
+        throw new Error(json.message);
+    }
+  
+}
+
+
+
+
 
 
 
@@ -376,11 +399,12 @@ export const banUserService = async (IdUser, token) => {
 /*----------------------- UN-BAN USER BY USER ID (ADMIN PANEL) --------------------------------
 ----------------------------------------------------------------------------*/
 
-export const UnbanUserService = async (IdUser, token) => {
+export const UnbanUserService = async (IdUserU, token) => {
+    let idUser = IdUserU
     //console.log("token", token)
     //console.log("IdUser", IdUser)
     try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/infoU/${IdUser}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/infoU/${idUser}`, {
             method: "PATCH",
             headers: {
                 "Authorization": `Bearer ${token}`, // Aseguramos formato Bearer correcto

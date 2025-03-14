@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"; // Añadí useContext al import
-import { getUserBRIDService } from "../services";
+import { deleteAAPService, getUserBRIDService } from "../services";
 import { banUserService } from "../services";
 import { UnbanUserService } from "../services";
 import { getABUService } from "../services";
@@ -15,6 +15,9 @@ export const AdminPanelPage = () => {
   const [bannedUser, setBannedUser] = useState(null);
   const [unBannedUser, setUnBannedUser] = useState(null);
   const [ABUData, setABUData] = useState(null);
+  const [deleteUser, setDeleteUser] = useState(null);
+
+/*------------- SEARCH USER DATA BY RECORD ID -----------*/
 
   const handleSearch = async () => {
     try {
@@ -25,6 +28,8 @@ export const AdminPanelPage = () => {
       setError(error.message || "An unexpected error occurred while searching");
     }
   };
+
+/*----------- SEARCH ALL BANNED USERS -----------*/
 
   const handleSearchABU = async () => {
     try {
@@ -37,12 +42,13 @@ export const AdminPanelPage = () => {
   };
 
 
-
+/*--------------- BAN USER --------------*/
 
   const handleBan = async () => {
     try {
       const bannedUser = await banUserService(IdUser, token);
       console.log(bannedUser);
+      console.log("user banned")
       setBannedUser(bannedUser)
     } catch (error) {
       setError(error.message || "An unexpected error occurred while banning");
@@ -50,12 +56,13 @@ export const AdminPanelPage = () => {
   };
 
 
-
+/*-------------- UNBAN USER -------------*/
 
   const handleUBan = async () => {
     try {
-      const unBannedUser = await UnbanUserService(IdUser, token);
+      const unBannedUser = await UnbanUserService(IdUserU, token);
       console.log(unBannedUser);
+      console.log("user unbanned")
       setUnBannedUser(unBannedUser)
     } catch (error) {
       setError(error.message || "An unexpected error occurred while banning");
@@ -63,15 +70,18 @@ export const AdminPanelPage = () => {
   };
 
 
+/*--------------DELETE USER --------------------*/
 
-
-
-
-
-
-
-
-
+  const handleDELETE = async () => {
+    try {
+      const deletedUser = await deleteAAPService(deleteUser, token);
+      console.log(deletedUser);
+      console.log("Account deleted")
+      setDeleteUser(deletedUser)
+    } catch (error) {
+      setError(error.message || "An unexpected error occurred while deleting");
+    }
+  };
 
 
 
@@ -160,14 +170,24 @@ export const AdminPanelPage = () => {
           </fieldset>
 
 
+          <fieldset className="form-fieldset">
+            <label htmlFor="duser" className="form-label">
+             DELETE USER BY USERID (FOR BOTS):
+            </label>
+            <input
+              type="text"
+              id="duser"
+              name="duser"
+              required
+              value={deleteUser}
+              onChange={(e) => setDeleteUser(e.target.value)}
+              className="form-input"
+            />
+            <button onClick={handleDELETE}>DELETE USER</button>
 
+           
 
-
-
-
-
-
-
+          </fieldset>
 
 
 
