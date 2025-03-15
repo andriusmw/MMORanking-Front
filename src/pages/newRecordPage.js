@@ -13,6 +13,7 @@ export const NewRecordPage = () => {
   const [selectedCharacter, setSelectedCharacter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [isModal2Open, setIsModal2Open] = useState(false); // Estado para el modal
 
   const CreateRecord = async (e) => {
     e.preventDefault();
@@ -56,12 +57,29 @@ export const NewRecordPage = () => {
   // Funciones para abrir y cerrar el modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  
+  // Funciones para abrir y cerrar el modal
+  const openModal2 = () => setIsModal2Open(true);
+  const closeModal2 = () => setIsModal2Open(false);
+
 
   return (
     <section className="form-section">
       {user?.user ? (
         <>
-          <h2>Upload a New Record!</h2>
+        <div>
+          <h2 className="new-rec-title">Upload a New Record!</h2>
+              {/*button for explanation */}
+                <button
+                  type="button"
+                  className="info-button new-rec-but"
+                  onClick={openModal2}
+                  aria-label="More information about Warcraft Logs URL"
+                  >
+                  ?
+                </button>
+          </div>
+
           <form onSubmit={CreateRecord} className="form-container">
             <fieldset className="form-fieldset">
               <label htmlFor="character" className="form-label">
@@ -227,6 +245,68 @@ export const NewRecordPage = () => {
     </div>
   </div>
 )}
+
+
+
+
+    {/* Modal 2 for explanation */}      
+{isModal2Open && (
+  <div className="modal-overlay" onClick={closeModal2}>
+    <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
+      <h3>Avaliability of Dungeons</h3>
+      <p>
+       Difficulties Normal, Heroic and Mythic 0 are only avalible for the following dungeons: 
+       <b>Cinderbrew Meadery, Darkflame Cleft,The Rookery and Priory of the Sacred Flame. </b>
+
+       On these Difficulties, you MUST defeat all minions and bosses in order for the log to be valid
+       for the system.  <br />  
+
+       These difficulties are thought to be played as a single player (1P) or 2 players.  <br /> <br />
+       <b>NOTE: </b>have in mind you can also go to Mythic+1 or +2 as a single player when you are strong enought
+        on every Dungeon avalible on the current season moreover of those 4.
+        <br /> <br />
+
+      
+
+
+       If you are in a group of 3, 4 or 5 players you will find a more challenging activity trying
+       to play in Mythic+2 to Mythic+4 in less time possible.<b>Keep in mind from Mythic +1  to +10 the key 
+       must have been completed inside time to be a valid record. </b>  Also there is a limit at level Mythic +10,
+       <b>the idea is </b>for players to try to make Dungeons as fast as possible, being Mythic+10 the level with 
+       maximum rewards and difficulties in game, we decided to put that as the top level, after that instead
+       of playing another 45+ minutes in a +11 try to do that +10 in less possible time for the ladder.
+       <br /> <br />
+       With this in mind we hope the more equipment and experience you get you will be able to do +10 runs
+       in less possible time or maybe players decide to compete with each others in a lower difficulty so they
+       finish even faster for example if you are able to do a +10 in 30 minutes, probably you will do a +9
+       in 25 minutes so the run will be shorter and you still prove your worth it on it.    
+       
+       </p>
+
+     
+
+        </div>
+        </div>
+      )   
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           {isLoading && (
             <div className="spinner-overlay">

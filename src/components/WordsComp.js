@@ -22,9 +22,12 @@ Once you finish a dungeon, you can upload the log
 to warcraft logs website and copy the correct link
 on this website so we put that data into our ladders.
 <br/><br/>
-So you basically have a ranking for 1,2,3,4 and 5 players.
+So you basically have a timed ranking for every Dungeon in game clasified by Difficulty,
+ Number of players, Class, Spec and  Server avalible to 
+players in the whole world. 
 Play as you like most the class you like most, no more waiting
-no more anger for loosing keys just test your skills and Enjoy!
+no more anger for loosing keys. Play as you want to test your skills alone or 
+with your friends only or in a mixed group of friends and random people and Enjoy!
 
         </div>
 

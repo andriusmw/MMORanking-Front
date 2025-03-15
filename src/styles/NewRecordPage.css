@@ -1,4 +1,18 @@
 /* Estilos existentes */
+
+.new-rec-title {
+  float: left;
+}
+
+
+.new-rec-but {
+    float: left;
+    margin-top: 25px;
+    margin-left: 5px;
+}
+
+
+
 .form-section {
   max-width: 600px;
   margin: 0 auto;
