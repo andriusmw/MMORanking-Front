@@ -14,6 +14,7 @@ export const NewRecordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
   const [isModal2Open, setIsModal2Open] = useState(false); // Estado para el modal
+  const [isModal3Open, setIsModal3Open] = useState(false); // Estado para el modal
 
   const CreateRecord = async (e) => {
     e.preventDefault();
@@ -61,6 +62,8 @@ export const NewRecordPage = () => {
   // Funciones para abrir y cerrar el modal
   const openModal2 = () => setIsModal2Open(true);
   const closeModal2 = () => setIsModal2Open(false);
+  const openModal3 = () => setIsModal3Open(true);
+  const closeModal3 = () => setIsModal3Open(false);
 
 
   return (
@@ -74,6 +77,18 @@ export const NewRecordPage = () => {
                   type="button"
                   className="info-button new-rec-but"
                   onClick={openModal2}
+                  aria-label="More information about Warcraft Logs URL"
+                  >
+                  ?
+                </button>
+          </div>
+          <div>
+          <h2 className="new-rec-title">Previous Setup:</h2>
+              {/*button for previous setup */}
+                <button
+                  type="button"
+                  className="info-button new-rec-but"
+                  onClick={openModal3}
                   aria-label="More information about Warcraft Logs URL"
                   >
                   ?
@@ -271,7 +286,8 @@ export const NewRecordPage = () => {
 
        If you are in a group of 3, 4 or 5 players you will find a more challenging activity trying
        to play in Mythic+2 to Mythic+4 in less time possible.<b>Keep in mind from Mythic +1  to +10 the key 
-       must have been completed inside time to be a valid record. </b>  Also there is a limit at level Mythic +10,
+       must have been completed inside time to be a valid record. </b> (No need to kill all the minions here, just 
+       complete the bar at 100% as usual and kill the bosses) Also there is a limit at level Mythic +10,
        <b>the idea is </b>for players to try to make Dungeons as fast as possible, being Mythic+10 the level with 
        maximum rewards and difficulties in game, we decided to put that as the top level, after that instead
        of playing another 45+ minutes in a +11 try to do that +10 in less possible time for the ladder.
@@ -292,6 +308,74 @@ export const NewRecordPage = () => {
 
 
 
+
+
+
+       {/* Modal 3 for PREVIOUS SETUP */}      
+{isModal3Open && (
+  <div className="modal-overlay" onClick={closeModal3}>
+    <div className="modal-content WLINFO" onClick={(e) => e.stopPropagation()}>
+      <h3>Previous Setup</h3>
+      <p>
+        for difficulties from Mythic0 and beyond you only need to set up options in game and the addon
+        "Method raid tools" following the next steps. If you also want to play on Normal and Heroic (for
+        going solo player mode for example) you need also to install "Auto Combat Logger" and "Always logging" addon.
+        <img
+            src={`${process.env.REACT_APP_BACKEND}/images/always-logging.png`}
+            alt="advanced-combat-log"
+            className="modal-image"
+          />
+          <img
+            src={`${process.env.REACT_APP_BACKEND}/images/auto-combat-logger.png`}
+            alt="advanced-combat-log"
+            className="modal-image"
+          />
+        these 2 you only need to have them installed and activated nothing else. <br/><br/>
+
+        Now lets dive into the set up of in-game options and method raid tools addon.
+ 
+      </p>
+
+      <ul>
+        <ol>1-Open the in-game options menu, go to Network and activate "Advanced Combat logging
+        <img
+            src={`${process.env.REACT_APP_BACKEND}/images/advance-combat-log.png`}
+            alt="advanced-combat-log"
+            className="modal-image"
+          />
+        </ol>
+        <ol>
+          2-Now on Method raid tools, go to "Fight log" and select "Enable".
+          <img
+            src={`${process.env.REACT_APP_BACKEND}/images/fight-log.png`}
+            alt="fight-log"
+            className="modal-image"
+          />
+        </ol>
+        <ol>
+          3-Then go down in the menu and go to "saving log" and select "Enable recording combat in zones" and "Dungeons".
+          <img
+            src={`${process.env.REACT_APP_BACKEND}/images/saving-log.png`}
+            alt="saving-log"
+            className="modal-image"
+          />
+        </ol>
+        And that's all!
+      </ul>
+
+
+       
+
+      
+
+
+
+     
+
+        </div>
+        </div>
+      )   
+    }
 
 
 
