@@ -1,13 +1,13 @@
 
 
 export const StatsComp = ({ stats }) => {
-    console.log("stats", stats)
+   // console.log("stats", stats)
 
   return stats ? (
-    <section className="form-section">
-      <form className="form-container">
+    <section className="form-section stats-section" >
+      <form className="form-container stats-form" id="stats-form">
+        <h2>Total numbers</h2>
         <p>Total number of users: {stats.totalUsers} </p>
-        <p>Total of users logged in the last 24h: {stats.recentLogins}</p>
         <p>total number of records: {stats.totalRecords}</p>
         <p>Total users from EU servers: {stats.euUsers} </p>
         <p>Total users from US servers: {stats.usUsers}</p>

@@ -126,9 +126,9 @@ export const getMyUserDataService = async ({token}) => {
         },
     });
     const json = await response.json();
-    console.log("response from getMyUserDataService")
-    console.log(json)
-    console.log(response)
+    //console.log("response from getMyUserDataService")
+    //console.log(json)
+    //console.log(response)
 
     if(!response.ok) {
         throw new Error(json.message);
@@ -143,11 +143,11 @@ export const getMyUserDataService = async ({token}) => {
 /*********************************************************************** */
 
 export const editUserDataService = async ({idUser, data, token}) => {
-    console.log("token")
-    console.log(token)
-    console.log("body.data")
-    console.log(data)
-    console.log(idUser)
+  //  console.log("token")
+  //  console.log(token)
+  //  console.log("body.data")
+  //  console.log(data)
+  //  console.log(idUser)
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/${idUser}`,{
         method: "PATCH",
         body: data,
@@ -159,7 +159,7 @@ export const editUserDataService = async ({idUser, data, token}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log(json)
+      //  console.log(json)
         throw new Error(json.message);
     }
    
@@ -198,8 +198,8 @@ export const deleteCharacterService = async ({id, token}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log("error trying to delete it")
-        console.log(json)
+       // console.log("error trying to delete it")
+      //  console.log(json)
         throw new Error(json.message);
     }
   
@@ -218,8 +218,8 @@ export const deleteAccountService = async (idUser, token) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log("error trying to delete it")
-        console.log(json)
+      //  console.log("error trying to delete it")
+     //   console.log(json)
         throw new Error(json.message);
     }
   
@@ -241,8 +241,8 @@ export const deleteAAPService = async (deleteUser, token) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log("error trying to delete it")
-        console.log(json)
+      //  console.log("error trying to delete it")
+      //  console.log(json)
         throw new Error(json.message);
     }
   
@@ -292,7 +292,7 @@ export const editUserPasswordService = async ({userId, data, token, email}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log(json)
+      //  console.log(json)
         throw new Error(json.message);
     }
    
@@ -502,10 +502,10 @@ export const getLastestNewsService = async () => {
 /*-----------------------------------------------------------------------*/
 
 export const createPostService = async ({data, token}) => {
-    console.log("token")
-    console.log(token)
-    console.log("body.data")
-    console.log(data)
+  //  console.log("token")
+  //  console.log(token)
+  //  console.log("body.data")
+  //  console.log(data)
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/news`,{
         method: "POST",
         body: data,
@@ -517,7 +517,7 @@ export const createPostService = async ({data, token}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log(json)
+      //  console.log(json)
         throw new Error(json.message);
     }
    
@@ -536,8 +536,8 @@ export const deletePostService = async ({idNew, token}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log("error al borrar")
-        console.log(json)
+    //    console.log("error al borrar")
+    //    console.log(json)
         throw new Error(json.message);
     }
   
@@ -547,10 +547,10 @@ export const deletePostService = async ({idNew, token}) => {
 /*-----------------------------------------------------------------------*/
 
 export const createRecordService = async ({data, token}) => {
-    console.log("token")
-    console.log(token)
-    console.log("body.data")
-    console.log(data)
+  //  console.log("token")
+  //  console.log(token)
+  //  console.log("body.data")
+  //  console.log(data)
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/records/new`,{
         method: "POST",
         body: data,
@@ -562,7 +562,7 @@ export const createRecordService = async ({data, token}) => {
     const json = await response.json();
 
     if(!response.ok) {
-        console.log(json)
+      //  console.log(json)
         throw new Error(json.message);
     }
    

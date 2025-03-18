@@ -11,7 +11,7 @@ const useLastNews = () => {
       try {
         setLoading(true);
         const data = await getLastestNewsService();
-        console.log("Data from useLastNews:", data); // Use more descriptive logging
+        //console.log("Data from useLastNews:", data); // Use more descriptive logging
         // Ensure data.news exists before setting it
         if (data ) {
 

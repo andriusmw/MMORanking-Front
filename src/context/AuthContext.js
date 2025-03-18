@@ -15,10 +15,10 @@ export const AuthProviderComponent = ({ children }) => {
   // Hacer refreshUserData estable con useCallback
   const refreshUserData = useCallback(async () => {
     if (!token) return;
-    console.log("Calling refreshUserData"); // Log para depurar
+    //console.log("Calling refreshUserData"); // Log para depurar
     try {
       const data = await getMyUserDataService({ token });
-      console.log("Data from getMyUserDataService:", data);
+      //console.log("Data from getMyUserDataService:", data);
       if (data?.user?.locked_until && data.user.locked_until !== null) {
         console.log("User is banned until", data.user.locked_until);
         logout();
@@ -40,7 +40,7 @@ export const AuthProviderComponent = ({ children }) => {
   // Ejecutar refreshUserData solo al montar inicialmente si hay token y no hay user
   useEffect(() => {
     if (token && !user) {
-      console.log("Initial refresh triggered");
+     // console.log("Initial refresh triggered");
       refreshUserData();
     }
   }, [token, user, refreshUserData]);

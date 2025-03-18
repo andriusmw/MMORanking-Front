@@ -31,7 +31,7 @@ export const HomePage = () => {
   if (loading) return <p>Loading Records...</p>;
   if (error) return <ErrorMessage message={error} />;
     
-  console.log(records);
+  //console.log(records);
 
   return (
     <section>

@@ -68,7 +68,6 @@ export const PrivateStatsComp = () => {
       {pstats ? (
         <div>
           <p>Total number of users: {pstats.totalUsers}</p>
-          <p>Total of users logged in the last 24h: {pstats.recentLogins}</p>
           <p>Total number of records: {pstats.totalRecords}</p>
           <p>Total users from EU servers: {pstats.euUsers}</p>
           <p>Total users from US servers: {pstats.usUsers}</p>

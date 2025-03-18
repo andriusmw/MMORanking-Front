@@ -1,10 +1,5 @@
 @import url('./variables.css');
 
-/* stats divs for arrays on dungeons */
-
-.stats-div {
-    float: left;
-}
 
 
 /* go back button and createnew button*/
@@ -371,4 +366,25 @@ button:disabled {
         padding: 8px;  /* Reducido de 10px para menos espacio vertical */
         font-size: 0.75rem;  /* Reducido de 0.8rem para texto más pequeño */
     }
+}
+
+
+/* stats divs for arrays on dungeons */
+
+.stats-section {
+    max-width: none !important;
+}
+
+#stats-form {
+    max-width: 80vw;
+}
+
+
+
+#stats-section2 {
+    max-width: 80vw;
+}
+
+.stats-div {
+    float: left;
 }

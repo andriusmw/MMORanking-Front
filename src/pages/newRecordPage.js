@@ -33,12 +33,12 @@ export const NewRecordPage = () => {
       data.append("character_class", characterData?.classFront || "");
       data.append("character_server", characterData?.server || "");
       data.append("log_link", logURL);
-
+      /*
       console.log({
         user_id: idUser,
         character_id: characterData?.id,
         character_name: characterData?.name,
-      });
+      });*/
 
       const CreateRecordS = await createRecordService({ data, token });
 

@@ -16,8 +16,8 @@ export const StatsPage = () => {
   if (loading) return <p>Loading Records...</p>;
   if (error) return <ErrorMessage message={error} />;
 
-  console.log(stats);
-  console.log("DeepStats",Deepstats);
+ // console.log(stats);
+ // console.log("DeepStats",Deepstats);
 
   // Función para generar el PDF de lo visible
   const handleExportToPDF = () => {

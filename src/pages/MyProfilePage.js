@@ -127,7 +127,7 @@ export const ProfilePage = () => {
     setUserEmail(user?.user?.email || "");
     setBiography(user?.user?.bio || "");
     setRegion(user?.user?.region || "");
-    setWlUsername(user?.user?.wl_username || "");
+   
     setPreviewPhoto("");
   };
 
@@ -166,8 +166,7 @@ export const ProfilePage = () => {
             <p>Role: {user?.user?.role}</p>
             <p>Biography: {user?.user?.bio}</p>
             <p>Region: {user?.user?.region}</p>
-            <p>BattleTag: {user?.user?.battle_tag}</p>
-            <p>Warcraft Logs Username: {user?.user?.wl_username}</p>
+           
 
             <button
               className="submit-button profile-button"
@@ -261,16 +260,7 @@ export const ProfilePage = () => {
             onChange={(e) => setRegion(e.target.value)}
           />
         </fieldset>
-        <fieldset>
-          <label htmlFor="wlusername">Warcraft Log Username: </label>
-          <input
-            type="text"
-            id="wlusername"
-            name="wlusername"
-            value={wlUsername}
-            onChange={(e) => setWlUsername(e.target.value)}
-          />
-        </fieldset>
+      
         <div className="modal-buttons">
           <button type="submit" disabled={sending}>
             Save

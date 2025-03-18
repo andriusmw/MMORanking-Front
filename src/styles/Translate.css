@@ -15,7 +15,7 @@ header {
 }
 
 .translate-container {
-    position: absolute;
+    /*position: absolute;*/
     top: 100%; /* Positions it just below the header */
     right: 150px; /* Adjust this value to align with the green rectangle */
     z-index: 1000; /* Ensure it stays above other content */

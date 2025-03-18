@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // Componente hijo que filtra y muestra el rank de un personaje del usuario en los resultados de LadderRecordList
 const CharacterRankFilter = ({ ladderRecords }) => {
-    console.log("ladderRecords", ladderRecords)
+    //console.log("ladderRecords", ladderRecords)
 
   // Obtiene el usuario logueado desde el AuthContext
   const { user } = useContext(AuthContext);
