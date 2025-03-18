@@ -1,5 +1,11 @@
 @import url('./variables.css');
 
+/* stats divs for arrays on dungeons */
+
+.stats-div {
+    float: left;
+}
+
 
 /* go back button and createnew button*/
 .button-goBackNew {

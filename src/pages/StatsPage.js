@@ -1,7 +1,9 @@
 import { ErrorMessage } from "../components/ErrorMessage";
 import { PrivateStatsComp } from "../components/privateStatsComp";
 import { StatsComp } from "../components/StatsComp";
+import { DeepStatsComp } from "../components/DeepStatsComp";
 import useStats from "../hooks/useStats";
+import useDeepStats from "../hooks/useDeepStats";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import html2pdf from "html2pdf.js"; // Importamos la librería
@@ -9,11 +11,13 @@ import html2pdf from "html2pdf.js"; // Importamos la librería
 export const StatsPage = () => {
   const { token, user, setUser, logout } = useContext(AuthContext);
   const { stats, loading, error } = useStats();
+  const { Deepstats } = useDeepStats();
 
   if (loading) return <p>Loading Records...</p>;
   if (error) return <ErrorMessage message={error} />;
 
   console.log(stats);
+  console.log("DeepStats",Deepstats);
 
   // Función para generar el PDF de lo visible
   const handleExportToPDF = () => {
@@ -34,6 +38,9 @@ export const StatsPage = () => {
     <section id="stats-page-content">
       <h2>Public Stats</h2>
       <StatsComp stats={stats} />
+
+      <DeepStatsComp  Deepstats={Deepstats} />
+
 
       {user?.user?.role === "mod" || user?.user?.role === "admin" ? (
         <>

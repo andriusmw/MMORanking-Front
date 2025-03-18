@@ -612,3 +612,22 @@ export const getPrivateStatsService = async (startDate = null, endDate = null) =
   
     return json.data;
   };
+
+
+  /*----------------------- GET DEEP STATS --------------------------------
+----------------------------------------------------------------------------*/
+
+
+export const getDeepStatsService = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/Deepstats`)
+
+    const json = await response.json();
+
+    if(!response.ok) {
+        throw new Error(json.message);
+    }
+
+    return json.data;
+     
+}
+
