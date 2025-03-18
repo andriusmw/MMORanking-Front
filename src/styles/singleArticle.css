@@ -1,5 +1,13 @@
 @import url('./variables.css');
 
+/* Container for the video */
+
+.news-video-div {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+
 /* Container for the single article */
 .single-article {
     max-width: 800px; /* Adjusted max-width for a detailed view */
@@ -128,6 +136,10 @@
         font-size: 0.9rem;
         max-width: 180px;
     }
+
+    .news-video {
+        max-width: 450px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -153,5 +165,9 @@
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
         max-width: 160px;
+    }
+
+    .news-video {
+        max-width: 350px;
     }
 }

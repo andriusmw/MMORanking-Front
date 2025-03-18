@@ -16,6 +16,19 @@ export const SingleArticle = ({ article }) => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+
+    const getYouTubeEmbedUrl = (url) => {
+        // Expresión regular para extraer el ID del video
+        const videoIdMatch = url?.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+        return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : null;
+      };
+    
+      // Obtener la URL de embed a partir de video_link
+      const embedUrl = article?.video_link ? getYouTubeEmbedUrl(article.video_link) : null;
+
+
+
+
     const handleGoBack = () => {
       navigate(-1); // Esto es equivalente a "volver atrás" en el historial del navegador
     };
@@ -47,7 +60,24 @@ export const SingleArticle = ({ article }) => {
                 />
             ) : null}
 
-           
+<div className="news-video-div">
+      
+      {embedUrl ? (
+        <iframe className="news-video"
+          width="560"
+          height="315"
+          src={embedUrl}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      ) : (
+        <p>No se pudo cargar el video. Verifica la URL.</p>
+      )}
+    </div>
+
             <p className="metadata">{new Date(article.created_at).toLocaleDateString()} by {article.user_name}</p>
 
 

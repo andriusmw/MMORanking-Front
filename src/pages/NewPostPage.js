@@ -13,6 +13,7 @@ export const NewPostPage = () => {
 
    const [title, setTitle] = useState("");
    const [preview, setPreview] = useState("");
+   const [videoLink, setVideoLink] = useState("");
    const [text, setText] = useState(""); 
    let imageInputRef = useRef();
    const [previewPhoto, setPreviewPhoto] = useState("");
@@ -31,6 +32,7 @@ export const NewPostPage = () => {
     data.append("user_name", userName);
     data.append("title", title);
     data.append("preview", preview);
+    data.append("video_link", videoLink);
     data.append("text", text);
     if (imageInputRef.current.files[0]) {
       data.append("image", imageInputRef.current.files[0]);
@@ -45,6 +47,7 @@ export const NewPostPage = () => {
      // LIMPIA EL ESTADO 
     setTitle("");
     setPreview("");
+    setVideoLink("");
     setText("");
     setPreviewPhoto("");
     imageInputRef.current.value = null; // Esto limpia el input de archivo
@@ -115,6 +118,17 @@ export const NewPostPage = () => {
                
                 
               
+              </fieldset>
+
+              <fieldset className="form-fieldset">
+                <label htmlFor="video_link">Video_link: </label>
+                <input
+                  type="text"
+                  id="video_link"
+                  name="video_link"
+                  value={videoLink}
+                  onChange={(e) => setVideoLink(e.target.value)}
+                />
               </fieldset>
             
          

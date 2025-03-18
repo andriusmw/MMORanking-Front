@@ -504,8 +504,8 @@ export const getLastestNewsService = async () => {
 export const createPostService = async ({data, token}) => {
   //  console.log("token")
   //  console.log(token)
-  //  console.log("body.data")
-  //  console.log(data)
+    console.log("body.data")
+    console.log(data)
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/news`,{
         method: "POST",
         body: data,
