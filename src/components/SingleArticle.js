@@ -51,7 +51,7 @@ export const SingleArticle = ({ article }) => {
            
             
             <h1>{article.title}</h1> 
-            <p className="news-content">{article.text}</p>
+            <p className="news-content"  dangerouslySetInnerHTML={{ __html: article.text }}></p>
 
             {article.image ? (
                 <img
@@ -74,7 +74,7 @@ export const SingleArticle = ({ article }) => {
           allowFullScreen
         ></iframe>
       ) : (
-        <p>No se pudo cargar el video. Verifica la URL.</p>
+      null
       )}
     </div>
 

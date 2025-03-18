@@ -388,3 +388,16 @@ button:disabled {
 .stats-div {
     float: left;
 }
+
+
+@media print {
+    .print-button {
+      display: none !important;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
