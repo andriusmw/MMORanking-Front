@@ -29,7 +29,7 @@ export const HomeNews = ({ latestNews }) => {
 
 
             </section>
-            <p>{newItem.preview}</p>
+            <p dangerouslySetInnerHTML={{ __html: newItem.preview }}></p>
            
             <p>{new Date(newItem.created_at).toLocaleDateString()} by {newItem.user_name}</p>
       

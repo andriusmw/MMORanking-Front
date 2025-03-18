@@ -10,7 +10,8 @@
 
 /*respect jump of lines for text on news */
 .news-content {
-    white-space: pre-wrap
+    white-space: pre-wrap;
+    text-align: center;
 }
 
 

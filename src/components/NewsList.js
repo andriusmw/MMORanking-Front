@@ -43,7 +43,7 @@ export const NewsList = () => {
                 />
             ) : null}
 
-            <p>{newItem.preview}</p>
+            <p  dangerouslySetInnerHTML={{ __html: newItem.preview }}></p>
             </section>
             </div>
           ))}
