@@ -21,7 +21,13 @@ export const HomeNews = ({ latestNews }) => {
                   src={`${process.env.REACT_APP_BACKEND}/uploads/${newItem.image}`}
                   alt={newItem.title}
                 />
-              ) : null}
+              ) : 
+              <img src="/images/youtube_default.png" alt="youtube-default.png" />
+            }
+
+              
+
+
             </section>
             <p>{newItem.preview}</p>
            
