@@ -70,9 +70,7 @@ export const StatsPage = () => {
 
   return (
     <div ref={contentRef} style={{ width: "100%", minHeight: "100vh" }}>
-      <header>
-        <h1>SPEED RUN DUNGEONS</h1>
-      </header>
+     
       <nav>
         {/* Agrega tu navegación aquí si la tienes */}
       </nav>
@@ -106,9 +104,7 @@ export const StatsPage = () => {
           </div>
         </section>
       </main>
-      <footer>
-        <p>© 2025 Speed Run Dungeons - Made By Andrew</p>
-      </footer>
+    
 
       {/* Estilos para impresión */}
       <style>
