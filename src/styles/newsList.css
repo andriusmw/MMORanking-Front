@@ -16,7 +16,7 @@ h2 {
 
 /* Container for the news list (default horizontal grid for HomePage or other pages) */
 .news-list {
-    max-width: 1200px;
+    max-width: 90vw;
     margin: 0 auto;
     padding: 20px;
     display: grid;

@@ -1,6 +1,13 @@
 /* Media Query para pantallas de hasta 1024px (cambio a menú burger) */
 @media (max-width: 1024px) {
   /* Header */
+
+  /* title img */
+  .img-title {
+  width: 70vw;
+  }
+
+
   header {
     flex-direction: column;
     padding: 0.5rem;

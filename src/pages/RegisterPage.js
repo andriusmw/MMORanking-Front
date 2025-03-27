@@ -16,6 +16,9 @@ export const RegisterPage = () => {
   const [showHelpWLName, setShowHelpWLName] = useState(false);
   const [WLname, setWLName] = useState("");
   const [recaptchaToken, setRecaptchaToken] = useState("");
+  const [isPolicyAccepted, setIsPolicyAccepted] = useState(false);
+  const [wlNameError, setWlNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const regionOptions = [
     { value: "", label: "-- Select a region --" },
@@ -24,13 +27,100 @@ export const RegisterPage = () => {
     { value: "TW", label: "TW" },
   ];
 
+  // Validación para el nombre de usuario de Warcraft Logs
+  const validateWLName = (username) => {
+    if (!username) {
+      return "Warcraft Logs Username is required";
+    }
+
+    const hasWesternChars = /[a-zA-Z]/.test(username);
+    if (hasWesternChars) {
+      const firstChar = username[0];
+      const restOfChars = username.slice(1);
+      const isFirstCharUpper = /[A-Z]/.test(firstChar);
+      const hasUppercaseInRest = /[A-Z]/.test(restOfChars);
+
+      if (!isFirstCharUpper) {
+        return "The first letter must be uppercase (e.g., Krusty1)";
+      }
+      if (hasUppercaseInRest) {
+        return "All letters after the first must be lowercase (e.g., Krusty1)";
+      }
+    }
+    return "";
+  };
+
+  // Función para validar la contraseña, ahora incluye "-" y "_" como símbolos
+  const validatePassword = (password) => {
+    const minLength = password.length > 6;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>_-]/.test(password); // Añadidos "-" y "_"
+
+    if (!minLength) {
+      return "Password must be longer than 6 characters";
+    }
+    if (!hasUppercase) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!hasLowercase) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!hasNumber) {
+      return "Password must contain at least one number";
+    }
+    if (!hasSymbol) {
+      return "Password must contain at least one symbol (e.g., !, @, #, -, _, etc.)";
+    }
+    return "";
+  };
+
+  const handleWLNameChange = (e) => {
+    const value = e.target.value;
+    setWLName(value);
+    const validationError = validateWLName(value);
+    setWlNameError(validationError);
+  };
+
+  const handlePass1Change = (e) => {
+    const value = e.target.value;
+    setPass1(value);
+    const validationError = validatePassword(value);
+    setPasswordError(validationError);
+  };
+
+  const handlePass2Change = (e) => {
+    const value = e.target.value;
+    setPass2(value);
+    if (!passwordError) {
+      if (value !== pass1) {
+        setPasswordError("Passwords do not match");
+      } else {
+        setPasswordError("");
+      }
+    }
+  };
+
   const handleForm = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess(false);
 
+    const wlNameValidationError = validateWLName(WLname);
+    if (wlNameValidationError) {
+      setWlNameError(wlNameValidationError);
+      return;
+    }
+
+    const passwordValidationError = validatePassword(pass1);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+      return;
+    }
+
     if (pass1 !== pass2) {
-      setError("Passwords do not match");
+      setPasswordError("Passwords do not match");
       return;
     }
 
@@ -39,8 +129,12 @@ export const RegisterPage = () => {
       return;
     }
 
+    if (!isPolicyAccepted) {
+      setError("You must accept the Data Usage Policy to proceed");
+      return;
+    }
+
     try {
-      // No enviamos recaptchaToken a registerUserService
       await registerUserService({
         name,
         email,
@@ -87,7 +181,8 @@ export const RegisterPage = () => {
             id="pass1"
             name="pass1"
             required
-            onChange={(e) => setPass1(e.target.value)}
+            value={pass1}
+            onChange={handlePass1Change}
             className="form-input"
           />
         </fieldset>
@@ -98,9 +193,11 @@ export const RegisterPage = () => {
             id="pass2"
             name="pass2"
             required
-            onChange={(e) => setPass2(e.target.value)}
+            value={pass2}
+            onChange={handlePass2Change}
             className="form-input"
           />
+          {passwordError && <p className="error-message">{passwordError}</p>}
         </fieldset>
         <fieldset className="form-fieldset">
           <label htmlFor="region" className="form-label">
@@ -143,16 +240,14 @@ export const RegisterPage = () => {
         </fieldset>
         <fieldset className="form-fieldset">
           <div className="input-with-help">
-            <label htmlFor="wlusername" className="form-label">Warcraft Logs Username: (you CAN NOT change it later be sure about Caps and puntuation)
-             </label>
-     
-
+            <label htmlFor="wlusername" className="form-label">Warcraft Logs Username: (you CAN change it later but must write something)</label>
             <input
               type="text"
               id="wlusername"
               name="wlusername"
               required
-              onChange={(e) => setWLName(e.target.value)}
+              value={WLname}
+              onChange={handleWLNameChange}
               className="form-input"
             />
             <button
@@ -162,16 +257,43 @@ export const RegisterPage = () => {
             >
               ?
             </button>
-     
           </div>
+          {wlNameError && <p className="error-message">{wlNameError}</p>}
           {showHelpWLName && (
             <div className="help-text">
               <p>
                 Introduce your username on Warcraft Logs. This will be used later to verify that the logs you
                 upload are yours and prevent others from copying your results with a character of the same name.
+                <b>Keep in mind, the name should be written here with the first letter capitalized and the others 
+                in lowercase, example: Krusty1 </b>
               </p>
+              <img src="/images/personal-logs2.png" alt="merch-img" />
+              For other languages it should be written as shown in your "Personal logs tab" (as in photo)
+             <img src="/images/personal-logs1.png" alt="merch-img" />
+             
             </div>
           )}
+        </fieldset>
+        <fieldset className="form-fieldset">
+          <label htmlFor="policy" className="form-label">
+            <input
+              type="checkbox"
+              id="policy"
+              name="policy"
+              checked={isPolicyAccepted}
+              onChange={(e) => setIsPolicyAccepted(e.target.checked)}
+              className="form-checkbox"
+            />
+            I accept the <a href="/data-policy" target="_blank">Data Usage Policy</a>:
+          </label>
+          <p className="policy-text">
+            At Speedrun Dungeons (https://www.speedrundungeons.com), we are committed to protecting your privacy. 
+            By using our site, you agree that we may collect personal data you provide (e.g., name, email) and technical 
+            data (e.g., IP address, cookies) to enhance your experience. We use this data to provide services, personalize 
+            content, and comply with legal obligations. Your data will not be sold or shared with third parties except 
+            as required for site operation or legal compliance. You can request access, correction, or deletion of your 
+            data by contacting us. Full details are in our <a href="/data-policy" target="_blank">Privacy Policy</a>.
+          </p>
         </fieldset>
         <ReCAPTCHA
           sitekey="6Ld7LOQqAAAAALyLVudIvQ4_bB2I8I1gYtrS1r8i"

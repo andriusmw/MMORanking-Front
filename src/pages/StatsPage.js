@@ -23,10 +23,10 @@ export const StatsPage = () => {
   }, [loading, stats, Deepstats]);
 
   const handleExportToPDF = () => {
-    const element = document.body;
+    const element = contentRef.current; // Use the contentRef instead of document.body
 
     if (!element) {
-      console.error("No se pudo encontrar el elemento del body");
+      console.error("No se pudo encontrar el elemento del contenido");
       return;
     }
 
@@ -34,28 +34,28 @@ export const StatsPage = () => {
 
     // Ocultar botones en el PDF
     const buttons = elementClone.querySelectorAll('.print-button');
-    buttons.forEach(button => button.style.display = 'none');
+    buttons.forEach(button => (button.style.display = 'none'));
 
     console.log("Contenido antes de convertir a PDF:", elementClone.innerHTML);
 
     const options = {
-      margin: 0, // Eliminar márgenes
-      filename: `SpeedRunDungeons_Stats_${new Date().toISOString().slice(0,10)}.pdf`,
+      margin: 10,
+      filename: `SpeedRunDungeons_Stats_${new Date().toISOString().slice(0, 10)}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { 
+      html2canvas: {
         scale: 2,
         useCORS: true,
         logging: true,
-        windowWidth: document.body.scrollWidth,
-        scrollY: 0
+        windowWidth: element.scrollWidth,
+        scrollY: 0,
       },
-      jsPDF: { 
-        unit: "mm", 
-        format: "a4", 
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
         orientation: "portrait",
         putOnlyUsedFonts: true,
-        compress: true
-      }
+        compress: true,
+      },
     };
 
     html2pdf()
@@ -70,10 +70,7 @@ export const StatsPage = () => {
 
   return (
     <div ref={contentRef} style={{ width: "100%", minHeight: "100vh" }}>
-     
-      <nav>
-        {/* Agrega tu navegación aquí si la tienes */}
-      </nav>
+      <nav>{/* Agrega tu navegación aquí si la tienes */}</nav>
       <main>
         <section id="stats-page-content">
           <h2>Public Stats</h2>
@@ -90,12 +87,12 @@ export const StatsPage = () => {
               </div>
             ) : null}
             <div className="print-button">
-              <button 
-                onClick={handleExportToPDF} 
-                style={{ 
+              <button
+                onClick={handleExportToPDF}
+                style={{
                   margin: "20px 10px",
                   padding: "10px 20px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Export to PDF
@@ -104,7 +101,6 @@ export const StatsPage = () => {
           </div>
         </section>
       </main>
-    
 
       {/* Estilos para impresión */}
       <style>
@@ -115,18 +111,18 @@ export const StatsPage = () => {
               padding: 0 !important;
             }
             .stats-section {
-              page-break-before: always; /* Nueva página para cada sección */
+              page-break-before: always;
               margin: 0;
               padding: 0;
               position: relative;
-              top: 0; /* Asegura que comience desde la parte superior */
-              height: 100%; /* Ocupa toda la página */
+              top: 0;
+              height: 100%;
             }
             .print-button {
               display: none !important;
             }
             header, nav, footer {
-              display: none; /* Ocultar header, nav y footer en el PDF */
+              display: none;
             }
             #stats-page-content {
               margin: 0;

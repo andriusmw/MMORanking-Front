@@ -18,6 +18,7 @@ import { LaddersPage } from "./pages/LaddersPage";
 import { StatsPage } from "./pages/StatsPage";
 import { ContactPage } from "./pages/ContactPage";
 import { AdminPanelPage } from "./pages/AdminPanelPage";
+import { DataPolicyPage } from "./pages/PolicyPage";
 
 
 
@@ -44,10 +45,12 @@ function App() {
           <Route path="/stats" element={<StatsPage/>} />
           <Route path="/contact" element={<ContactPage/>} />
           <Route path="/admin-panel" element={<AdminPanelPage/>} />
+          <Route path="/data-policy" element={<DataPolicyPage/>} />
       
 
           <Route path="*" element={<NotFoundPage />} />
        </Routes>
+   
         </main>
             
         <Footer />

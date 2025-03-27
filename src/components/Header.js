@@ -37,7 +37,7 @@ export const Header = () => {
 
     return (
         <header>
-            <h1><Link to={'/'}>Speed Run Dungeons</Link></h1>
+            <Link to={'/'}> <img src="/images/title.png" alt="title-img" className="img-title" /></Link>
             <div className="header-right">
                 <NavBar />
                 <Auth />

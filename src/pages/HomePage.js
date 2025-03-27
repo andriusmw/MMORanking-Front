@@ -41,6 +41,8 @@ export const HomePage = () => {
       <h2>Latest News!</h2>
       <HomeNews latestNews={latestNews} />
 
+     
+
       <DonationsComp />
       <WordsComp />
 

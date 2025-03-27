@@ -86,7 +86,7 @@ export const LadderRecordList = ({ ladderRecords: initialRecords = [] }) => {
       "Ara-Kara, City of Echoes", "City of Threads", "Grim Batol",
       "Mists of Tirna Scithe", "Siege of Boralus", "The Dawnbreaker", "The Necrotic Wake", "The Stonevault",
       "Cinderbrew Meadery", "Darkflame Cleft", "The Rookery", "Priory of the Sacred Flame", "The MOTHERLODE!!",
-      "Theater of Pain", "Operation: Mechagon - Workshop", "Operation: Floodgate"
+      "Theater of Pain", "Operation: Mechagon", "Operation: Floodgate"
     ],
     difficulty: [
       "select", "Normal", "Heroic", "Mythic", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9", "Level 10"

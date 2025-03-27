@@ -7,7 +7,7 @@
     max-height: 250px; /* Altura máxima antes de que aparezca el scroll */
     overflow-y: auto; /* Habilita el desplazamiento vertical */
     display: block; /* Asegura que el contenedor respete la altura máxima */
-    width: fit-content;
+    width: 90vw;
   }
   
  
@@ -53,7 +53,7 @@
 
 
     .ladder-table {
-        max-width: 900px; /* Standard width for desktop */
+        max-width: 90vw; /* Standard width for desktop */
         margin: 0 auto; /* Center the table horizontally with side margins */
     }
 

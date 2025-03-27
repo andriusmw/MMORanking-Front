@@ -15,12 +15,25 @@ export const LoginPage = () => {
     setError("");
     try {
       const data = await loginUserService({ email, password });
-      await login(data.token); // Esperar a que login verifique el baneo
+      console.log("Login response from backend:", data);
+
+      // Validar que userId y region estén presentes en la respuesta
+      if (!data.userId || !data.region) {
+        throw new Error("Missing userId or region in login response");
+      }
+
+      // Pasar token, userId y region a la función login del AuthContext
+      // El backend devuelve "region", pero AuthContext espera "regionAuth" como parámetro
+      await login(data.token, data.userId, data.region);
+      console.log("Login successful, navigating to homepage");
       navigate("/");
     } catch (error) {
-      setError(error.message === "Cannot login: User is banned" 
-        ? "Your account is banned. Contact support for more information." 
-        : error.message || "Login failed");
+      console.error("Login error:", error.message);
+      setError(
+        error.message === "Cannot login: User is banned"
+          ? "Your account is banned. Contact support for more information."
+          : error.message || "Login failed"
+      );
     }
   };
 

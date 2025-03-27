@@ -6,6 +6,7 @@ npm install sweetalert --save -->para poder usar alertas personalizadas
 npm install react-datepicker -->para el calendario
 npm install html2pdf.js  -->para imprimir / guardar en pdf
 npm install react-google-recaptcha
+npm install chart.js react-chartjs-2
 
 
 

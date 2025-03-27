@@ -12,8 +12,8 @@ export const DonationsComp = () => {
   
 
 
-        <a href="https://www.paypal.com/donate/?hosted_button_id=VWKE3Z3XWJHPN" target="blank">
-       <img src="/images/merch1.png" alt="merch-img" />
+        <a href="https://speedrundungeons-shop.fourthwall.com/en-eur/" target="blank">
+       <img src="/images/merch-2.jpg" alt="merch-img" />
        </a>
 
 

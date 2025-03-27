@@ -25,10 +25,28 @@ export const ProfilePage = () => {
   const [previewPhoto, setPreviewPhoto] = useState("");
   const [characters, setCharacters] = useState(user?.characters || []);
 
-  const redirectBack = async () => {
-    const url = "https://localhost:3000/123";
-    window.open(url, "_blank");
+  const { userId, regionAuth } = useContext(AuthContext);
+
+
+  const startBattleNetAuth = () => {
+    if (!userId || !regionAuth) {
+      console.error("User not logged in or missing userId/region");
+      window.location.href = "/login";
+      return;
+    }
+  
+    // Construir la URL de autenticación con Battle.net, codificando los parámetros
+    const authUrl = `https://api.speedrundungeons.com/auth/bnet?userId=${encodeURIComponent(userId)}&region=${encodeURIComponent(regionAuth)}`;
+    
+    // Abrir la URL en una nueva ventana
+    window.open(authUrl, '_blank');
   };
+
+  /*
+  const redirectBack = async () => {
+    const url = `${process.env.REACT_APP_BACKEND}/123`;
+    window.open(url, "_blank");
+  };*/
 
   const EditEntry = async (e) => {
     e.preventDefault();
@@ -127,7 +145,7 @@ export const ProfilePage = () => {
     setUserEmail(user?.user?.email || "");
     setBiography(user?.user?.bio || "");
     setRegion(user?.user?.region || "");
-   
+    setWlUsername(user?.user?.wl_username || "");
     setPreviewPhoto("");
   };
 
@@ -166,11 +184,12 @@ export const ProfilePage = () => {
             <p>Role: {user?.user?.role}</p>
             <p>Biography: {user?.user?.bio}</p>
             <p>Region: {user?.user?.region}</p>
-           
+            <p>BattleTag: {user?.user?.battle_tag}</p>
+            <p>Warcraft Logs Username: {user?.user?.wl_username}</p>
 
             <button
               className="submit-button profile-button"
-              onClick={() => redirectBack()}
+              onClick={() => startBattleNetAuth()}
             >
               Sync Characters
             </button>
@@ -260,6 +279,21 @@ export const ProfilePage = () => {
             onChange={(e) => setRegion(e.target.value)}
           />
         </fieldset>
+
+        <fieldset>
+          <label htmlFor="wlusername">Warcraft Log Username: </label>
+          <input
+            type="text"
+            id="wlusername"
+            name="wlusername"
+            value={wlUsername}
+            onChange={(e) => setWlUsername(e.target.value)}
+          />
+        </fieldset>
+
+
+
+
       
         <div className="modal-buttons">
           <button type="submit" disabled={sending}>
@@ -318,23 +352,15 @@ export const ProfilePage = () => {
 
             <h2>NOTES</h2>
 
-<p>Due to security reasons you can not change your BattleTag or
-Warcraft Logs Username because those are used to authenticate you
-and to link you to your characters allowing integrity and honor
-during the competition. </p>
-
-<p>However you can change your region if you want to add characters from
-other servers that you created in your acount.</p>
-
-<p>If you introduced a wrong WarcraftLogUsername during
-your register and wish to change it, you can delete your account 
-and create a new account.</p>
+<p>Most of the issues you can see on this page, (character list after syncronizing, info on your profile)
+  can be solved login out and login in again. 
+</p>
 
 
 <p> BattleTag name is linked to your account in order 
 to load your characters and use the website, This means if you are banned from this website, you will need
 to create a new blizzard account and buy the game again if you want
-to play so be careful.</p>
+to upload your records here so be careful.</p>
 
 <p>ENJOY!!!</p>
 
